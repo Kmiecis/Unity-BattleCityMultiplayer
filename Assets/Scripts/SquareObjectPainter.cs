@@ -12,6 +12,7 @@ namespace Tanks
     [ExecuteInEditMode]
     public class SquareObjectPainter : MonoBehaviour
     {
+#if UNITY_EDITOR
         private static readonly Random kRandom = new Random();
         private static readonly Plane kPlane = new Plane { normal = Vector3.forward };
         private static readonly Vector2Int EmptyCoordinate = Vector2Int.one * int.MaxValue;
@@ -117,48 +118,11 @@ namespace Tanks
             hitPosition = default;
             return false;
         }
-        // RECTS
-        private Vector2 GetWorldPosition(Vector2Int coordinate, Vector2 size)
-        {
-            return new Vector2(
-                coordinate.x * size.x,
-                coordinate.y * size.y
-            );
-        }
 
-        private Vector2Int GetCoordinatePosition(Vector2 position, Vector2 size)
-        {
-            return new Vector2Int(
-                Mathf.RoundToInt(position.x / size.x),
-                Mathf.RoundToInt(position.y / size.y)
-            );
-        }
-
-        public static Vector2[] Vertices = new Vector2[]
-        {
-            new Vector2(-0.5f, -0.5f),
-            new Vector2(-0.5f,  0.5f),
-            new Vector2( 0.5f,  0.5f),
-            new Vector2( 0.5f, -0.5f)
-        };
-
-        public static void GetVertices(Vector2[] target, Vector2 position, Vector2 size, float angle)
-        {
-            for (int i = 0; i < target.Length; ++i)
-                target[i] = Mathx.Transform(Vertices[i], position, angle, size);
-        }
-
-        public static Vector2[] GetVertices(Vector2 position, Vector2 size, float angle)
-        {
-            var vs = new Vector2[Vertices.Length];
-            GetVertices(vs, position, size, angle);
-            return vs;
-        }
-        // RECTS
         private void DrawSquareGizmo(Vector2Int coordinate)
         {
-            var position = GetWorldPosition(coordinate, size);
-            var vertices = GetVertices(position, size, 0.0f);
+            var position = Rects.Convert(coordinate, size);
+            var vertices = Rects.GetVertices(position, size, 0.0f);
             var points = new List<Vector3>(vertices.Select(v2 => v2.XY_()));
             points.Add(points[0]);
 
@@ -170,7 +134,7 @@ namespace Tanks
         {
             if (TryGetHitPosition(mousePosition, out var hitPosition))
             {
-                var hitCoordinate = GetCoordinatePosition(hitPosition, size);
+                var hitCoordinate = Rects.Convert(hitPosition, size);
 
                 if (hitCoordinate != _paintCoordinate)
                 {
@@ -190,7 +154,7 @@ namespace Tanks
         {
             if (!_objects.ContainsKey(coordinate) && item != null)
             {
-                var position = GetWorldPosition(coordinate, size);
+                var position = Rects.Convert(coordinate, size);
                 var instance = PrefabUtility.InstantiatePrefab(item, transform) as GameObject;
                 instance.transform.position = position;
 
@@ -202,7 +166,7 @@ namespace Tanks
         {
             if (TryGetHitPosition(mousePosition, out var hitPosition))
             {
-                var hitCoordinate = GetCoordinatePosition(hitPosition, size);
+                var hitCoordinate = Rects.Convert(hitPosition, size);
 
                 if (hitCoordinate != _eraseCoordinate)
                 {
@@ -228,7 +192,7 @@ namespace Tanks
         {
             if (TryGetHitPosition(mousePosition, out var hitPosition))
             {
-                var hitCoordinate = GetCoordinatePosition(hitPosition, size);
+                var hitCoordinate = Rects.Convert(hitPosition, size);
 
                 DrawSquareGizmo(hitCoordinate);
             }
@@ -246,7 +210,7 @@ namespace Tanks
                 for (int i = 0; i < childCount; ++i)
                 {
                     var child = transform.GetChild(i);
-                    var coordinate = GetCoordinatePosition(child.position, size);
+                    var coordinate = Rects.Convert(child.position, size);
 
                     if (!_objects.ContainsKey(coordinate))
                     {
@@ -269,5 +233,6 @@ namespace Tanks
         {
             ReadObjects(transform);
         }
+#endif
     }
 }
