@@ -2,15 +2,19 @@ using UnityEngine;
 
 namespace Tanks
 {
-    public class Player : MonoBehaviour
+    public class PlayerInput : AInputController
     {
         public KeyCode upKey = KeyCode.W;
         public KeyCode downKey = KeyCode.S;
         public KeyCode leftKey = KeyCode.A;
         public KeyCode rightKey = KeyCode.D;
+        public KeyCode fireKey = KeyCode.Space;
 
-        [field: SerializeField]
-        public TankController Controller { get; private set; }
+        private Vector2Int _direction;
+        private bool _shoot;
+
+        public override Vector2Int Direction => _direction;
+        public override bool Shoot => _shoot;
 
         private Vector2Int ReadDirection()
         {
@@ -25,10 +29,15 @@ namespace Tanks
             return Vector2Int.zero;
         }
 
+        private bool ReadShoot()
+        {
+            return Input.GetKey(fireKey);
+        }
+
         private void Update()
         {
-            var direction = ReadDirection();
-            Controller.SetDirection(direction);
+            _direction = ReadDirection();
+            _shoot = ReadShoot();
         }
     }
 }
