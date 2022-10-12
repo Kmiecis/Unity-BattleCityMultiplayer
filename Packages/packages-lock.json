@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "7ae4262dccd38272507740fb39a732e88dea7d0e"
+      "hash": "5db86edfbffb227b381e36fd2e381a761b04dac3"
     },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",

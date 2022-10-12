@@ -9,15 +9,11 @@ namespace Tanks
         [field: SerializeField]
         public Collision2DController CollisionController { get; private set; }
 
-        private void OnCollisionEntered(Collision2D collision)
+        private void _OnCollisionEntered(Collision2D collision)
         {
             var point = GetMeanPoint(collision);
             var normal = GetMeanNormal(collision);
-        }
-
-        private void Awake()
-        {
-            CollisionController.CalledOnEnter += OnCollisionEntered;
+            //TODO
         }
 
         private Vector2 GetMeanPoint(Collision2D collision)

@@ -1,13 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tanks
 {
     public class Trigger2DController : MonoBehaviour
     {
-        public event Action<Collider2D> CalledOnEnter;
-        public event Action<Collider2D> CalledOnStay;
-        public event Action<Collider2D> CalledOnExit;
+        public UnityEvent<Collider2D> CalledOnEnter;
+        public UnityEvent<Collider2D> CalledOnStay;
+        public UnityEvent<Collider2D> CalledOnExit;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

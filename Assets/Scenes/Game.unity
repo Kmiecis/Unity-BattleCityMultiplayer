@@ -2912,6 +2912,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 34949433}
     m_Modifications:
+    - target: {fileID: 1373973973955472825, guid: 65aae8e88a02f5143aad084c189d723e, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373973973955472825, guid: 65aae8e88a02f5143aad084c189d723e, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3154222503953477226, guid: 65aae8e88a02f5143aad084c189d723e, type: 3}
       propertyPath: m_Name
       value: Grass
@@ -2978,7 +2986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2063408982
 Transform:
   m_ObjectHideFlags: 0

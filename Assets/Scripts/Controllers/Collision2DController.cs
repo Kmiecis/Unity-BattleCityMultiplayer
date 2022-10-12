@@ -1,13 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tanks
 {
     public class Collision2DController : MonoBehaviour
     {
-        public event Action<Collision2D> CalledOnEnter;
-        public event Action<Collision2D> CalledOnStay;
-        public event Action<Collision2D> CalledOnExit;
+        public UnityEvent<Collision2D> CalledOnEnter;
+        public UnityEvent<Collision2D> CalledOnStay;
+        public UnityEvent<Collision2D> CalledOnExit;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {

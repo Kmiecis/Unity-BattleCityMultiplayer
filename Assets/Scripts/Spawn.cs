@@ -15,26 +15,14 @@ namespace Tanks
             get => _triggers.Count == 0;
         }
 
-        private void OnTriggerEntered(Collider2D collision)
+        public void _OnTriggerEntered(Collider2D collision)
         {
             _triggers.Add(collision.gameObject);
         }
 
-        private void OnTriggerExited(Collider2D collision)
+        public void _OnTriggerExited(Collider2D collision)
         {
             _triggers.Remove(collision.gameObject);
-        }
-
-        private void Awake()
-        {
-            TriggerController.CalledOnEnter += OnTriggerEntered;
-            TriggerController.CalledOnExit += OnTriggerExited;
-        }
-
-        private void OnDestroy()
-        {
-            TriggerController.CalledOnEnter -= OnTriggerEntered;
-            TriggerController.CalledOnExit -= OnTriggerExited;
         }
     }
 }
