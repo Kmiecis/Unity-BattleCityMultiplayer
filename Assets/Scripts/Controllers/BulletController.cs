@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Common.Mathematics;
+using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,14 +29,14 @@ namespace Tanks
         {
             if (CanFire())
             {
-                photonView.RPC("Fire", RpcTarget.AllViaServer, SpawnPoint.position, SpawnPoint.up);
+                photonView.RPC("RPCFire", RpcTarget.AllViaServer, SpawnPoint.position, SpawnPoint.up);
                 
                 _fired = Time.time;
             }
         }
 
         [PunRPC]
-        public void Fire(Vector3 position, Vector3 forward, PhotonMessageInfo info)
+        public void RPCFire(Vector3 position, Vector3 forward, PhotonMessageInfo info)
         {
             var direction = new Vector2Int(
                 Mathf.RoundToInt(forward.x),
@@ -44,11 +45,8 @@ namespace Tanks
             var lag = (float)(PhotonNetwork.Time - info.SentServerTime);
 
             var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
-            bullet.MovementController.SetMovement(direction);
-            bullet.MovementController.ApplyMovement(lag);
-            bullet.CalledOnDestroy += OnBulletDestroy;
-
             _spawned.Add(bullet);
+            bullet.Setup(direction, lag, OnBulletDestroy);
         }
 
         private void OnBulletDestroy(Bullet bullet)

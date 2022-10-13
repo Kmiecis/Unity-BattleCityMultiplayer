@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1001159983}
   - component: {fileID: 1001159982}
   - component: {fileID: 169254954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2490198431843233260}
   - component: {fileID: 1922317431202854769}
   - component: {fileID: 164408767906429098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +186,9 @@ MonoBehaviour:
   <MovementController>k__BackingField: {fileID: 1922317431202854769}
   <CollisionController>k__BackingField: {fileID: 5324819681694298453}
   <AnimatorEvent>k__BackingField: {fileID: 169254954}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 712
 --- !u!114 &1922317431202854769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +236,7 @@ GameObject:
   - component: {fileID: 6494418707454304158}
   - component: {fileID: 742756198975912427}
   - component: {fileID: 5324819681694298453}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

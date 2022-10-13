@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Tanks
 {
@@ -21,22 +22,42 @@ namespace Tanks
         [field: SerializeField]
         public AnimatorEventHandler AnimatorEvent { get; private set; }
 
+        public LayerMask hitMask;
         public event Action<Bullet> CalledOnDestroy;
 
-        private CoroutineWrapper _explodeWrapper = new CoroutineWrapper();
+        public void Setup(Vector2Int direction, float lag, Action<Bullet> onDestroy)
+        {
+            CalledOnDestroy += onDestroy;
+
+            var hit = Physics2D.Raycast(transform.position, direction, lag, hitMask);
+            if (hit)
+            {
+                Explode();
+            }
+            else
+            {
+                Prepare(direction, lag);
+            }
+        }
+
+        private void Prepare(Vector2Int direction, float lag)
+        {
+            ModelObject.SetActive(true);
+            ExplosionObject.SetActive(false);
+
+            MovementController.SetMovement(direction);
+            MovementController.ApplyMovement(lag);
+        }
 
         private void Explode()
         {
-            _explodeWrapper.Stop();
-
             MovementController.ResetMovement();
+
             ModelObject.SetActive(false);
             ExplosionObject.SetActive(true);
-        }
 
-        private IEnumerator ExplodeDelayed()
-        {
-            return CoroutineUtility.InvokeDelayed(Explode, kExplosionDelay);
+            CalledOnDestroy?.Invoke(this);
+            CalledOnDestroy = null;
         }
 
         public void _OnCollisionEntered(Collision2D collision)
@@ -50,22 +71,6 @@ namespace Tanks
             {
                 Destroy(gameObject);
             }
-        }
-
-        private void Start()
-        {
-            ModelObject.SetActive(true);
-            ExplosionObject.SetActive(false);
-
-            _explodeWrapper
-                .With(this, ExplodeDelayed)
-                .Start();
-        }
-
-        private void OnDestroy()
-        {
-            CalledOnDestroy?.Invoke(this);
-            CalledOnDestroy = null;
         }
     }
 }
