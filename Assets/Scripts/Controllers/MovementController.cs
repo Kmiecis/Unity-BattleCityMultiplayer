@@ -14,11 +14,11 @@ namespace Tanks
         {
             var x = Mathf.RoundToInt(direction.x);
             var y = Mathf.RoundToInt(direction.y);
-            if (x < 0.0f)
+            if (x < 0)
                 return 90.0f;
-            if (y < 0.0f)
+            if (y < 0)
                 return 180.0f;
-            if (x > 0.0f)
+            if (x > 0)
                 return 270.0f;
             return 0.0f;
         }

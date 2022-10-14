@@ -224,9 +224,6 @@ MonoBehaviour:
   limit: 1
   delay: 0.2
   bulletPrefab: {fileID: 2490198431843233260, guid: 0ac073ee066e6b140807704d34a6dc85, type: 3}
-  bulletHitMask:
-    serializedVersion: 2
-    m_Bits: 648
   <SpawnPoint>k__BackingField: {fileID: 8577378739708594821}
   <IgnoreCollider>k__BackingField: {fileID: 2800864980006118110}
 --- !u!114 &79277091537420477
