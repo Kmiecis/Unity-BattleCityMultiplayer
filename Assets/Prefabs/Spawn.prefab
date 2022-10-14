@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a57ac602a1837489f67dd2cf252c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Collider>k__BackingField: {fileID: 7667055894715837803}
   CalledOnEnter:
     m_PersistentCalls:
       m_Calls:

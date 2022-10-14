@@ -1,5 +1,4 @@
-﻿using Common.Mathematics;
-using Photon.Pun;
+﻿using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +12,8 @@ namespace Tanks
 
         [field: SerializeField]
         public Transform SpawnPoint { get; private set; }
+        [field: SerializeField]
+        public Collider2D IgnoreCollider { get; private set; }
 
         private float _fired = 0.0f;
         private List<Bullet> _spawned = new List<Bullet>();
@@ -38,15 +39,12 @@ namespace Tanks
         [PunRPC]
         public void RPCFire(Vector3 position, Vector3 forward, PhotonMessageInfo info)
         {
-            var direction = new Vector2Int(
-                Mathf.RoundToInt(forward.x),
-                Mathf.RoundToInt(forward.y)
-            );
+            var direction = new Vector2(forward.x, forward.y);
             var lag = (float)(PhotonNetwork.Time - info.SentServerTime);
 
             var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
             _spawned.Add(bullet);
-            bullet.Setup(direction, lag, OnBulletDestroy);
+            bullet.Setup(direction, lag, IgnoreCollider, OnBulletDestroy);
         }
 
         private void OnBulletDestroy(Bullet bullet)

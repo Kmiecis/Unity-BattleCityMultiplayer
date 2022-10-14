@@ -181,14 +181,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ebe45023b19214682793f28a138cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 648
   <ModelObject>k__BackingField: {fileID: 6608108848033877547}
   <ExplosionObject>k__BackingField: {fileID: 1001159980}
   <MovementController>k__BackingField: {fileID: 1922317431202854769}
   <CollisionController>k__BackingField: {fileID: 5324819681694298453}
   <AnimatorEvent>k__BackingField: {fileID: 169254954}
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 712
 --- !u!114 &1922317431202854769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b7aa2e3f242304389f14934f56eb7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Collider>k__BackingField: {fileID: 742756198975912427}
   CalledOnEnter:
     m_PersistentCalls:
       m_Calls:

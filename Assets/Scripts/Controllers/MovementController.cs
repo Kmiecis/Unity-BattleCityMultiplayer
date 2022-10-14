@@ -10,32 +10,34 @@ namespace Tanks
         [field: SerializeField]
         public Rigidbody2D Rigidbody { get; private set; }
 
-        private static float ToAngle(Vector2Int direction)
+        private static float ToAngle(Vector2 direction)
         {
-            if (direction.x < 0)
+            var x = Mathf.RoundToInt(direction.x);
+            var y = Mathf.RoundToInt(direction.y);
+            if (x < 0.0f)
                 return 90.0f;
-            if (direction.y < 0)
+            if (y < 0.0f)
                 return 180.0f;
-            if (direction.x > 0)
+            if (x > 0.0f)
                 return 270.0f;
             return 0.0f;
         }
 
-        private static Vector2Int FromAngle(float angle)
+        private static Vector2 FromAngle(float angle)
         {
             if (45.0f < angle && angle <= 135.0f)
-                return Vector2Int.left;
+                return Vector2.left;
             if (135.0f < angle && angle <= 225.0f)
-                return Vector2Int.down;
+                return Vector2.down;
             if (225.0f < angle && angle <= 315.0f)
-                return Vector2Int.right;
-            return Vector2Int.up;
+                return Vector2.right;
+            return Vector2.up;
         }
 
-        public void SetMovement(Vector2Int direction)
+        public void SetMovement(Vector2 direction)
         {
             Rigidbody.rotation = ToAngle(direction);
-            Rigidbody.velocity = Mathx.Mul(direction, speed);
+            Rigidbody.velocity = direction * speed;
         }
 
         public void ApplyMovement(float time)
