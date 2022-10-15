@@ -1,11 +1,10 @@
 {
   "dependencies": {
-    "com.common.assemblies": {
-      "version": "https://github.com/kmiecis/unity-package-common.git",
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "5db86edfbffb227b381e36fd2e381a761b04dac3"
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",

@@ -1,0 +1,6 @@
+[submodule "Assets/Packages/unity-package-common"]
+	path = Assets/Packages/unity-package-common
+	url = https://github.com/Kmiecis/unity-package-common
+[submodule "Assets/Packages/unity-package-mvb"]
+	path = Assets/Packages/unity-package-mvb
+	url = https://github.com/kmiecis/unity-package-mvb
