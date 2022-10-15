@@ -1,4 +1,5 @@
 using Common.Mathematics;
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using Random = System.Random;
@@ -10,6 +11,8 @@ namespace Tanks
         private static readonly Random kRandom = new Random();
 
         public string playerPrefabPath;
+        public string friendPrefabPath;
+        public string enemyPrefabPath;
         public Spawn[] spawns;
 
         private bool TryFindSpawn(out Spawn spawn)
@@ -36,7 +39,7 @@ namespace Tanks
                 yield return new WaitForSecondsRealtime(1.0f);
             }
 
-            Network.Instantiate(playerPrefabPath, spawn.transform.position, spawn.transform.rotation);
+            PhotonNetwork.Instantiate(playerPrefabPath, spawn.transform.position, spawn.transform.rotation);
         }
 
         private void Start()

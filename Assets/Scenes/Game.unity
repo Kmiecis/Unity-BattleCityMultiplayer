@@ -184,8 +184,8 @@ Transform:
   - {fileID: 1084352309}
   - {fileID: 1067633951}
   - {fileID: 1514320584}
-  - {fileID: 301970793}
   - {fileID: 796715736}
+  - {fileID: 301970793}
   - {fileID: 219045185}
   m_Father: {fileID: 1343779396}
   m_RootOrder: 0
@@ -2817,7 +2817,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f55a35ed3b5dc24a810dfda03e95969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefabPath: PlayerTank
+  playerPrefabPath: Tank
+  friendPrefabPath: 
+  enemyPrefabPath: 
   spawns:
   - {fileID: 260336299}
   - {fileID: 1118788429}
