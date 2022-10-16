@@ -98,7 +98,7 @@ namespace Tanks
             {
                 MaxPlayers = 8
             };
-            PhotonNetwork.CreateRoom(roomName, roomOptions, null);
+            PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
 
         private void Awake()

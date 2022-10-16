@@ -1,14 +1,15 @@
+using Common.MVB;
 using UnityEngine;
 
 namespace Tanks
 {
     public class PlayerInput : AInputController
     {
-        public KeyCode upKey = KeyCode.W;
-        public KeyCode downKey = KeyCode.S;
-        public KeyCode leftKey = KeyCode.A;
-        public KeyCode rightKey = KeyCode.D;
-        public KeyCode fireKey = KeyCode.Space;
+        public ScriptableKeyCode upKey;
+        public ScriptableKeyCode downKey;
+        public ScriptableKeyCode leftKey;
+        public ScriptableKeyCode rightKey;
+        public ScriptableKeyCode fireKey;
 
         private Vector2Int _direction;
         private bool _shoot;

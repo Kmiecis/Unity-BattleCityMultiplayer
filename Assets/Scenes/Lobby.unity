@@ -277,6 +277,8 @@ GameObject:
   m_Component:
   - component: {fileID: 150423664}
   - component: {fileID: 150423663}
+  - component: {fileID: 150423666}
+  - component: {fileID: 150423665}
   m_Layer: 5
   m_Name: ConnectionController
   m_TagString: Untagged
@@ -322,6 +324,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &150423665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150423662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648f89b1e15951c4f946b0df0fb4abbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &150423666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150423662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e522fabf7d55241a6017d5c91aaef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntryPrefab>k__BackingField: {fileID: 6960645104530376976, guid: 96186967b9abd41488bae4313409fc0a, type: 3}
+  <EntryContainers>k__BackingField:
+  - {fileID: 1632746852}
+  - {fileID: 1240612234}
+  - {fileID: 463295321}
+  - {fileID: 400570880}
+  <SelectionController>k__BackingField: {fileID: 623823883}
 --- !u!1 &169876436
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31da2579dcfedc544a05f4bb7405238d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: 0
+  current: 2
   <Events>k__BackingField:
   - {fileID: 808829710}
   - {fileID: 1661090144}
@@ -2173,7 +2206,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 623823882}
-  - component: {fileID: 623823884}
   - component: {fileID: 623823883}
   m_Layer: 5
   m_Name: RoomListPanel
@@ -2222,25 +2254,6 @@ MonoBehaviour:
   <SelectKey>k__BackingField: {fileID: 11400000, guid: 807532e748511b94e9f3276b2afeec66, type: 2}
   <UpKey>k__BackingField: {fileID: 11400000, guid: 219f1583399c9c1449c4d8be110edfe8, type: 2}
   <DownKey>k__BackingField: {fileID: 11400000, guid: 77c27579e1b63a048874798cfbe113d0, type: 2}
---- !u!114 &623823884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 623823881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e522fabf7d55241a6017d5c91aaef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <EntryPrefab>k__BackingField: {fileID: 6960645104530376976, guid: 96186967b9abd41488bae4313409fc0a, type: 3}
-  <EntryContainers>k__BackingField:
-  - {fileID: 1632746852}
-  - {fileID: 1240612234}
-  - {fileID: 463295321}
-  - {fileID: 400570880}
-  <SelectionController>k__BackingField: {fileID: 623823883}
 --- !u!1 &651455309
 GameObject:
   m_ObjectHideFlags: 0
@@ -3213,7 +3226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1057515660}
   m_Layer: 5
-  m_Name: RoomPanel
+  m_Name: RoomPreparationPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5399,7 +5412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31da2579dcfedc544a05f4bb7405238d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: 0
+  current: 1
   <Events>k__BackingField:
   - {fileID: 1202042256}
   - {fileID: 169876441}

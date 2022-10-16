@@ -190,11 +190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a84f5be4604aa144b9ca46a525faeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upKey: 119
-  downKey: 115
-  leftKey: 97
-  rightKey: 100
-  fireKey: 32
+  upKey: {fileID: 11400000, guid: 219f1583399c9c1449c4d8be110edfe8, type: 2}
+  downKey: {fileID: 11400000, guid: 77c27579e1b63a048874798cfbe113d0, type: 2}
+  leftKey: {fileID: 11400000, guid: c2b616dbe81262946a80abae8d7e5334, type: 2}
+  rightKey: {fileID: 11400000, guid: f5d04fcf8e74ea748a48cf753f214191, type: 2}
+  fireKey: {fileID: 11400000, guid: 4a6a35daf2635c74c8e9f333ba05f5dc, type: 2}
 --- !u!114 &3019554945046643063
 MonoBehaviour:
   m_ObjectHideFlags: 0

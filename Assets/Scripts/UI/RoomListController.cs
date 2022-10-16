@@ -58,17 +58,21 @@ namespace Tanks.UI
 
                 SelectionController.Events.Insert(0, entry.SelectionEvent);
             }
+
             if (rooms.Count > 0)
             {
-                SelectionController.TryChangeCurrent(0);
+                SelectionController.Refresh();
             }
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
-            ClearEntries();
             var rooms = CacheRooms(roomList);
-            CreateEntries(rooms);
+            if (isActiveAndEnabled)
+            {
+                ClearEntries();
+                CreateEntries(rooms);
+            }
         }
 
         public override void OnJoinedLobby()
@@ -90,6 +94,18 @@ namespace Tanks.UI
             // Joining (or Entering) a room invalidates any cached lobby room list
             // (even if LeaveLobby was not called due to just joining a room)
             _rooms.Clear();
+        }
+
+        public override void OnEnable()
+        {
+            base.OnEnable();
+            CreateEntries(_rooms);
+        }
+
+        public override void OnDisable()
+        {
+            base.OnDisable();
+            ClearEntries();
         }
     }
 }

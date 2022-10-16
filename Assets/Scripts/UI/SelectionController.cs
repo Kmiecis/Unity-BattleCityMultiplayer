@@ -42,7 +42,7 @@ namespace Tanks.UI
             }
         }
 
-        private void OnEnable()
+        public void Refresh()
         {
             _current = current;
 
@@ -51,6 +51,11 @@ namespace Tanks.UI
                 var selected = Events[i];
                 selected.SetHighlighted(_current == i);
             }
+        }
+
+        private void OnEnable()
+        {
+            Refresh();
         }
 
         private void Update()
