@@ -25,14 +25,25 @@ namespace Tanks.UI
             PhotonNetwork.LocalPlayer.NickName = GetPlayerName();
         }
 
+        public void _OnNameInputFocused(bool focused)
+        {
+            if (focused)
+            {
+                NameInput.ActivateInputField();
+            }
+            else
+            {
+                NameInput.DeactivateInputField(true);
+            }
+        }
+
         private void Start()
         {
-            _defaultName = "PLAYER " + Random.Range(1000, 10000);
+            _defaultName = "P" + Random.Range(1000, 10000);
 
             if (NameInput != null)
             {
                 NameInput.text = _defaultName;
-                NameInput.Select();
                 NameInput.ActivateInputField();
             }
         }

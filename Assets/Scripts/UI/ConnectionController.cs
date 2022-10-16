@@ -55,15 +55,20 @@ namespace Tanks
 
         public void _OnCancelClicked()
         {
-            if (PhotonNetwork.InLobby)
+            /*if (PhotonNetwork.InLobby)
             {
                 PhotonNetwork.LeaveLobby();
-            }
+            }*/
 
             ChangeToPanel(SelectionPanel);
         }
 
         public override void OnConnectedToMaster()
+        {
+            PhotonNetwork.JoinLobby();
+        }
+
+        public override void OnJoinedLobby()
         {
             ChangeToPanel(SelectionPanel);
         }
@@ -75,8 +80,8 @@ namespace Tanks
 
         public override void OnJoinedRoom()
         {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.CurrentRoom.IsVisible = false;
+            //PhotonNetwork.CurrentRoom.IsOpen = false;
+            //PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.LoadLevel("Game");
         }
 
@@ -87,7 +92,7 @@ namespace Tanks
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            var roomName = PhotonNetwork.LocalPlayer.NickName + "'S ROOM";
+            var roomName = PhotonNetwork.LocalPlayer.NickName + " ROOM";
 
             var roomOptions = new RoomOptions
             {

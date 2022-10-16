@@ -1,4 +1,5 @@
 using Common.MVB;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tanks.UI
@@ -8,7 +9,7 @@ namespace Tanks.UI
         public int current = 0;
 
         [field: SerializeField]
-        public SelectionEventHandler[] Events { get; private set; }
+        public List<SelectionEventHandler> Events { get; private set; }
         [field: Header("Input")]
         [field: SerializeField]
         public ScriptableKeyCode SelectKey { get; private set; }
@@ -19,6 +20,9 @@ namespace Tanks.UI
 
         private int _current;
 
+        public int Current
+            => _current;
+
         private void ChangeCurrent(int current)
         {
             Events[_current].SetHighlighted(false);
@@ -28,9 +32,9 @@ namespace Tanks.UI
             Events[_current].SetHighlighted(true);
         }
 
-        private void TryChangeCurrent(int current)
+        public void TryChangeCurrent(int current)
         {
-            var sanitized = Mathf.Clamp(current, 0, Events.Length - 1);
+            var sanitized = (current + Events.Count) % Events.Count;
 
             if (_current != sanitized)
             {
@@ -42,7 +46,7 @@ namespace Tanks.UI
         {
             _current = current;
 
-            for (int i = 0; i < Events.Length; ++i)
+            for (int i = 0; i < Events.Count; ++i)
             {
                 var selected = Events[i];
                 selected.SetHighlighted(_current == i);
