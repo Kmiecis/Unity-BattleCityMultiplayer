@@ -37,11 +37,11 @@ namespace Tanks.UI
         {
             foreach (var entry in _entries)
             {
-                SelectionController.Events.Remove(entry.SelectionEvent);
-
                 entry.gameObject.Destroy();
             }
             _entries.Clear();
+
+            SelectionController.Events.Clear();
         }
 
         private void CreateEntries(List<RoomInfo> rooms)
@@ -56,7 +56,7 @@ namespace Tanks.UI
                 entry.Setup(room);
                 _entries.Add(entry);
 
-                SelectionController.Events.Insert(0, entry.SelectionEvent);
+                SelectionController.Events.Add(entry.SelectionEvent);
             }
 
             if (rooms.Count > 0)

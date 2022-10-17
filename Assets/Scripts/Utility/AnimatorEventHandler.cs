@@ -5,11 +5,11 @@ namespace Tanks
 {
     public class AnimatorEventHandler : MonoBehaviour
     {
-        public UnityEvent<string> CalledByAnimator;
+        public UnityEvent<string> OnAnimatorEvent;
 
         public void _OnAnimatorEvent(string value)
         {
-            CalledByAnimator?.Invoke(value);
+            OnAnimatorEvent?.Invoke(value);
         }
     }
 }

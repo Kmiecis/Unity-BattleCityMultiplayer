@@ -1,3 +1,4 @@
+using Common.MVB;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -12,13 +13,19 @@ namespace Tanks
         [field: SerializeField]
         public GameObject LoginPanel { get; private set; }
         [field: SerializeField]
+        public GameObject LoginAttemptPanel { get; private set; }
+        [field: SerializeField]
         public GameObject SelectionPanel { get; private set; }
         [field: SerializeField]
         public GameObject CreateRoomPanel { get; private set; }
         [field: SerializeField]
-        public GameObject JoinRandomRoomPanel { get; private set; }
+        public GameObject JoinRandomRoomAttemptPanel { get; private set; }
         [field: SerializeField]
         public GameObject RoomListPanel { get; private set; }
+        [field: SerializeField]
+        public GameObject RoomPreparationPanel { get; private set; }
+        [field: SerializeField]
+        public ScriptableKeyCode CancelKeyCode { get; private set; }
 
         private GameObject _currentPanel;
 
@@ -33,7 +40,7 @@ namespace Tanks
         {
             PhotonNetwork.ConnectUsingSettings(ServerSettings.AppSettings, ServerSettings.StartInOfflineMode);
 
-            LoginPanel.SetActive(false);
+            ChangeToPanel(LoginAttemptPanel);
         }
 
         public void _OnCreateRoomClicked()
@@ -43,24 +50,19 @@ namespace Tanks
 
         public void _OnJoinRandomRoomClicked()
         {
-            ChangeToPanel(JoinRandomRoomPanel);
+            ChangeToPanel(JoinRandomRoomAttemptPanel);
 
             PhotonNetwork.JoinRandomRoom();
         }
 
         public void _OnRoomListClicked()
         {
-            ChangeToPanel(RoomListPanel);
-        }
-
-        public void _OnCancelClicked()
-        {
-            /*if (PhotonNetwork.InLobby)
+            /*if (!PhotonNetwork.InLobby)
             {
-                PhotonNetwork.LeaveLobby();
+                PhotonNetwork.JoinLobby();
             }*/
 
-            ChangeToPanel(SelectionPanel);
+            ChangeToPanel(RoomListPanel);
         }
 
         public override void OnConnectedToMaster()
@@ -73,6 +75,16 @@ namespace Tanks
             ChangeToPanel(SelectionPanel);
         }
 
+        public override void OnLeftLobby()
+        {
+            // Nothing
+        }
+
+        public override void OnCreatedRoom()
+        {
+            // Nothing
+        }
+
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
             ChangeToPanel(SelectionPanel);
@@ -80,9 +92,7 @@ namespace Tanks
 
         public override void OnJoinedRoom()
         {
-            //PhotonNetwork.CurrentRoom.IsOpen = false;
-            //PhotonNetwork.CurrentRoom.IsVisible = false;
-            PhotonNetwork.LoadLevel("Game");
+            ChangeToPanel(RoomPreparationPanel);
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
@@ -93,17 +103,41 @@ namespace Tanks
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
             var roomName = PhotonNetwork.LocalPlayer.NickName + " ROOM";
+            var roomOptions = new RoomOptions { MaxPlayers = GameProperties.MAX_PLAYERS };
 
-            var roomOptions = new RoomOptions
-            {
-                MaxPlayers = 8
-            };
             PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);
+        }
+
+        public override void OnLeftRoom()
+        {
+            ChangeToPanel(SelectionPanel);
         }
 
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
+        }
+
+        private void Start()
+        {
+            ChangeToPanel(LoginPanel);
+        }
+
+        private void Update()
+        {
+            if (PhotonNetwork.IsConnected && Input.GetKeyDown(CancelKeyCode))
+            {
+                /*if (PhotonNetwork.InLobby)
+                {
+                    PhotonNetwork.LeaveLobby();
+                }*/
+                if (PhotonNetwork.InRoom)
+                {
+                    PhotonNetwork.LeaveRoom();
+                }
+
+                ChangeToPanel(SelectionPanel);
+            }
         }
     }
 }

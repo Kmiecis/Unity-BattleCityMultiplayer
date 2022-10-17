@@ -7,8 +7,6 @@ namespace Tanks.UI
 {
     public class CreateRoomController : MonoBehaviour
     {
-        private const int kMinPlayers = 2;
-        private const int kMaxPlayers = 16;
         private const int kPlayerTtl = 1000 * 10;
 
         [field: SerializeField]
@@ -31,7 +29,7 @@ namespace Tanks.UI
         private byte GetRoomSize()
         {
             byte.TryParse(SizeInput.text, out var size);
-            return (byte)Mathf.Clamp(size, kMinPlayers, kMaxPlayers);
+            return (byte)Mathf.Clamp(size, GameProperties.MIN_PLAYERS, GameProperties.MAX_PLAYERS);
         }
 
         public void _OnNameInputFocused(bool focused)
@@ -73,7 +71,7 @@ namespace Tanks.UI
 
         private void Start()
         {
-            _defaultName = PhotonNetwork.LocalPlayer.NickName + "'S ROOM";
+            _defaultName = PhotonNetwork.LocalPlayer.NickName + " ROOM";
 
             if (NameInput != null)
             {
@@ -82,7 +80,7 @@ namespace Tanks.UI
 
             if (SizeInput != null)
             {
-                SizeInput.text = kMinPlayers.ToString();
+                SizeInput.text = GameProperties.MIN_PLAYERS.ToString();
             }
         }
     }

@@ -5,11 +5,11 @@ namespace Tanks
 {
     public class EventHandler : MonoBehaviour
     {
-        public UnityEvent CalledExternally;
+        public UnityEvent OnInvoke;
 
         public void Invoke()
         {
-            CalledExternally?.Invoke();
+            OnInvoke?.Invoke();
         }
     }
 }

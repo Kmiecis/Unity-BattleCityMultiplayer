@@ -6,7 +6,7 @@ namespace Tanks.UI
 {
     public class SelectionController : MonoBehaviour
     {
-        public int current = 0;
+        public int index = 0;
 
         [field: SerializeField]
         public List<SelectionEventHandler> Events { get; private set; }
@@ -18,38 +18,59 @@ namespace Tanks.UI
         [field: SerializeField]
         public ScriptableKeyCode DownKey { get; private set; }
 
-        private int _current;
+        private int _index;
 
-        public int Current
-            => _current;
-
-        private void ChangeCurrent(int current)
+        public int Index
         {
-            Events[_current].SetHighlighted(false);
-
-            _current = current;
-
-            Events[_current].SetHighlighted(true);
+            get => _index;
         }
 
-        public void TryChangeCurrent(int current)
+        public SelectionEventHandler Current
         {
-            var sanitized = (current + Events.Count) % Events.Count;
+            get => Events[Index];
+        }
 
-            if (_current != sanitized)
+        private void ChangeIndex(int index)
+        {
+            Events[_index].SetHighlighted(false);
+
+            _index = index;
+
+            Events[_index].SetHighlighted(true);
+        }
+
+        public void TryChangeIndex(int index)
+        {
+            var sanitized = (index + Events.Count) % Events.Count;
+
+            if (_index != sanitized)
             {
-                ChangeCurrent(sanitized);
+                ChangeIndex(sanitized);
             }
+        }
+
+        public void IncreaseIndex()
+        {
+            TryChangeIndex(_index + 1);
+        }
+
+        public void DecreaseIndex()
+        {
+            TryChangeIndex(_index - 1);
+        }
+
+        public void SelectCurrent()
+        {
+            Current.Select();
         }
 
         public void Refresh()
         {
-            _current = current;
+            _index = index;
 
             for (int i = 0; i < Events.Count; ++i)
             {
-                var selected = Events[i];
-                selected.SetHighlighted(_current == i);
+                Events[i].SetHighlighted(_index == i);
             }
         }
 
@@ -62,17 +83,17 @@ namespace Tanks.UI
         {
             if (Input.GetKeyDown(UpKey))
             {
-                TryChangeCurrent(_current - 1);
+                DecreaseIndex();
             }
 
             if (Input.GetKeyDown(DownKey))
             {
-                TryChangeCurrent(_current + 1);
+                IncreaseIndex();
             }
 
             if (Input.GetKeyDown(SelectKey))
             {
-                Events[_current].Select();
+                SelectCurrent();
             }
         }
     }

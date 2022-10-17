@@ -5,17 +5,17 @@ namespace Tanks
 {
     public class SelectionEventHandler : MonoBehaviour
     {
-        public UnityEvent<bool> CalledOnHighlight;
-        public UnityEvent CalledOnSelect;
+        public UnityEvent<bool> OnHighlight;
+        public UnityEvent OnSelect;
 
         public void SetHighlighted(bool value)
         {
-            CalledOnHighlight?.Invoke(value);
+            OnHighlight?.Invoke(value);
         }
 
         public void Select()
         {
-            CalledOnSelect?.Invoke();
+            OnSelect?.Invoke();
         }
     }
 }
