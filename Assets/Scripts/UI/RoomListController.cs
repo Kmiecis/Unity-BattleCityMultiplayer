@@ -11,7 +11,7 @@ namespace Tanks.UI
         [field: SerializeField]
         public RoomListEntry EntryPrefab { get; private set; }
         [field: SerializeField]
-        public Transform[] EntryContainers { get; private set; }
+        public Transform EntryParent { get; private set; }
         [field: SerializeField]
         public SelectionController SelectionController { get; private set; }
 
@@ -24,10 +24,7 @@ namespace Tanks.UI
 
             foreach (var room in rooms)
             {
-                if (room.IsOpen && room.IsVisible && !room.RemovedFromList)
-                {
-                    _rooms.Add(room);
-                }
+                _rooms.Add(room);
             }
 
             return _rooms;
@@ -46,13 +43,13 @@ namespace Tanks.UI
 
         private void CreateEntries(List<RoomInfo> rooms)
         {
-            var count = Mathf.Min(rooms.Count, EntryContainers.Length);
+            var count = Mathf.Min(rooms.Count, GameProperties.MAX_TEAM_PLAYERS);
             for (int i = 0; i < count; ++i)
             {
                 var room = rooms[i];
 
                 var entry = Instantiate(EntryPrefab);
-                entry.transform.SetParent(EntryContainers[i], false);
+                entry.transform.SetParent(EntryParent, false);
                 entry.Setup(room);
                 _entries.Add(entry);
 

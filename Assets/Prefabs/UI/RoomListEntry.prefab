@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 4477163155485015746}
   - component: {fileID: 6960645104530376976}
   - component: {fileID: 4734861646569995726}
+  - component: {fileID: 8254803004663041991}
   m_Layer: 5
   m_Name: RoomListEntry
   m_TagString: Untagged
@@ -147,6 +148,11 @@ MonoBehaviour:
   <NameText>k__BackingField: {fileID: 3749223256583098449}
   <SizeText>k__BackingField: {fileID: 4159153758364557731}
   <SelectionEvent>k__BackingField: {fileID: 4734861646569995726}
+  <IsAvailableColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
+  <IsBlockedColor>k__BackingField: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  <ColoredGraphics>k__BackingField:
+  - {fileID: 3749223256583098449}
+  - {fileID: 4159153758364557731}
 --- !u!114 &4734861646569995726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +195,26 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8254803004663041991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898486487876363810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 700
+  m_PreferredHeight: 64
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &6437826925197441372
 GameObject:
   m_ObjectHideFlags: 0
