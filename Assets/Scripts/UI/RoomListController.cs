@@ -9,14 +9,14 @@ namespace Tanks.UI
     public class RoomListController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
-        public RoomListEntry EntryPrefab { get; private set; }
+        public RoomEntry EntryPrefab { get; private set; }
         [field: SerializeField]
         public Transform EntryParent { get; private set; }
         [field: SerializeField]
         public SelectionController SelectionController { get; private set; }
 
         private List<RoomInfo> _rooms = new List<RoomInfo>();
-        private List<RoomListEntry> _entries = new List<RoomListEntry>();
+        private List<RoomEntry> _entries = new List<RoomEntry>();
 
         private List<RoomInfo> CacheRooms(List<RoomInfo> rooms)
         {

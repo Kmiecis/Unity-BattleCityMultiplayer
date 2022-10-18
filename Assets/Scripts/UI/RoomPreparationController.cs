@@ -13,7 +13,7 @@ namespace Tanks.UI
         [field: SerializeField]
         public TextMeshProUGUI RoomNameText { get; private set; }
         [field: SerializeField]
-        public PlayerListEntry EntryPrefab { get; private set; }
+        public RoomPlayerEntry EntryPrefab { get; private set; }
         [field: SerializeField]
         public Transform TeamAParent { get; private set; }
         [field: SerializeField]
@@ -25,10 +25,10 @@ namespace Tanks.UI
         [field: SerializeField]
         public SelectionController SelectionController { get; private set; }
         [field: SerializeField]
-        public PlayerListEntry LocalEntry { get; private set; }
+        public RoomPlayerEntry LocalEntry { get; private set; }
 
-        private Dictionary<int, PlayerListEntry> _teamA = new Dictionary<int, PlayerListEntry>();
-        private Dictionary<int, PlayerListEntry> _teamB = new Dictionary<int, PlayerListEntry>();
+        private Dictionary<int, RoomPlayerEntry> _teamA = new Dictionary<int, RoomPlayerEntry>();
+        private Dictionary<int, RoomPlayerEntry> _teamB = new Dictionary<int, RoomPlayerEntry>();
 
         private int GetBestTeam()
         {
@@ -39,7 +39,7 @@ namespace Tanks.UI
             return GameProperties.TEAM_A;
         }
 
-        private bool ArePlayersReady(Dictionary<int, PlayerListEntry> entries)
+        private bool ArePlayersReady(Dictionary<int, RoomPlayerEntry> entries)
         {
             foreach (var entry in entries.Values)
             {
@@ -60,7 +60,7 @@ namespace Tanks.UI
             );
         }
 
-        private void DestroyEntry(int id, Dictionary<int, PlayerListEntry> entries)
+        private void DestroyEntry(int id, Dictionary<int, RoomPlayerEntry> entries)
         {
             if (entries.TryGetValue(id, out var entry))
             {
@@ -75,7 +75,7 @@ namespace Tanks.UI
             DestroyEntry(id, _teamB);
         }
 
-        private void ClearEntries(Dictionary<int, PlayerListEntry> entries)
+        private void ClearEntries(Dictionary<int, RoomPlayerEntry> entries)
         {
             foreach (var entry in entries.Values)
             {
@@ -90,7 +90,7 @@ namespace Tanks.UI
             ClearEntries(_teamB);
         }
 
-        private Dictionary<int, PlayerListEntry> GetTeamEntries(int team)
+        private Dictionary<int, RoomPlayerEntry> GetTeamEntries(int team)
         {
             if (team == GameProperties.TEAM_A)
                 return _teamA;
@@ -108,25 +108,25 @@ namespace Tanks.UI
             return null;
         }
 
-        private void AddEntry(PlayerListEntry entry, int team)
+        private void AddEntry(RoomPlayerEntry entry, int team)
         {
             var entries = GetTeamEntries(team);
             entries.Add(entry.Id, entry);
         }
 
-        private void RemoveEntry(PlayerListEntry entry, int team)
+        private void RemoveEntry(RoomPlayerEntry entry, int team)
         {
             var entries = GetTeamEntries(team);
             entries.Remove(entry.Id);
         }
 
-        private void SetEntryParent(PlayerListEntry entry, int team)
+        private void SetEntryParent(RoomPlayerEntry entry, int team)
         {
             var parent = GetTeamParent(team);
             entry.transform.SetParent(parent, false);
         }
 
-        private void SwitchPlayerEntry(PlayerListEntry entry, int oldTeam, int newTeam)
+        private void SwitchPlayerEntry(RoomPlayerEntry entry, int oldTeam, int newTeam)
         {
             RemoveEntry(entry, oldTeam);
             AddEntry(entry, newTeam);
@@ -158,7 +158,7 @@ namespace Tanks.UI
             GameProperties.SetInitialProperties(team);
         }
 
-        private bool TryGetEntry(int id, out PlayerListEntry entry)
+        private bool TryGetEntry(int id, out RoomPlayerEntry entry)
         {
             return (
                 _teamA.TryGetValue(id, out entry) ||

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Tanks.UI
 {
-    public class RoomListEntry : MonoBehaviour
+    public class RoomEntry : MonoBehaviour
     {
         [field: SerializeField]
         public TextMeshProUGUI NameText { get; private set; }

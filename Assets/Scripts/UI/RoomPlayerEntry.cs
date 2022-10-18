@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tanks.UI
 {
-    public class PlayerListEntry : MonoBehaviour
+    public class RoomPlayerEntry : MonoBehaviour
     {
         [field: SerializeField]
         public TextMeshProUGUI NameText { get; private set; }
