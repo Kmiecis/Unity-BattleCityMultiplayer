@@ -23,6 +23,8 @@ namespace Tanks
         [field: SerializeField]
         public GameObject RoomListPanel { get; private set; }
         [field: SerializeField]
+        public GameObject LeaveRoomAttemptPanel { get; private set; }
+        [field: SerializeField]
         public GameObject RoomPreparationPanel { get; private set; }
         [field: SerializeField]
         public ScriptableKeyCode CancelKeyCode { get; private set; }
@@ -134,9 +136,13 @@ namespace Tanks
                 if (PhotonNetwork.InRoom)
                 {
                     PhotonNetwork.LeaveRoom();
-                }
 
-                ChangeToPanel(SelectionPanel);
+                    ChangeToPanel(LeaveRoomAttemptPanel);
+                }
+                else
+                {
+                    ChangeToPanel(SelectionPanel);
+                }
             }
         }
     }

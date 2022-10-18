@@ -15,8 +15,6 @@ namespace Tanks.UI
         [field: SerializeField]
         public PlayerListEntry EntryPrefab { get; private set; }
         [field: SerializeField]
-        public Transform Team0Parent { get; private set; }
-        [field: SerializeField]
         public Transform TeamAParent { get; private set; }
         [field: SerializeField]
         public Transform TeamBParent { get; private set; }
@@ -26,6 +24,8 @@ namespace Tanks.UI
         public SelectionEventHandler StartSelectionEvent { get; private set; }
         [field: SerializeField]
         public SelectionController SelectionController { get; private set; }
+        [field: SerializeField]
+        public PlayerListEntry LocalEntry { get; private set; }
 
         private Dictionary<int, PlayerListEntry> _teamA = new Dictionary<int, PlayerListEntry>();
         private Dictionary<int, PlayerListEntry> _teamB = new Dictionary<int, PlayerListEntry>();
@@ -54,6 +54,7 @@ namespace Tanks.UI
         private bool ArePlayersReady()
         {
             return (
+                LocalEntry.IsReady &&
                 ArePlayersReady(_teamA) &&
                 ArePlayersReady(_teamB)
             );
@@ -100,8 +101,6 @@ namespace Tanks.UI
 
         private Transform GetTeamParent(int team)
         {
-            if (team == GameProperties.NO_TEAM)
-                return Team0Parent;
             if (team == GameProperties.TEAM_A)
                 return TeamAParent;
             if (team == GameProperties.TEAM_B)
@@ -113,22 +112,12 @@ namespace Tanks.UI
         {
             var entries = GetTeamEntries(team);
             entries.Add(entry.Id, entry);
-
-            if (entry.IsLocal)
-            {
-                SelectionController.Events.Insert(0, entry.SelectionEvent);
-            }
         }
 
         private void RemoveEntry(PlayerListEntry entry, int team)
         {
             var entries = GetTeamEntries(team);
             entries.Remove(entry.Id);
-
-            if (entry.IsLocal)
-            {
-                SelectionController.Events.RemoveAt(0);
-            }
         }
 
         private void SetEntryParent(PlayerListEntry entry, int team)
@@ -146,19 +135,27 @@ namespace Tanks.UI
 
         private void CreateEntry(Player player)
         {
+            var entry = Instantiate(EntryPrefab);
+
             var team = GameProperties.GetTeam(player, GetBestTeam());
             var isReady = GameProperties.GetIsReady(player);
 
-            var entry = Instantiate(EntryPrefab);
             entry.Setup(player, isReady, team);
 
             AddEntry(entry, team);
             SetEntryParent(entry, team);
+        }
 
-            if (entry.IsLocal)
-            {
-                entry.SelectionEvent.OnSelect.AddListener(_OnSwitchReadiness);
-            }
+        private void SetupLocalEntry()
+        {
+            int team = GetBestTeam();
+            bool isReady = false;
+
+            LocalEntry.Setup(PhotonNetwork.LocalPlayer, isReady, team);
+
+            SetEntryParent(LocalEntry, team);
+
+            GameProperties.SetInitialProperties(team);
         }
 
         private bool TryGetEntry(int id, out PlayerListEntry entry)
@@ -169,9 +166,14 @@ namespace Tanks.UI
             );
         }
 
-        private bool TryGetLocalEntry(out PlayerListEntry entry)
+        private bool CanSwitchTeam(int team)
         {
-            return TryGetEntry(PhotonNetwork.LocalPlayer.ActorNumber, out entry);
+            var currentEntries = GetTeamEntries(team);
+            var otherEntries = GetTeamEntries(team * -1);
+            return (
+                currentEntries.Count > GameProperties.MIN_TEAM_PLAYERS &&
+                otherEntries.Count < GameProperties.MAX_TEAM_PLAYERS
+            );
         }
 
         private void SetupStart(bool isMaster)
@@ -187,8 +189,8 @@ namespace Tanks.UI
             }
             else
             {
-                SelectionController.Events.Remove(StartSelectionEvent);
                 SelectionController.Refresh();
+                SelectionController.Events.Remove(StartSelectionEvent);
             }
         }
 
@@ -201,23 +203,27 @@ namespace Tanks.UI
 
         public void _OnSwitchReadiness()
         {
-            if (TryGetLocalEntry(out var entry))
-            {
-                entry.IsReady = !entry.IsReady;
+            var entry = LocalEntry;
 
-                GameProperties.SetIsReady(entry.IsReady);
+            entry.IsReady = !entry.IsReady;
 
-                SetupStartSelection(ArePlayersReady());
-            }
+            GameProperties.SetIsReady(entry.IsReady);
+
+            SetupStartSelection(ArePlayersReady());
         }
 
         public void _OnSwitchTeam()
         {
-            if (TryGetLocalEntry(out var entry))
-            {
-                SwitchPlayerEntry(entry, entry.Team, entry.Team * -1);
+            var entry = LocalEntry;
 
+            if (
+                CanSwitchTeam(entry.Team) &&
+                !entry.IsReady
+            )
+            {
                 entry.Team *= -1;
+
+                SetEntryParent(entry, entry.Team);
 
                 GameProperties.SetTeam(entry.Team);
             }
@@ -255,16 +261,14 @@ namespace Tanks.UI
 
         public override void OnJoinedRoom()
         {
+            RoomNameText.text = PhotonNetwork.CurrentRoom.Name;
+
             foreach (var player in PhotonNetwork.PlayerListOthers)
             {
                 CreateEntry(player);
             }
 
-            GameProperties.SetInitialProperties(GetBestTeam());
-
-            CreateEntry(PhotonNetwork.LocalPlayer);
-
-            RoomNameText.text = PhotonNetwork.CurrentRoom.Name;
+            SetupLocalEntry();
 
             SetupStart(PhotonNetwork.IsMasterClient);
         }
@@ -273,9 +277,8 @@ namespace Tanks.UI
         {
             ClearEntries();
 
-            SelectionController.Events.Clear();
-
             SetupStart(false);
+            SetupStartSelection(false);
         }
 
         public override void OnMasterClientSwitched(Player newMasterClient)

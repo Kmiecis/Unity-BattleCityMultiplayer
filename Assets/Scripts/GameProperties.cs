@@ -17,7 +17,8 @@ namespace Tanks
 
         public const int MIN_PLAYERS = 2;
         public const int MAX_PLAYERS = 14;
-        public const int TEAM_PLAYERS = 7;
+        public const int MIN_TEAM_PLAYERS = 1;
+        public const int MAX_TEAM_PLAYERS = 7;
 
         public static bool TryGetProperty<T>(Hashtable properties, object key, out T value)
         {
