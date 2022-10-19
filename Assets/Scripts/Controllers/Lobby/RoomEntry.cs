@@ -49,11 +49,6 @@ namespace Tanks.UI
 
         public void _OnJoinRoomClicked()
         {
-            /*if (PhotonNetwork.InLobby)
-            {
-                PhotonNetwork.LeaveLobby();
-            }*/
-
             if (IsAvailable)
             {
                 PhotonNetwork.JoinRoom(_room.Name);

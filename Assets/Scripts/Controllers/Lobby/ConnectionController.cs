@@ -59,11 +59,6 @@ namespace Tanks
 
         public void _OnRoomListClicked()
         {
-            /*if (!PhotonNetwork.InLobby)
-            {
-                PhotonNetwork.JoinLobby();
-            }*/
-
             ChangeToPanel(RoomListPanel);
         }
 
@@ -129,10 +124,6 @@ namespace Tanks
         {
             if (PhotonNetwork.IsConnected && Input.GetKeyDown(CancelKeyCode))
             {
-                /*if (PhotonNetwork.InLobby)
-                {
-                    PhotonNetwork.LeaveLobby();
-                }*/
                 if (PhotonNetwork.InRoom)
                 {
                     PhotonNetwork.LeaveRoom();
