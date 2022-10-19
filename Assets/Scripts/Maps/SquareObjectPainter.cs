@@ -121,7 +121,7 @@ namespace Tanks
 
         private void DrawSquareGizmo(Vector2Int coordinate)
         {
-            var position = Rects.Convert(coordinate, size);
+            var position = transform.TransformPoint(Rects.Convert(coordinate, size));
             var vertices = Rects.GetVertices(position, size, 0.0f);
             var points = new List<Vector3>(vertices.Select(v2 => v2.XY_()));
             points.Add(points[0]);
@@ -154,7 +154,7 @@ namespace Tanks
         {
             if (!_objects.ContainsKey(coordinate) && item != null)
             {
-                var position = Rects.Convert(coordinate, size);
+                var position = transform.TransformPoint(Rects.Convert(coordinate, size));
                 var instance = PrefabUtility.InstantiatePrefab(item, transform) as GameObject;
                 instance.transform.position = position;
 
