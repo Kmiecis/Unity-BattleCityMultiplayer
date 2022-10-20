@@ -30,7 +30,7 @@ namespace Tanks
         {
             if (CanFire())
             {
-                photonView.RPC("RPCFire", RpcTarget.AllViaServer, SpawnPoint.position, SpawnPoint.up);
+                photonView.RPC(nameof(RPCFire), RpcTarget.AllViaServer, SpawnPoint.position, SpawnPoint.up);
                 
                 _fired = Time.time;
             }

@@ -10,6 +10,13 @@ namespace Tanks
         public MovementController MovementController { get; private set; }
         [field: SerializeField]
         public BulletController FiringController { get; private set; }
+        [field: SerializeField]
+        public ForcefieldController ForcefieldController { get; private set; }
+
+        private void OnEnable()
+        {
+            ForcefieldController.Enable();
+        }
 
         private void Update()
         {

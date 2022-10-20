@@ -14,6 +14,8 @@ namespace Tanks
         [field: SerializeField]
         public Spawn[] TeamBSpawns { get; private set; }
 
+        private GameObject _playerObject;
+
         private string GetTankPrefabPath(int team)
         {
             if (team == GameProperties.TEAM_A)
@@ -53,7 +55,7 @@ namespace Tanks
             var spawn = GetBestSpawn(team);
             var prefabPath = GetTankPrefabPath(team);
 
-            PhotonNetwork.Instantiate(prefabPath, spawn.transform.position, spawn.transform.rotation);
+            _playerObject = PhotonNetwork.Instantiate(prefabPath, spawn.transform.position, spawn.transform.rotation);
         }
     }
 }
