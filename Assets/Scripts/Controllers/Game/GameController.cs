@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Tanks
 {
-    public class GameController : MonoBehaviour
+    public class GameController : MonoBehaviourPunCallbacks
     {
         public string tankAPrefabPath;
         public string tankBPrefabPath;
