@@ -20,12 +20,11 @@ namespace Tanks
         [field: SerializeField]
         public ExplosionController ExplosionController { get; private set; }
 
-        private Action _onExplode;
-        private CoroutineWrapper _explosionWrapper = new CoroutineWrapper();
+        private Action<Collider2D> _onHit;
         
-        public void Setup(Vector2 direction, Collider2D ignoreCollider, Action onExplode)
+        public void Setup(Vector2 direction, Collider2D ignoreCollider, Action<Collider2D> onHit)
         {
-            _onExplode = onExplode;
+            _onHit = onHit;
 
             Setup(direction, ignoreCollider);
         }
@@ -41,10 +40,10 @@ namespace Tanks
             {
                 var traveled = (hit.point - position).magnitude;
                 lag = traveled / MovementController.speed;
-
+                
                 MovementController.ApplyMovement(lag);
 
-                Explode();
+                Hit(hit.collider);
             }
             else
             {
@@ -52,24 +51,24 @@ namespace Tanks
 
                 MovementController.ApplyMovement(lag);
 
-                Prepare();
+                Run();
             }
         }
 
-        private void Explode()
+        private void Hit(Collider2D collider)
         {
             ModelObject.SetActive(false);
 
             MovementController.ResetMovement();
             ExplosionController.Explode(Destroy);
 
-            _onExplode?.Invoke();
-            _explosionWrapper.Stop();
+            _onHit?.Invoke(collider);
+            StopAllCoroutines();
         }
 
-        private void Prepare()
+        private void Run()
         {
-            _explosionWrapper
+            new CoroutineWrapper()
                 .WithTarget(this)
                 .WithEnumerator(ExplodeDelayed)
                 .Start();
@@ -77,12 +76,12 @@ namespace Tanks
 
         public IEnumerator ExplodeDelayed()
         {
-            return CoroutineUtility.InvokeDelayed(Explode, kExplosionDelay);
+            return CoroutineUtility.InvokeDelayed(() => Hit(null), kExplosionDelay);
         }
 
         public void _OnCollisionEntered(Collision2D collision)
         {
-            Explode();
+            Hit(collision.collider);
         }
 
         private void Destroy()

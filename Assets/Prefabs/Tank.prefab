@@ -302,8 +302,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <InputController>k__BackingField: {fileID: 4628357046836593220}
   <MovementController>k__BackingField: {fileID: 3019554945046643063}
-  <FiringController>k__BackingField: {fileID: 9130183082392391059}
+  <BulletController>k__BackingField: {fileID: 9130183082392391059}
   <ForcefieldController>k__BackingField: {fileID: -4768851008313264919}
+  <ExplosionController>k__BackingField: {fileID: 4515303784969990562}
 --- !u!114 &4628357046836593220
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,12 @@ namespace Tanks
 
         private Action _onFinish;
 
-        public void Explode(Action onFinish)
+        public void Setup()
+        {
+            ExplosionObject.SetActive(false);
+        }
+
+        public void Explode(Action onFinish = null)
         {
             _onFinish = onFinish;
 
@@ -27,13 +32,13 @@ namespace Tanks
 
             if (value == kExplosionEndEvent)
             {
-                _onFinish();
+                _onFinish?.Invoke();
             }
         }
 
         private void Awake()
         {
-            ExplosionObject.SetActive(false);
+            Setup();
 
             AnimatorEvent.OnAnimatorEvent.AddListener(OnAnimatorEvent);
         }

@@ -56,6 +56,10 @@ namespace Tanks
             var prefabPath = GetTankPrefabPath(team);
 
             _playerObject = PhotonNetwork.Instantiate(prefabPath, spawn.transform.position, spawn.transform.rotation);
+            if (_playerObject.TryGetComponent<Tank>(out var tank))
+            {
+                tank.Setup();
+            }
         }
     }
 }

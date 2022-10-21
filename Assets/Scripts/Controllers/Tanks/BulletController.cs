@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System;
 using System.Collections.Generic;
 using Tanks.Extensions;
 using UnityEngine;
@@ -19,6 +20,13 @@ namespace Tanks
         private float _fired = 0.0f;
         private int _spawned = 0;
 
+        private Action<Collider2D> _onBulletHit;
+
+        public void Setup(Action<Collider2D> onBulletHit)
+        {
+            _onBulletHit = onBulletHit;
+        }
+
         private bool CanFire()
         {
             return (
@@ -38,7 +46,7 @@ namespace Tanks
                 var direction = new Vector2(SpawnPoint.up.x, SpawnPoint.up.y);
 
                 var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
-                bullet.Setup(direction, IgnoreCollider, OnBulletDestroy);
+                bullet.Setup(direction, IgnoreCollider, OnBulletHit);
 
                 photonView.RPC(nameof(RPCFire), RpcTarget.Others, position, direction);
             }
@@ -51,8 +59,9 @@ namespace Tanks
             bullet.Setup(direction, IgnoreCollider, info.GetLag());
         }
 
-        private void OnBulletDestroy()
+        private void OnBulletHit(Collider2D collider)
         {
+            _onBulletHit(collider);
             _spawned -= 1;
         }
     }
