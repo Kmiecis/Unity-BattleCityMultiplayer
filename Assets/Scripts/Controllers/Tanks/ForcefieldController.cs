@@ -34,7 +34,7 @@ namespace Tanks
 
             OnEnableChanged(IsActive);
 
-            photonView.RPC(nameof(RPCEnable), RpcTarget.AllViaServer, duration);
+            photonView.RPC(nameof(RPCEnable), RpcTarget.Others, duration);
         }
 
         [PunRPC]
@@ -44,6 +44,19 @@ namespace Tanks
             _duration = duration - lag;
 
             OnEnableChanged(IsActive);
+        }
+
+        public void Disable()
+        {
+            OnEnableChanged(false);
+
+            photonView.RPC(nameof(RPCDisable), RpcTarget.Others);
+        }
+
+        [PunRPC]
+        public void RPCDisable()
+        {
+            OnEnableChanged(false);
         }
 
         private void Update()

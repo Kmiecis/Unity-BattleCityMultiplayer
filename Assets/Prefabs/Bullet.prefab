@@ -142,9 +142,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8375705351967466674}
+  - component: {fileID: 164408767906429098}
   - component: {fileID: 2490198431843233260}
   - component: {fileID: 1922317431202854769}
-  - component: {fileID: 164408767906429098}
+  - component: {fileID: -4712675952494356451}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -169,40 +170,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2490198431843233260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060501466293695029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ebe45023b19214682793f28a138cc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 968
-  <ModelObject>k__BackingField: {fileID: 6608108848033877547}
-  <ExplosionObject>k__BackingField: {fileID: 1001159980}
-  <MovementController>k__BackingField: {fileID: 1922317431202854769}
-  <CollisionController>k__BackingField: {fileID: 5324819681694298453}
-  <AnimatorEvent>k__BackingField: {fileID: 169254954}
---- !u!114 &1922317431202854769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060501466293695029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11cb9cc54f2dae1429ac6ef6bc67ee56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  <Rigidbody>k__BackingField: {fileID: 164408767906429098}
 --- !u!50 &164408767906429098
 Rigidbody2D:
   serializedVersion: 4
@@ -224,6 +191,53 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2490198431843233260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5060501466293695029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ebe45023b19214682793f28a138cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 968
+  <ModelObject>k__BackingField: {fileID: 6608108848033877547}
+  <MovementController>k__BackingField: {fileID: 1922317431202854769}
+  <CollisionController>k__BackingField: {fileID: 5324819681694298453}
+  <ExplosionController>k__BackingField: {fileID: -4712675952494356451}
+--- !u!114 &1922317431202854769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5060501466293695029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cb9cc54f2dae1429ac6ef6bc67ee56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  <Rigidbody>k__BackingField: {fileID: 164408767906429098}
+--- !u!114 &-4712675952494356451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5060501466293695029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288445612595c7d41a136edb5411241c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ExplosionObject>k__BackingField: {fileID: 1001159980}
+  <AnimatorEvent>k__BackingField: {fileID: 169254954}
 --- !u!1 &6608108848033877547
 GameObject:
   m_ObjectHideFlags: 0

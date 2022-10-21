@@ -7,7 +7,6 @@ namespace Tanks
 {
     public class Bullet : MonoBehaviour
     {
-        private const string kExplosionEndEvent = "end";
         private const float kExplosionDelay = 5.0f;
 
         public LayerMask hitMask;
@@ -15,31 +14,34 @@ namespace Tanks
         [field: SerializeField]
         public GameObject ModelObject { get; private set; }
         [field: SerializeField]
-        public GameObject ExplosionObject { get; private set; }
-        [field: SerializeField]
         public MovementController MovementController { get; private set; }
         [field: SerializeField]
         public Collision2DController CollisionController { get; private set; }
         [field: SerializeField]
-        public AnimatorEventHandler AnimatorEvent { get; private set; }
+        public ExplosionController ExplosionController { get; private set; }
 
-        public event Action<Bullet> CalledOnDestroy;
-
+        private Action _onExplode;
         private CoroutineWrapper _explosionWrapper = new CoroutineWrapper();
-
-        public void Setup(Vector2 direction, float lag, Collider2D ignoreCollider, Action<Bullet> onDestroy)
+        
+        public void Setup(Vector2 direction, Collider2D ignoreCollider, Action onExplode)
         {
-            CalledOnDestroy += onDestroy;
+            _onExplode = onExplode;
 
-            MovementController.SetMovement(direction);
+            Setup(direction, ignoreCollider);
+        }
 
+        public void Setup(Vector2 direction, Collider2D ignoreCollider, float lag = 0.0f)
+        {
             var position = (Vector2)transform.position;
             var distance = lag * MovementController.speed;
-            var hit = Physics2D.Raycast(position, direction, distance, hitMask);
-            if (hit)
+
+            MovementController.SetMovement(direction);
+            
+            if (UPhysics2D.RaycastIgnoreCollision(position, direction, out var hit, ignoreCollider, distance, hitMask))
             {
                 var traveled = (hit.point - position).magnitude;
                 lag = traveled / MovementController.speed;
+
                 MovementController.ApplyMovement(lag);
 
                 Explode();
@@ -47,30 +49,26 @@ namespace Tanks
             else
             {
                 Physics2D.IgnoreCollision(CollisionController.Collider, ignoreCollider);
+
                 MovementController.ApplyMovement(lag);
 
                 Prepare();
             }
         }
 
-        public void Explode()
+        private void Explode()
         {
-            MovementController.ResetMovement();
-
             ModelObject.SetActive(false);
-            ExplosionObject.SetActive(true);
 
-            CalledOnDestroy?.Invoke(this);
-            CalledOnDestroy = null;
+            MovementController.ResetMovement();
+            ExplosionController.Explode(Destroy);
 
+            _onExplode?.Invoke();
             _explosionWrapper.Stop();
         }
 
-        public void Prepare()
+        private void Prepare()
         {
-            ModelObject.SetActive(true);
-            ExplosionObject.SetActive(false);
-
             _explosionWrapper
                 .WithTarget(this)
                 .WithEnumerator(ExplodeDelayed)
@@ -87,12 +85,9 @@ namespace Tanks
             Explode();
         }
 
-        public void _OnAnimatorEvent(string value)
+        private void Destroy()
         {
-            if (value == kExplosionEndEvent)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 }

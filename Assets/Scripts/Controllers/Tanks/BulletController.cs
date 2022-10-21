@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using System.Collections.Generic;
+using Tanks.Extensions;
 using UnityEngine;
 
 namespace Tanks
@@ -16,13 +17,13 @@ namespace Tanks
         public Collider2D IgnoreCollider { get; private set; }
 
         private float _fired = 0.0f;
-        private List<Bullet> _spawned = new List<Bullet>();
+        private int _spawned = 0;
 
         private bool CanFire()
         {
             return (
                 _fired + delay < Time.time &&
-                _spawned.Count < limit
+                _spawned < limit
             );
         }
 
@@ -30,26 +31,29 @@ namespace Tanks
         {
             if (CanFire())
             {
-                photonView.RPC(nameof(RPCFire), RpcTarget.AllViaServer, SpawnPoint.position, SpawnPoint.up);
-                
                 _fired = Time.time;
+                _spawned += 1;
+
+                var position = SpawnPoint.position;
+                var direction = new Vector2(SpawnPoint.up.x, SpawnPoint.up.y);
+
+                var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
+                bullet.Setup(direction, IgnoreCollider, OnBulletDestroy);
+
+                photonView.RPC(nameof(RPCFire), RpcTarget.Others, position, direction);
             }
         }
 
         [PunRPC]
-        public void RPCFire(Vector3 position, Vector3 forward, PhotonMessageInfo info)
+        public void RPCFire(Vector3 position, Vector2 direction, PhotonMessageInfo info)
         {
-            var direction = new Vector2(forward.x, forward.y);
-            var lag = (float)(PhotonNetwork.Time - info.SentServerTime);
-
             var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
-            _spawned.Add(bullet);
-            bullet.Setup(direction, lag, IgnoreCollider, OnBulletDestroy);
+            bullet.Setup(direction, IgnoreCollider, info.GetLag());
         }
 
-        private void OnBulletDestroy(Bullet bullet)
+        private void OnBulletDestroy()
         {
-            _spawned.Remove(bullet);
+            _spawned -= 1;
         }
     }
 }

@@ -1,4 +1,3 @@
-using Common.Mathematics;
 using UnityEngine;
 
 namespace Tanks
@@ -42,7 +41,7 @@ namespace Tanks
 
         public void ApplyMovement(float time)
         {
-            Rigidbody.position += Rigidbody.velocity * time;
+            Rigidbody.transform.position += (Vector3)(Rigidbody.velocity * time);
         }
 
         public void ResetMovement()

@@ -12,6 +12,8 @@ namespace Tanks
         public BulletController FiringController { get; private set; }
         [field: SerializeField]
         public ForcefieldController ForcefieldController { get; private set; }
+        [field: SerializeField]
+        public ExplosionController ExplosionController { get; private set; }
 
         private void OnEnable()
         {
