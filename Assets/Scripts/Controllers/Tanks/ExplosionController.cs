@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using UnityEngine;
 
 namespace Tanks
 {
-    public class ExplosionController : MonoBehaviour
+    public class ExplosionController : MonoBehaviourPun
     {
         private const string kExplosionEndEvent = "end";
 
@@ -14,31 +15,43 @@ namespace Tanks
 
         private Action _onFinish;
 
-        public void Setup()
+        private void SetVisibility(bool value)
         {
-            ExplosionObject.SetActive(false);
+            ExplosionObject.SetActive(value);
         }
 
         public void Explode(Action onFinish = null)
         {
             _onFinish = onFinish;
 
-            ExplosionObject.SetActive(true);
+            SetVisibility(true);
+        }
+
+        public void RPCExplode()
+        {
+            photonView.RPC(nameof(RPCExplode_Internal), RpcTarget.Others);
+        }
+
+        [PunRPC]
+        private void RPCExplode_Internal()
+        {
+            SetVisibility(true);
         }
 
         private void OnAnimatorEvent(string value)
         {
-            ExplosionObject.SetActive(false);
-
             if (value == kExplosionEndEvent)
             {
+                SetVisibility(false);
+
                 _onFinish?.Invoke();
+                _onFinish = null;
             }
         }
 
         private void Awake()
         {
-            Setup();
+            SetVisibility(false);
 
             AnimatorEvent.OnAnimatorEvent.AddListener(OnAnimatorEvent);
         }

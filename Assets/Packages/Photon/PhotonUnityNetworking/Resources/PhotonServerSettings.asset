@@ -43,6 +43,14 @@ MonoBehaviour:
   - RPCDeath
   - RPCEnable
   - RPCDisable
+  - RPCDestroy
+  - RPCRespawn
+  - RPCExplode
+  - RPCExplode_Internal
+  - RPCDestroy_Internal
+  - RPCFire_Internal
+  - RPCEnable_Internal
+  - RPCRespawn_Internal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

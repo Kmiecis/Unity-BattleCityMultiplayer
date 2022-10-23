@@ -16217,9 +16217,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 922825969}
     m_Modifications:
+    - target: {fileID: 1845567749229481888, guid: 9afafaa395f535546b456e8f305c3989, type: 3}
+      propertyPath: <BlinkObject>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3249015638063421186, guid: 9afafaa395f535546b456e8f305c3989, type: 3}
       propertyPath: m_Name
       value: Spawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6567446505156729224, guid: 9afafaa395f535546b456e8f305c3989, type: 3}
+      propertyPath: m_Name
+      value: Trigger
       objectReference: {fileID: 0}
     - target: {fileID: 8830019260970796566, guid: 9afafaa395f535546b456e8f305c3989, type: 3}
       propertyPath: m_RootOrder

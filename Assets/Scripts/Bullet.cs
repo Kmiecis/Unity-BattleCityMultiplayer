@@ -51,7 +51,7 @@ namespace Tanks
 
                 MovementController.ApplyMovement(lag);
 
-                Run();
+                Fly();
             }
         }
 
@@ -66,7 +66,7 @@ namespace Tanks
             StopAllCoroutines();
         }
 
-        private void Run()
+        private void Fly()
         {
             new CoroutineWrapper()
                 .WithTarget(this)

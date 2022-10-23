@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Tanks.Extensions;
 using UnityEngine;
 
 namespace Tanks
@@ -10,16 +11,17 @@ namespace Tanks
         [field: SerializeField]
         public GameObject ForcefieldObject { get; private set; }
 
-        private float _duration = 0.0f;
+        private float _duration;
 
         public bool IsActive
         {
             get => _duration > 0.0f;
         }
 
-        private void OnEnableChanged(bool value)
+        private void SetForcefield(bool value)
         {
             enabled = value;
+
             ForcefieldObject.SetActive(value);
         }
 
@@ -32,39 +34,40 @@ namespace Tanks
         {
             _duration = duration;
 
-            OnEnableChanged(IsActive);
+            SetForcefield(true);
 
-            photonView.RPC(nameof(RPCEnable), RpcTarget.Others, duration);
+            RPCEnable(duration);
+        }
+
+        public void RPCEnable()
+        {
+            RPCEnable(duration);
+        }
+
+        public void RPCEnable(float duration)
+        {
+            photonView.RPC(nameof(RPCEnable_Internal), RpcTarget.Others, duration);
         }
 
         [PunRPC]
-        public void RPCEnable(float duration, PhotonMessageInfo info)
+        private void RPCEnable_Internal(float duration, PhotonMessageInfo info)
         {
-            var lag = (float)(PhotonNetwork.Time - info.SentServerTime);
-            _duration = duration - lag;
+            _duration = duration - info.GetLag();
 
-            OnEnableChanged(IsActive);
+            SetForcefield(true);
         }
 
-        public void Disable()
+        private void Awake()
         {
-            OnEnableChanged(false);
-
-            photonView.RPC(nameof(RPCDisable), RpcTarget.Others);
-        }
-
-        [PunRPC]
-        public void RPCDisable()
-        {
-            OnEnableChanged(false);
+            SetForcefield(false);
         }
 
         private void Update()
         {
             _duration -= Time.deltaTime;
-            if (!IsActive)
+            if (_duration <= 0.0f)
             {
-                OnEnableChanged(false);
+                SetForcefield(false);
             }
         }
     }

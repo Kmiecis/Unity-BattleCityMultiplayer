@@ -18,34 +18,51 @@ namespace Tanks
         public ForcefieldController ForcefieldController { get; private set; }
         [field: SerializeField]
         public ExplosionController ExplosionController { get; private set; }
+        [field: SerializeField]
+        public RespawnController RespawnController { get; private set; }
 
-        public void Setup()
+        private GameController _gameController;
+
+        public void Setup(GameController gameController)
         {
-            ModelObject.SetActive(true);
-            ExplosionController.Setup();
-            InputController.enabled = photonView.IsMine;
+            _gameController = gameController;
         }
 
-        private void Explode()
+        private void SetVisiblity(bool value)
         {
-            ModelObject.SetActive(false);
-            ExplosionController.Explode();
-            InputController.enabled = false;
+            ModelObject.SetActive(value);
+            InputController.enabled = value && photonView.IsMine;
         }
 
         public void Destroy()
         {
-            Explode();
+            SetVisiblity(false);
 
-            photonView.RPC(nameof(RPCDestroy), RpcTarget.Others, transform.position);
+            ExplosionController.Explode();
+
+            RPCDestroy();
+        }
+
+        public void RPCDestroy()
+        {
+            photonView.RPC(nameof(RPCDestroy_Internal), RpcTarget.Others, transform.position);
         }
 
         [PunRPC]
-        private void RPCDestroy(Vector3 position, PhotonMessageInfo info)
+        private void RPCDestroy_Internal(Vector3 position)
         {
             transform.position = position;
 
-            Explode();
+            SetVisiblity(false);
+
+            if (!photonView.IsMine)
+            {
+                ExplosionController.Explode();
+            }
+            else
+            {
+                ExplosionController.Explode(OnExplode);
+            }
         }
 
         private void OnBulletHit(Collider2D other)
@@ -59,14 +76,30 @@ namespace Tanks
             }
         }
 
-        private void OnEnable()
+        private void OnExplode()
         {
+            var spawn = _gameController.GetBestSpawn();
+            RespawnController.Respawn(spawn.transform.position);
+        }
+
+        private void OnRespawn()
+        {
+            SetVisiblity(true);
+
             ForcefieldController.Enable();
         }
 
         private void Awake()
         {
             BulletController.Setup(OnBulletHit);
+            RespawnController.Setup(OnRespawn);
+        }
+
+        private void Start()
+        {
+            SetVisiblity(true);
+
+            ForcefieldController.Enable();
         }
 
         private void Update()

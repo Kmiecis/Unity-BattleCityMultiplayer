@@ -48,12 +48,17 @@ namespace Tanks
                 var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
                 bullet.Setup(direction, IgnoreCollider, OnBulletHit);
 
-                photonView.RPC(nameof(RPCFire), RpcTarget.Others, position, direction);
+                RPCFire(position, direction);
             }
         }
 
+        public void RPCFire(Vector3 position, Vector2 direction)
+        {
+            photonView.RPC(nameof(RPCFire_Internal), RpcTarget.Others, position, direction);
+        }
+
         [PunRPC]
-        public void RPCFire(Vector3 position, Vector2 direction, PhotonMessageInfo info)
+        private void RPCFire_Internal(Vector3 position, Vector2 direction, PhotonMessageInfo info)
         {
             var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
             bullet.Setup(direction, IgnoreCollider, info.GetLag());
