@@ -1,6 +1,4 @@
-﻿using ExitGames.Client.Photon;
-using Photon.Pun;
-using Photon.Realtime;
+﻿using UnityEngine;
 
 namespace Tanks
 {
@@ -11,29 +9,13 @@ namespace Tanks
         public const int MIN_TEAM_PLAYERS = 1;
         public const int MAX_TEAM_PLAYERS = 7;
 
-        public static bool TryGetProperty<T>(Hashtable properties, object key, out T value)
-        {
-            if (properties.TryGetValue(key, out var obj))
-            {
-                value = (T)obj;
-                return true;
-            }
-            value = default;
-            return false;
-        }
+        public const int TEAM_A = -1;
+        public const int TEAM_B = +1;
+        public const int NO_TEAM = 0;
 
-        public static void SetInitialProperties(Player player, int team)
+        public static int GetRandomTeam()
         {
-            var properties = new Hashtable
-            {
-                { TEAM_PROPERTY, team }
-            };
-            player.SetCustomProperties(properties);
-        }
-
-        public static void SetInitialProperties(int team)
-        {
-            SetInitialProperties(PhotonNetwork.LocalPlayer, team);
+            return Random.Range(0, 2) * 2 - 1;
         }
     }
 }

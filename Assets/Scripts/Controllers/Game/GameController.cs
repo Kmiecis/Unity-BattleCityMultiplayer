@@ -49,13 +49,13 @@ namespace Tanks
 
         public Spawn GetBestSpawn()
         {
-            var team = GameProperties.GetTeam(PhotonNetwork.LocalPlayer);
+            var team = PhotonNetwork.LocalPlayer.GetTeam();
             return GetBestSpawn(team);
         }
 
         public string GetTankPrefabPath()
         {
-            var team = GameProperties.GetTeam(PhotonNetwork.LocalPlayer);
+            var team = PhotonNetwork.LocalPlayer.GetTeam();
             return GetTankPrefabPath(team);
         }
 

@@ -137,8 +137,8 @@ namespace Tanks.UI
         {
             var entry = Instantiate(EntryPrefab);
 
-            var team = GameProperties.GetTeam(player, GetBestTeam());
-            var isReady = GameProperties.GetIsReady(player);
+            var team = player.GetTeam(GetBestTeam());
+            var isReady = player.GetIsReady();
 
             entry.Setup(player, isReady, team);
 
@@ -155,7 +155,7 @@ namespace Tanks.UI
 
             SetEntryParent(LocalEntry, team);
 
-            GameProperties.SetInitialProperties(team);
+            PhotonNetwork.LocalPlayer.SetTeam(team);
         }
 
         private bool TryGetEntry(int id, out RoomPlayerEntry entry)
@@ -207,7 +207,7 @@ namespace Tanks.UI
 
             entry.IsReady = !entry.IsReady;
 
-            GameProperties.SetIsReady(entry.IsReady);
+            PhotonNetwork.LocalPlayer.SetIsReady(entry.IsReady);
 
             SetupStartSelection(ArePlayersReady());
         }
@@ -225,27 +225,29 @@ namespace Tanks.UI
 
                 SetEntryParent(entry, entry.Team);
 
-                GameProperties.SetTeam(entry.Team);
+                PhotonNetwork.LocalPlayer.SetTeam(entry.Team);
             }
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             CreateEntry(newPlayer);
+
+            SetupStartSelection(false);
         }
 
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
             if (TryGetEntry(targetPlayer.ActorNumber, out var entry))
             {
-                if (GameProperties.TryGetIsReady(changedProps, out var isReady))
+                if (changedProps.TryGetIsReady(out var isReady))
                 {
                     entry.IsReady = isReady;
 
                     SetupStartSelection(ArePlayersReady());
                 }
 
-                if (GameProperties.TryGetTeam(changedProps, out var team))
+                if (changedProps.TryGetTeam(out var team))
                 {
                     SwitchPlayerEntry(entry, entry.Team, team);
 
