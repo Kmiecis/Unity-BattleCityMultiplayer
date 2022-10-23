@@ -1,6 +1,5 @@
 ﻿using Photon.Pun;
 using System;
-using System.Collections.Generic;
 using Tanks.Extensions;
 using UnityEngine;
 
@@ -20,11 +19,11 @@ namespace Tanks
         private float _fired = 0.0f;
         private int _spawned = 0;
 
-        private Action<Collider2D> _onBulletHit;
+        private Action<Collider2D> _callback;
 
-        public void Setup(Action<Collider2D> onBulletHit)
+        public void SetCallback(Action<Collider2D> callback)
         {
-            _onBulletHit = onBulletHit;
+            _callback = callback;
         }
 
         private bool CanFire()
@@ -66,7 +65,7 @@ namespace Tanks
 
         private void OnBulletHit(Collider2D collider)
         {
-            _onBulletHit(collider);
+            _callback(collider);
             _spawned -= 1;
         }
     }

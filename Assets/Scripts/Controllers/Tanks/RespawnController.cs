@@ -14,7 +14,7 @@ namespace Tanks
         [field: SerializeField]
         public GameObject BlinkObject { get; private set; }
 
-        private Action _onRespawn;
+        private Action _callback;
         private float _duration;
 
         public bool IsRespawning
@@ -22,16 +22,23 @@ namespace Tanks
             get => _duration > 0.0f;
         }
 
-        public void Setup(Action onRespawn)
+        public void SetCallback(Action callback)
         {
-            _onRespawn = onRespawn;
+            _callback = callback;
         }
 
-        private void SetRespawning(bool value)
+        private void SetVisibility(bool value)
         {
             enabled = value;
 
             BlinkObject.SetActive(value);
+        }
+
+        private void SetRespawn(Vector3 position, float duration)
+        {
+            Target.position = position;
+
+            _duration = duration;
         }
 
         public void Respawn(Vector3 position)
@@ -41,11 +48,9 @@ namespace Tanks
 
         public void Respawn(Vector3 position, float duration)
         {
-            Target.position = position;
+            SetRespawn(position, duration);
 
-            _duration = duration;
-
-            SetRespawning(true);
+            SetVisibility(true);
 
             RPCRespawn(position, duration);
         }
@@ -63,16 +68,14 @@ namespace Tanks
         [PunRPC]
         private void RPCRespawn_Internal(Vector3 position, float duration, PhotonMessageInfo info)
         {
-            Target.position = position;
+            SetRespawn(position, duration - info.GetLag());
 
-            _duration = duration - info.GetLag();
-
-            SetRespawning(true);
+            SetVisibility(true);
         }
 
         private void Awake()
         {
-            SetRespawning(false);
+            SetVisibility(false);
         }
 
         private void Update()
@@ -80,9 +83,9 @@ namespace Tanks
             _duration -= Time.deltaTime;
             if (_duration <= 0.0f)
             {
-                SetRespawning(false);
+                SetVisibility(false);
 
-                _onRespawn.Invoke();
+                _callback.Invoke();
             }
         }
     }

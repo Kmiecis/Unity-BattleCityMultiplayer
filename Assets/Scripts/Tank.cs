@@ -34,11 +34,16 @@ namespace Tanks
             InputController.enabled = value && photonView.IsMine;
         }
 
-        public void Destroy()
+        private void Explode()
         {
             SetVisiblity(false);
 
             ExplosionController.Explode();
+        }
+
+        public void Destroy()
+        {
+            Explode();
 
             RPCDestroy();
         }
@@ -53,15 +58,11 @@ namespace Tanks
         {
             transform.position = position;
 
-            SetVisiblity(false);
+            Explode();
 
-            if (!photonView.IsMine)
+            if (photonView.IsMine)
             {
-                ExplosionController.Explode();
-            }
-            else
-            {
-                ExplosionController.Explode(OnExplode);
+                ExplosionController.SetCallback(OnExplode);
             }
         }
 
@@ -91,8 +92,8 @@ namespace Tanks
 
         private void Awake()
         {
-            BulletController.Setup(OnBulletHit);
-            RespawnController.Setup(OnRespawn);
+            BulletController.SetCallback(OnBulletHit);
+            RespawnController.SetCallback(OnRespawn);
         }
 
         private void Start()

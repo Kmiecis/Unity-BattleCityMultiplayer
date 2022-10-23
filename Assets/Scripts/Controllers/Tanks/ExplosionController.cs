@@ -13,17 +13,20 @@ namespace Tanks
         [field: SerializeField]
         public AnimatorEventHandler AnimatorEvent { get; private set; }
 
-        private Action _onFinish;
+        private Action _callback;
 
         private void SetVisibility(bool value)
         {
             ExplosionObject.SetActive(value);
         }
 
-        public void Explode(Action onFinish = null)
+        public void SetCallback(Action callback)
         {
-            _onFinish = onFinish;
+            _callback = callback;
+        }
 
+        public void Explode()
+        {
             SetVisibility(true);
         }
 
@@ -44,8 +47,8 @@ namespace Tanks
             {
                 SetVisibility(false);
 
-                _onFinish?.Invoke();
-                _onFinish = null;
+                _callback?.Invoke();
+                _callback = null;
             }
         }
 

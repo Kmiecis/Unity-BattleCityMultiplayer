@@ -20,11 +20,11 @@ namespace Tanks
         [field: SerializeField]
         public ExplosionController ExplosionController { get; private set; }
 
-        private Action<Collider2D> _onHit;
+        private Action<Collider2D> _callback;
         
-        public void Setup(Vector2 direction, Collider2D ignoreCollider, Action<Collider2D> onHit)
+        public void Setup(Vector2 direction, Collider2D ignoreCollider, Action<Collider2D> callback)
         {
-            _onHit = onHit;
+            _callback = callback;
 
             Setup(direction, ignoreCollider);
         }
@@ -60,9 +60,12 @@ namespace Tanks
             ModelObject.SetActive(false);
 
             MovementController.ResetMovement();
-            ExplosionController.Explode(Destroy);
+            ExplosionController.Explode();
+            ExplosionController.SetCallback(Destroy);
 
-            _onHit?.Invoke(collider);
+            _callback?.Invoke(collider);
+            _callback = null;
+
             StopAllCoroutines();
         }
 
