@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ServerSettings>k__BackingField: {fileID: 11400000, guid: 70b45deba4bf0bf4caf5234ec9ff0ba4, type: 2}
+  <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <LoginPanel>k__BackingField: {fileID: 1813927873}
   <LoginAttemptPanel>k__BackingField: {fileID: 1617736833}
   <SelectionPanel>k__BackingField: {fileID: 483989233}
@@ -340,6 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648f89b1e15951c4f946b0df0fb4abbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <RoomNameText>k__BackingField: {fileID: 1476693295}
   <EntryPrefab>k__BackingField: {fileID: 5093056903322025271, guid: e656a516fdb18fa49bb861881f972d7a, type: 3}
   <TeamAParent>k__BackingField: {fileID: 1477585391}
@@ -360,6 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e522fabf7d55241a6017d5c91aaef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <EntryPrefab>k__BackingField: {fileID: 6960645104530376976, guid: 96186967b9abd41488bae4313409fc0a, type: 3}
   <EntryParent>k__BackingField: {fileID: 1455945775}
   <SelectionController>k__BackingField: {fileID: 623823883}
@@ -853,6 +856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f80ca517f7084445a8b9ec38d40967f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <NameInput>k__BackingField: {fileID: 808829708}
   <SizeInput>k__BackingField: {fileID: 1661090142}
 --- !u!114 &253823171

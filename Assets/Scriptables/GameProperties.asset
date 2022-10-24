@@ -15,6 +15,6 @@ MonoBehaviour:
   minPlayers: 2
   maxPlayers: 14
   defaultPlayers: 6
-  minTeamPlayers: 1
+  minTeamPlayers: 0
   maxTeamPlayers: 7
   maxRoomsListed: 7
