@@ -15,6 +15,11 @@ namespace Tanks
 
         private Action _callback;
 
+        public bool IsExploding
+        {
+            get => ExplosionObject.activeSelf;
+        }
+
         private void SetVisibility(bool value)
         {
             ExplosionObject.SetActive(value);

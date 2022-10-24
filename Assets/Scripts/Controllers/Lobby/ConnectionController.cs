@@ -117,7 +117,14 @@ namespace Tanks
 
         private void Start()
         {
-            ChangeToPanel(LoginPanel);
+            if (string.IsNullOrEmpty(PhotonNetwork.LocalPlayer.NickName))
+            {
+                ChangeToPanel(LoginPanel);
+            }
+            else
+            {
+                ChangeToPanel(SelectionPanel);
+            }
         }
 
         private void Update()

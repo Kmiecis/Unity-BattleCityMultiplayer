@@ -21,14 +21,12 @@ namespace Tanks
         public ExplosionController ExplosionController { get; private set; }
 
         private Action<Collider2D> _callback;
-        
-        public void Setup(Vector2 direction, Collider2D ignoreCollider, Action<Collider2D> callback)
+
+        public void SetCallback(Action<Collider2D> callback)
         {
             _callback = callback;
-
-            Setup(direction, ignoreCollider);
         }
-
+        
         public void Setup(Vector2 direction, Collider2D ignoreCollider, float lag = 0.0f)
         {
             var position = (Vector2)transform.position;

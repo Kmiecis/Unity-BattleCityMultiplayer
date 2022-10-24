@@ -68,10 +68,8 @@ namespace Tanks
 
         private void OnBulletHit(Collider2D other)
         {
-            if (
-                other.TryGetComponentInParent<Tank>(out var tank) &&
-                !tank.ForcefieldController.IsActive
-            )
+            if (other.TryGetComponentInParent<Tank>(out var tank) &&
+                !tank.ForcefieldController.IsActive)
             {
                 tank.Destroy();
             }

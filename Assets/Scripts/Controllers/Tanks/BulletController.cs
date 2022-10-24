@@ -45,7 +45,8 @@ namespace Tanks
                 var direction = new Vector2(SpawnPoint.up.x, SpawnPoint.up.y);
 
                 var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
-                bullet.Setup(direction, IgnoreCollider, OnBulletHit);
+                bullet.SetCallback(OnBulletHit);
+                bullet.Setup(direction, IgnoreCollider);
 
                 RPCFire(position, direction);
             }
