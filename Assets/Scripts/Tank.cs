@@ -24,6 +24,11 @@ namespace Tanks
 
         private GameController _gameController;
 
+        public int Team
+        {
+            get => photonView.Owner.GetTeam();
+        }
+
         public void Setup(GameController gameController)
         {
             _gameController = gameController;
@@ -31,8 +36,8 @@ namespace Tanks
 
         private void SetVisiblity(bool value)
         {
+            enabled = value && photonView.IsMine;
             ModelObject.SetActive(value);
-            InputController.enabled = value && photonView.IsMine;
         }
 
         private void Explode()
@@ -57,9 +62,9 @@ namespace Tanks
         [PunRPC]
         private void RPCDestroy_Internal(Vector3 position)
         {
-            transform.position = position;
-
             Explode();
+
+            transform.position = position;
 
             if (photonView.IsMine)
             {
@@ -72,7 +77,8 @@ namespace Tanks
         private void OnBulletHit(Collider2D other)
         {
             if (other.TryGetComponentInParent<Tank>(out var tank) &&
-                !tank.ForcefieldController.IsActive)
+                !tank.ForcefieldController.IsActive &&
+                tank.Team != Team)
             {
                 tank.Destroy();
 
@@ -122,6 +128,11 @@ namespace Tanks
             {
                 BulletController.Fire();
             }
+        }
+
+        private void OnDisable()
+        {
+            MovementController.ResetMovement();
         }
     }
 }
