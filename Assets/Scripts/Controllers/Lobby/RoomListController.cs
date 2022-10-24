@@ -9,6 +9,8 @@ namespace Tanks.UI
     public class RoomListController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
+        public GameProperties GameProperties { get; private set; }
+        [field: SerializeField]
         public RoomEntry EntryPrefab { get; private set; }
         [field: SerializeField]
         public Transform EntryParent { get; private set; }
@@ -43,7 +45,7 @@ namespace Tanks.UI
 
         private void CreateEntries(List<RoomInfo> rooms)
         {
-            var count = Mathf.Min(rooms.Count, GameProperties.MAX_TEAM_PLAYERS);
+            var count = Mathf.Min(rooms.Count, GameProperties.maxRoomsListed);
             for (int i = 0; i < count; ++i)
             {
                 var room = rooms[i];

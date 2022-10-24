@@ -10,6 +10,8 @@ namespace Tanks.UI
         private const int kPlayerTtl = 1000 * 10;
 
         [field: SerializeField]
+        public GameProperties GameProperties { get; private set; }
+        [field: SerializeField]
         public TMP_InputField NameInput { get; private set; }
         [field: SerializeField]
         public TMP_InputField SizeInput { get; private set; }
@@ -29,7 +31,7 @@ namespace Tanks.UI
         private byte GetRoomSize()
         {
             byte.TryParse(SizeInput.text, out var size);
-            return (byte)Mathf.Clamp(size, GameProperties.MIN_PLAYERS, GameProperties.MAX_PLAYERS);
+            return (byte)Mathf.Clamp(size, GameProperties.minPlayers, GameProperties.maxPlayers);
         }
 
         public void _OnNameInputFocused(bool focused)
@@ -80,7 +82,7 @@ namespace Tanks.UI
 
             if (SizeInput != null)
             {
-                SizeInput.text = GameProperties.MIN_PLAYERS.ToString();
+                SizeInput.text = GameProperties.minPlayers.ToString();
             }
         }
     }

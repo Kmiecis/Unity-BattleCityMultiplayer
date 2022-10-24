@@ -11,6 +11,8 @@ namespace Tanks
         public ServerSettings ServerSettings { get; private set; }
 
         [field: SerializeField]
+        public GameProperties GameProperties { get; private set; }
+        [field: SerializeField]
         public GameObject LoginPanel { get; private set; }
         [field: SerializeField]
         public GameObject LoginAttemptPanel { get; private set; }
@@ -100,7 +102,7 @@ namespace Tanks
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
             var roomName = PhotonNetwork.LocalPlayer.NickName + " ROOM";
-            var roomOptions = new RoomOptions { MaxPlayers = GameProperties.MAX_PLAYERS };
+            var roomOptions = new RoomOptions { MaxPlayers = GameProperties.defaultPlayers };
 
             PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);
         }

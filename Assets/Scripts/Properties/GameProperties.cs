@@ -2,12 +2,15 @@
 
 namespace Tanks
 {
-    public static partial class GameProperties
+    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(GameProperties), fileName = nameof(GameProperties))]
+    public class GameProperties : ScriptableObject
     {
-        public const int MIN_PLAYERS = 2;
-        public const int MAX_PLAYERS = 14;
-        public const int MIN_TEAM_PLAYERS = 1;
-        public const int MAX_TEAM_PLAYERS = 7;
+        public int minPlayers = 2;
+        public int maxPlayers = 14;
+        public byte defaultPlayers = 6;
+        public int minTeamPlayers = 1;
+        public int maxTeamPlayers = 7;
+        public int maxRoomsListed = 7;
 
         public const int TEAM_A = -1;
         public const int TEAM_B = +1;

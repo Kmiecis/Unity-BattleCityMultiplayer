@@ -12,6 +12,8 @@ namespace Tanks.UI
     public class RoomPreparationController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
+        public GameProperties GameProperties { get; private set; }
+        [field: SerializeField]
         public TextMeshProUGUI RoomNameText { get; private set; }
         [field: SerializeField]
         public RoomPlayerEntry EntryPrefab { get; private set; }
@@ -172,8 +174,8 @@ namespace Tanks.UI
             var currentEntries = GetTeamEntries(team);
             var otherEntries = GetTeamEntries(team * -1);
             return (
-                currentEntries.Count > GameProperties.MIN_TEAM_PLAYERS &&
-                otherEntries.Count < GameProperties.MAX_TEAM_PLAYERS
+                currentEntries.Count > GameProperties.minTeamPlayers &&
+                otherEntries.Count < GameProperties.maxTeamPlayers
             );
         }
 
