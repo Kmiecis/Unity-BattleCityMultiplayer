@@ -38,6 +38,8 @@ namespace Tanks.UI
         public override void OnLeftRoom()
         {
             PhotonNetwork.Disconnect();
+
+            PhotonNetwork.LocalPlayer.ResetProperties();
         }
 
         public override void OnDisconnected(DisconnectCause cause)
