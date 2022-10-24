@@ -1,5 +1,6 @@
 using Common.Extensions;
 using Photon.Pun;
+using Tanks.Extensions;
 using UnityEngine;
 
 namespace Tanks
@@ -63,6 +64,8 @@ namespace Tanks
             if (photonView.IsMine)
             {
                 ExplosionController.SetCallback(OnExplode);
+
+                PhotonNetwork.LocalPlayer.IncrDeaths();
             }
         }
 
@@ -72,6 +75,8 @@ namespace Tanks
                 !tank.ForcefieldController.IsActive)
             {
                 tank.Destroy();
+
+                PhotonNetwork.LocalPlayer.IncrKills();
             }
         }
 

@@ -1,8 +1,7 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Realtime;
-using Tanks.Extensions;
 
-namespace Tanks
+namespace Tanks.Extensions
 {
     public static partial class PlayerExtensions
     {

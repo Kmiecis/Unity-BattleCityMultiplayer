@@ -5,6 +5,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Tanks.Extensions;
 
 namespace Tanks.UI
 {

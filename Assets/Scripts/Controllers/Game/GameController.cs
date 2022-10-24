@@ -1,6 +1,7 @@
 ﻿using Common.Mathematics;
 using Photon.Pun;
 using UnityEngine;
+using Tanks.Extensions;
 
 namespace Tanks
 {

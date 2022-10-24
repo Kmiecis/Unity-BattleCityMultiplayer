@@ -123,7 +123,7 @@ namespace Tanks
             }
             else
             {
-                ChangeToPanel(SelectionPanel);
+                _OnLoginClicked();
             }
         }
 
