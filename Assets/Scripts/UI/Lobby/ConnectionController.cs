@@ -9,19 +9,21 @@ namespace Tanks
     {
         [field: SerializeField]
         public ServerSettings ServerSettings { get; private set; }
-
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
+
         [field: SerializeField]
         public GameObject LoginPanel { get; private set; }
         [field: SerializeField]
         public GameObject LoginAttemptPanel { get; private set; }
         [field: SerializeField]
-        public GameObject SelectionPanel { get; private set; }
+        public GameObject MenuPanel { get; private set; }
         [field: SerializeField]
         public GameObject CreateRoomPanel { get; private set; }
         [field: SerializeField]
         public GameObject JoinRandomRoomAttemptPanel { get; private set; }
+        [field: SerializeField]
+        public GameObject SettingsPanel { get; private set; }
         [field: SerializeField]
         public GameObject RoomListPanel { get; private set; }
         [field: SerializeField]
@@ -64,6 +66,11 @@ namespace Tanks
             ChangeToPanel(RoomListPanel);
         }
 
+        public void _OnSettingsClicked()
+        {
+            ChangeToPanel(SettingsPanel);
+        }
+
         public override void OnConnectedToMaster()
         {
             PhotonNetwork.JoinLobby();
@@ -71,7 +78,7 @@ namespace Tanks
 
         public override void OnJoinedLobby()
         {
-            ChangeToPanel(SelectionPanel);
+            ChangeToPanel(MenuPanel);
         }
 
         public override void OnLeftLobby()
@@ -86,7 +93,7 @@ namespace Tanks
 
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
-            ChangeToPanel(SelectionPanel);
+            ChangeToPanel(MenuPanel);
         }
 
         public override void OnJoinedRoom()
@@ -96,7 +103,7 @@ namespace Tanks
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            ChangeToPanel(SelectionPanel);
+            ChangeToPanel(MenuPanel);
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
@@ -109,7 +116,7 @@ namespace Tanks
 
         public override void OnLeftRoom()
         {
-            ChangeToPanel(SelectionPanel);
+            ChangeToPanel(MenuPanel);
         }
 
         private void Awake()
@@ -141,7 +148,7 @@ namespace Tanks
                 }
                 else
                 {
-                    ChangeToPanel(SelectionPanel);
+                    ChangeToPanel(MenuPanel);
                 }
             }
         }
