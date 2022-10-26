@@ -756,9 +756,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 503285339}
     m_Modifications:
-    - target: {fileID: 7281926732632095993, guid: a6e5136c044c3ee4d915e4aad18ba0e8, type: 3}
+    - target: {fileID: 1679884169, guid: a6e5136c044c3ee4d915e4aad18ba0e8, type: 3}
+      propertyPath: OnSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 150423663}
+    - target: {fileID: 1679884170, guid: a6e5136c044c3ee4d915e4aad18ba0e8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 210.25
       objectReference: {fileID: 0}
     - target: {fileID: 7281926733199749357, guid: a6e5136c044c3ee4d915e4aad18ba0e8, type: 3}
       propertyPath: m_Name
@@ -987,7 +991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6159008317813085441, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 432.11713
+      value: 479.78876
       objectReference: {fileID: 0}
     - target: {fileID: 6159008317813085441, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1129,7 +1133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1171159987303988942, guid: 9a2fc7f1e0b39df41949da3627c5d3a8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -1663.2051
       objectReference: {fileID: 0}
     - target: {fileID: 4844807221043387946, guid: 9a2fc7f1e0b39df41949da3627c5d3a8, type: 3}
       propertyPath: OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1141,7 +1145,7 @@ PrefabInstance:
       objectReference: {fileID: 150423663}
     - target: {fileID: 7869061984251360855, guid: 9a2fc7f1e0b39df41949da3627c5d3a8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -1551.2251
       objectReference: {fileID: 0}
     - target: {fileID: 7869061984770954320, guid: 9a2fc7f1e0b39df41949da3627c5d3a8, type: 3}
       propertyPath: OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1149,11 +1153,11 @@ PrefabInstance:
       objectReference: {fileID: 150423663}
     - target: {fileID: 7869061984770954333, guid: 9a2fc7f1e0b39df41949da3627c5d3a8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -1398.145
       objectReference: {fileID: 0}
     - target: {fileID: 7869061984985310105, guid: 9a2fc7f1e0b39df41949da3627c5d3a8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -1638.0751
       objectReference: {fileID: 0}
     - target: {fileID: 7869061984985310108, guid: 9a2fc7f1e0b39df41949da3627c5d3a8, type: 3}
       propertyPath: OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target

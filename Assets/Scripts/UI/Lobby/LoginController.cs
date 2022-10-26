@@ -37,15 +37,15 @@ namespace Tanks.UI
             }
         }
 
+        #region Unity methods
         private void Start()
         {
             _defaultName = "P" + Random.Range(1000, 10000);
 
-            if (NameInput != null)
-            {
-                NameInput.text = _defaultName;
-                NameInput.ActivateInputField();
-            }
+            NameInput.text = _defaultName;
+
+            NameInput.ActivateInputField();
         }
+        #endregion
     }
 }

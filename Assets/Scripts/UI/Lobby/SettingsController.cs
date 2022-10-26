@@ -9,13 +9,9 @@ namespace Tanks.UI
         [field: SerializeField]
         public TMP_InputField NameInput { get; private set; }
 
-        private void OnEnable()
-        {
-            NameInput.text = PhotonNetwork.LocalPlayer.NickName;
-            NameInput.ActivateInputField();
-        }
+        private bool _onEnabled;
 
-        private void OnDisable()
+        public void _OnAcceptClicked()
         {
             var playerName = NameInput.text;
             if (!string.IsNullOrEmpty(playerName))
@@ -23,5 +19,35 @@ namespace Tanks.UI
                 PhotonNetwork.LocalPlayer.NickName = playerName;
             }
         }
+
+        public void _OnNameInputFocused(bool focused)
+        {
+            if (focused)
+            {
+                NameInput.ActivateInputField();
+            }
+            else
+            {
+                NameInput.DeactivateInputField(true);
+            }
+        }
+
+        #region Unity methods
+        private void OnEnable()
+        {
+            _onEnabled = true;
+
+            NameInput.text = PhotonNetwork.LocalPlayer.NickName;
+        }
+
+        private void Update()
+        {
+            if (_onEnabled)
+            {
+                NameInput.ActivateInputField();
+                _onEnabled = false;
+            }
+        }
+        #endregion
     }
 }

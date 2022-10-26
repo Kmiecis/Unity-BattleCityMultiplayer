@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tanks
 {
-    public class ConnectionController : MonoBehaviourPunCallbacks
+    public class LobbyUIController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
         public ServerSettings ServerSettings { get; private set; }
@@ -69,6 +69,11 @@ namespace Tanks
         public void _OnSettingsClicked()
         {
             ChangeToPanel(SettingsPanel);
+        }
+
+        public void _OnBackClicked()
+        {
+            ChangeToPanel(MenuPanel);
         }
 
         public override void OnConnectedToMaster()
