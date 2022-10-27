@@ -44,6 +44,7 @@ namespace Tanks
 
         public void _OnLoginClicked()
         {
+            ServerSettings.AppSettings.FixedRegion = "eu";
             PhotonNetwork.ConnectUsingSettings(ServerSettings.AppSettings, ServerSettings.StartInOfflineMode);
 
             ChangeToPanel(LoginAttemptPanel);

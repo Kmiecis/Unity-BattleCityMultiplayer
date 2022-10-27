@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using TMPro;
 using UnityEngine;
+
 namespace Tanks.UI
 {
     public class LoginController : MonoBehaviour
@@ -18,6 +19,15 @@ namespace Tanks.UI
                 return _defaultName;
             }
             return playerName;
+        }
+
+        private void SetupNameInput()
+        {
+            _defaultName = "P" + Random.Range(1000, 10000);
+
+            NameInput.text = _defaultName;
+
+            NameInput.ActivateInputField();
         }
 
         public void _OnLoginClicked()
@@ -40,11 +50,7 @@ namespace Tanks.UI
         #region Unity methods
         private void Start()
         {
-            _defaultName = "P" + Random.Range(1000, 10000);
-
-            NameInput.text = _defaultName;
-
-            NameInput.ActivateInputField();
+            SetupNameInput();
         }
         #endregion
     }
