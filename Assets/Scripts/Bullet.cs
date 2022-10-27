@@ -1,11 +1,14 @@
 ﻿using Common;
+using Common.Extensions;
+using Photon.Pun;
 using System;
 using System.Collections;
+using Tanks.Extensions;
 using UnityEngine;
 
 namespace Tanks
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
         private const float kExplosionDelay = 5.0f;
 
@@ -20,74 +23,137 @@ namespace Tanks
         [field: SerializeField]
         public ExplosionController ExplosionController { get; private set; }
 
-        private Action<Collider2D> _callback;
+        private Action _callback;
 
-        public void SetCallback(Action<Collider2D> callback)
+        public bool IsVisible
+        {
+            get => ModelObject.activeSelf;
+        }
+
+        public int Team
+        {
+            get => photonView.Owner.GetTeam();
+        }
+
+        public void SetCallback(Action callback)
         {
             _callback = callback;
         }
         
-        public void Setup(Vector2 direction, Collider2D ignoreCollider, float lag = 0.0f)
-        {
-            var position = (Vector2)transform.position;
-            var distance = lag * MovementController.speed;
-
-            MovementController.SetMovement(direction);
-            
-            if (UPhysics2D.RaycastIgnoreCollision(position, direction, out var hit, ignoreCollider, distance, hitMask))
-            {
-                var traveled = (hit.point - position).magnitude;
-                lag = traveled / MovementController.speed;
-                
-                MovementController.ApplyMovement(lag);
-
-                Hit(hit.collider);
-            }
-            else
-            {
-                Physics2D.IgnoreCollision(CollisionController.Collider, ignoreCollider);
-
-                MovementController.ApplyMovement(lag);
-
-                Fly();
-            }
-        }
-
         private void Hit(Collider2D collider)
         {
-            ModelObject.SetActive(false);
+            Explode();
+        }
 
-            MovementController.ResetMovement();
-            ExplosionController.Explode();
+        private void HitMine(Collider2D collider)
+        {
+            if (collider.TryGetComponentInParent<Tank>(out var tank))
+            {
+                HitTank(tank);
+            }
+
+            _callback();
+
+            Explode();
+            RPCExplode();
+
             ExplosionController.SetCallback(Destroy);
+        }
 
-            _callback?.Invoke(collider);
-            _callback = null;
+        private void HitTank(Tank tank)
+        {
+            if (!tank.ForcefieldController.IsActive &&
+                tank.Team != Team)
+            {
+                tank.Explode();
+                tank.RPCExplode();
 
-            StopAllCoroutines();
+                photonView.Owner.IncrKills();
+            }
         }
 
         private void Fly()
         {
             new CoroutineWrapper()
                 .WithTarget(this)
-                .WithEnumerator(ExplodeDelayed)
+                .WithEnumerator(DestroyDelayed)
                 .Start();
-        }
-
-        public IEnumerator ExplodeDelayed()
-        {
-            return CoroutineUtility.InvokeDelayed(() => Hit(null), kExplosionDelay);
-        }
-
-        public void _OnCollisionEntered(Collision2D collision)
-        {
-            Hit(collision.collider);
         }
 
         private void Destroy()
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
+
+        public IEnumerator DestroyDelayed()
+        {
+            return CoroutineUtility.InvokeDelayed(Destroy, kExplosionDelay);
+        }
+
+        public void Explode()
+        {
+            ModelObject.SetActive(false);
+
+            MovementController.ResetMovement();
+
+            ExplosionController.Explode();
+        }
+
+        public void RPCExplode()
+        {
+            photonView.RPC(nameof(RPCBulletExplode_Internal), RpcTarget.Others, transform.position);
+        }
+
+        [PunRPC]
+        private void RPCBulletExplode_Internal(Vector3 position)
+        {
+            transform.position = position;
+
+            if (IsVisible)
+            {
+                Explode();
+            }
+        }
+
+        public void _OnCollisionEntered(Collision2D collision)
+        {
+            if (photonView.IsMine)
+            {
+                HitMine(collision.collider);
+            }
+            else
+            {
+                Hit(collision.collider);
+            }
+        }
+
+        #region Photon methods
+        public void OnPhotonInstantiate(PhotonMessageInfo info)
+        {
+            var lag = info.GetLag();
+
+            var position = (Vector2)transform.position;
+            var direction = (Vector2)(transform.rotation * Vector3.up);
+            var distance = lag * MovementController.speed;
+
+            MovementController.SetMovement(direction);
+
+            if (UPhysics2D.Raycast(position, direction, out var hit, distance, hitMask))
+            {
+                var traveled = (hit.point - position).magnitude;
+                lag = traveled / MovementController.speed;
+
+                MovementController.ApplyMovement(lag);
+
+                Hit(hit.collider);
+            }
+            else
+            {
+                MovementController.ApplyMovement(lag);
+
+                Fly();
+            }
+        }
+        #endregion
     }
 }

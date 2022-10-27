@@ -40,49 +40,40 @@ namespace Tanks
             ModelObject.SetActive(value);
         }
 
-        private void Explode()
+        public void Explode()
         {
             SetVisiblity(false);
 
             ExplosionController.Explode();
         }
 
-        public void Destroy()
+        private void ExplodeMine()
         {
-            Explode();
+            SetVisiblity(false);
 
-            RPCDestroy();
+            ExplosionController.Explode();
+            ExplosionController.SetCallback(OnExplode);
+
+            photonView.Owner.IncrDeaths();
         }
 
-        public void RPCDestroy()
+        public void RPCExplode()
         {
-            photonView.RPC(nameof(RPCDestroy_Internal), RpcTarget.Others, transform.position);
+            photonView.RPC(nameof(RPCTankExplode_Internal), RpcTarget.Others, transform.position);
         }
 
         [PunRPC]
-        private void RPCDestroy_Internal(Vector3 position)
+        private void RPCTankExplode_Internal(Vector3 position)
         {
-            Explode();
-
             transform.position = position;
 
             if (photonView.IsMine)
             {
-                ExplosionController.SetCallback(OnExplode);
-
-                PhotonNetwork.LocalPlayer.IncrDeaths();
+                ExplodeMine();
             }
-        }
-
-        private void OnBulletHit(Collider2D other)
-        {
-            if (other.TryGetComponentInParent<Tank>(out var tank) &&
-                !tank.ForcefieldController.IsActive &&
-                tank.Team != Team)
+            else
             {
-                tank.Destroy();
-
-                PhotonNetwork.LocalPlayer.IncrKills();
+                Explode();
             }
         }
 
@@ -101,7 +92,6 @@ namespace Tanks
 
         private void Awake()
         {
-            BulletController.SetCallback(OnBulletHit);
             RespawnController.SetCallback(OnRespawn);
         }
 

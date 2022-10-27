@@ -39,18 +39,11 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
-  - RPCFire
-  - RPCDeath
-  - RPCEnable
-  - RPCDisable
-  - RPCDestroy
-  - RPCRespawn
-  - RPCExplode
-  - RPCExplode_Internal
-  - RPCDestroy_Internal
-  - RPCFire_Internal
+  - RPCBulletExplode_Internal
   - RPCEnable_Internal
+  - RPCExplode_Internal
   - RPCRespawn_Internal
+  - RPCTankExplode_Internal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

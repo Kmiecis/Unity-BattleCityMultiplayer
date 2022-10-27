@@ -1,6 +1,4 @@
 ﻿using Photon.Pun;
-using System;
-using Tanks.Extensions;
 using UnityEngine;
 
 namespace Tanks
@@ -9,7 +7,7 @@ namespace Tanks
     {
         public int limit = 1;
         public float delay = 1.0f;
-        public Bullet bulletPrefab;
+        public string bulletPrefabPath;
 
         [field: SerializeField]
         public Transform SpawnPoint { get; private set; }
@@ -18,13 +16,6 @@ namespace Tanks
 
         private float _fired = 0.0f;
         private int _spawned = 0;
-
-        private Action<Collider2D> _callback;
-
-        public void SetCallback(Action<Collider2D> callback)
-        {
-            _callback = callback;
-        }
 
         private bool CanFire()
         {
@@ -41,32 +32,16 @@ namespace Tanks
                 _fired = Time.time;
                 _spawned += 1;
 
-                var position = SpawnPoint.position;
-                var direction = new Vector2(SpawnPoint.up.x, SpawnPoint.up.y);
-
-                var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
-                bullet.SetCallback(OnBulletHit);
-                bullet.Setup(direction, IgnoreCollider);
-
-                RPCFire(position, direction);
+                var bulletObject = PhotonNetwork.Instantiate(bulletPrefabPath, SpawnPoint.position, SpawnPoint.rotation);
+                if (bulletObject.TryGetComponent<Bullet>(out var bullet))
+                {
+                    bullet.SetCallback(OnBulletHit);
+                }
             }
         }
 
-        public void RPCFire(Vector3 position, Vector2 direction)
+        private void OnBulletHit()
         {
-            photonView.RPC(nameof(RPCFire_Internal), RpcTarget.Others, position, direction);
-        }
-
-        [PunRPC]
-        private void RPCFire_Internal(Vector3 position, Vector2 direction, PhotonMessageInfo info)
-        {
-            var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
-            bullet.Setup(direction, IgnoreCollider, info.GetLag());
-        }
-
-        private void OnBulletHit(Collider2D collider)
-        {
-            _callback(collider);
             _spawned -= 1;
         }
     }
