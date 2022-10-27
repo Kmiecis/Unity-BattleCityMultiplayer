@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Tanks.UI
 {
+    [RequireComponent(typeof(TextMeshProUGUI))]
     public class NetworkClientState : MonoBehaviour
     {
         [field: SerializeField]
@@ -18,12 +19,12 @@ namespace Tanks.UI
             var state = PhotonNetwork.NetworkClientState;
             if (_state != state)
             {
-                _state = state;
-
                 Text.text = state.ToString()
                     .SplitByCamelCase()
                     .Join(' ')
                     .ToUpper();
+
+                _state = state;
             }
         }
 
