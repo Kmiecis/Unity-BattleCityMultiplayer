@@ -7,28 +7,31 @@ namespace Tanks
         public float repairDelay = 1.0f;
 
         [field: SerializeField]
+        public DestroyController DestroyController { get; private set; }
+        [field: SerializeField]
         public CracksController CracksController { get; private set; }
 
         private StatuesController _controller;
-        private int _team;
+        private ETeam _team;
         private float _nextRepairTime = float.MaxValue;
 
-        public int Team
+        public ETeam Team
         {
             get => _team;
         }
 
         public bool IsDestroyed
         {
-            get => !CracksController.HasNext;
+            get => DestroyController.IsDestroyed;
         }
 
-        public bool IsRepaired
+        private void SetDestroyed()
         {
-            get => !CracksController.HasPrev;
+            CracksController.SetDefault();
+            DestroyController.SetDestroyed();
         }
 
-        public void Setup(StatuesController controller, int team)
+        public void Setup(StatuesController controller, ETeam team)
         {
             _controller = controller;
             _team = team;
@@ -36,13 +39,25 @@ namespace Tanks
 
         public void Damage(float lag = 0.0f)
         {
+            if (IsDestroyed)
+                return;
+
             if (CracksController.HasNext)
             {
                 CracksController.SetNext();
             }
 
-            var time = Time.time;
-            _nextRepairTime = time + repairDelay * 2.0f - lag;
+            if (CracksController.HasNext)
+            {
+                var time = Time.time;
+                _nextRepairTime = time + repairDelay * 2.0f - lag;
+            }
+            else
+            {
+                _nextRepairTime = float.MaxValue;
+
+                SetDestroyed();
+            }
         }
 
         public void RPCDamage()
@@ -52,6 +67,9 @@ namespace Tanks
 
         public void Repair(float lag = 0.0f)
         {
+            if (IsDestroyed)
+                return;
+
             if (CracksController.HasPrev)
             {
                 CracksController.SetPrev();

@@ -1,7 +1,8 @@
-using ExitGames.Client.Photon;
+﻿using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using System.Linq;
 using Tanks.Extensions;
 using TMPro;
 using UnityEngine;
@@ -10,64 +11,27 @@ namespace Tanks.UI
 {
     public class ScoresController : MonoBehaviourPunCallbacks
     {
+        public ETeam team = ETeam.None;
+
         [field: SerializeField]
         public ScoreEntry EntryPrefab { get; private set; }
         [field: SerializeField]
-        public TextMeshProUGUI TeamAScoreText { get; private set; }
+        public Transform EntryParent { get; private set; }
         [field: SerializeField]
-        public TextMeshProUGUI TeamBScoreText { get; private set; }
+        public TextMeshProUGUI ScoreText { get; private set; }
         [field: SerializeField]
-        public Transform TeamAParent { get; private set; }
+        public GameObject WonObject { get; private set; }
         [field: SerializeField]
-        public Transform TeamBParent { get; private set; }
+        public GameObject LostObject { get; private set; }
 
         private Dictionary<int, ScoreEntry> _entries = new Dictionary<int, ScoreEntry>();
-        private int _teamAScore = 0;
-        private int _teamBScore = 0;
-
-        private TextMeshProUGUI GetScoreText(int team)
-        {
-            if (team == GameProperties.TEAM_A)
-                return TeamAScoreText;
-            if (team == GameProperties.TEAM_B)
-                return TeamBScoreText;
-            return null;
-        }
-
-        private Transform GetEntryParent(int team)
-        {
-            if (team == GameProperties.TEAM_A)
-                return TeamAParent;
-            if (team == GameProperties.TEAM_B)
-                return TeamBParent;
-            return null;
-        }
-
-        private int GetScore(int team)
-        {
-            if (team == GameProperties.TEAM_A)
-                return _teamAScore;
-            if (team == GameProperties.TEAM_B)
-                return _teamBScore;
-            return 0;
-        }
-
-        private void SetScore(int team, int value)
-        {
-            if (team == GameProperties.TEAM_A)
-                _teamAScore = value;
-            else if (team == GameProperties.TEAM_B)
-                _teamBScore = value;
-        }
+        private int _score = 0;
 
         private ScoreEntry CreateEntry(Player player)
         {
             var entry = Instantiate(EntryPrefab);
             entry.Setup(player);
-
-            int team = player.GetTeam();
-            SetEntryParent(entry, team);
-
+            entry.transform.SetParent(EntryParent, false);
             return entry;
         }
 
@@ -80,17 +44,28 @@ namespace Tanks.UI
                 var delta = -entry.Kills;
                 if (delta != 0)
                 {
-                    UpdateScore(entry.Player, delta);
+                    UpdateScore(delta);
                 }
 
                 Destroy(entry.gameObject);
             }
         }
 
-        private void SetEntryParent(ScoreEntry entry, int team)
+        private void SortEntries()
         {
-            var parent = GetEntryParent(team);
-            entry.transform.SetParent(parent, false);
+            var entries = _entries.Values.ToList();
+
+            int EntryComparer(ScoreEntry left, ScoreEntry right)
+            {
+                return left.Kills - right.Kills;
+            }
+
+            entries.Sort(EntryComparer);
+
+            for (int i = 0; i < entries.Count; ++i)
+            {
+                entries[i].transform.SetSiblingIndex(i);
+            }
         }
 
         private void RefreshEntries()
@@ -99,9 +74,12 @@ namespace Tanks.UI
 
             foreach (var player in PhotonNetwork.PlayerList)
             {
-                RefreshEntry(player);
+                if (player.GetTeam() == team)
+                {
+                    RefreshEntry(player);
 
-                playerSet.Add(player.ActorNumber);
+                    playerSet.Add(player.ActorNumber);
+                }
             }
 
             foreach (var id in _entries.Keys)
@@ -111,6 +89,8 @@ namespace Tanks.UI
                     DestroyEntry(id);
                 }
             }
+
+            SortEntries();
         }
 
         private void RefreshEntry(Player player)
@@ -127,31 +107,41 @@ namespace Tanks.UI
 
             if (delta != 0)
             {
-                UpdateScore(player, delta);
+                UpdateScore(delta);
             }
         }
 
-        private void UpdateScore(Player player, int delta)
+        private void UpdateScore(int delta)
         {
-            var team = player.GetTeam();
-            UpdateScore(team, delta);
+            _score += delta;
+            ScoreText.text = _score.ToString();
         }
 
-        private void UpdateScore(int team, int delta)
+        private void RefreshWon()
         {
-            var score = GetScore(team);
-            score += delta;
+            var teamWon = PhotonNetwork.CurrentRoom.GetTeamWon();
+            RefreshWon(teamWon != ETeam.None, teamWon == team);
+        }
 
-            var scoreText = GetScoreText(team);
-            scoreText.text = score.ToString();
-
-            SetScore(team, score);
+        private void RefreshWon(bool anyWon, bool myWon)
+        {
+            WonObject.SetActive(anyWon && myWon);
+            LostObject.SetActive(anyWon && !myWon);
         }
 
         #region Photon methods
+        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        {
+            if (propertiesThatChanged.TryGetTeamWon(out var teamWon))
+            {
+                RefreshWon(true, teamWon == team);
+            }
+        }
+
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
-            if (_entries.TryGetValue(targetPlayer.ActorNumber, out var entry))
+            if (targetPlayer.GetTeam() == team &&
+                _entries.TryGetValue(targetPlayer.ActorNumber, out var entry))
             {
                 if (changedProps.TryGetKills(out int kills))
                 {
@@ -159,8 +149,10 @@ namespace Tanks.UI
 
                     if (delta != 0)
                     {
-                        UpdateScore(targetPlayer, delta);
+                        UpdateScore(delta);
                     }
+
+                    SortEntries();
                 }
 
                 if (changedProps.TryGetDeaths(out int deaths))
@@ -179,8 +171,7 @@ namespace Tanks.UI
         #region Unity methods
         private void Awake()
         {
-            UpdateScore(GameProperties.TEAM_A, 0);
-            UpdateScore(GameProperties.TEAM_B, 0);
+            UpdateScore(0);
         }
 
         public override void OnEnable()
@@ -188,6 +179,7 @@ namespace Tanks.UI
             base.OnEnable();
 
             RefreshEntries();
+            RefreshWon();
         }
         #endregion
     }

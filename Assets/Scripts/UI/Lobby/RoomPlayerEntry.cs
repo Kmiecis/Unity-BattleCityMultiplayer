@@ -18,7 +18,7 @@ namespace Tanks.UI
 
         private int _id;
         private bool _isReady;
-        private int _team;
+        private ETeam _team;
 
         public int Id
         {
@@ -36,7 +36,7 @@ namespace Tanks.UI
             }
         }
 
-        public int Team
+        public ETeam Team
         {
             get => _team;
             set
@@ -50,7 +50,7 @@ namespace Tanks.UI
             get => _id == PhotonNetwork.LocalPlayer.ActorNumber;
         }
 
-        public void Setup(Player player, bool isReady, int team)
+        public void Setup(Player player, bool isReady, ETeam team)
         {
             _id = player.ActorNumber;
 

@@ -56,6 +56,11 @@ namespace Tanks
             SetCrack(_current - 1);
         }
 
+        public void SetDefault()
+        {
+            SetCrack(0);
+        }
+
         private void UpdateCurrent()
         {
             MaterialTexture.Value = CurrentCrack;

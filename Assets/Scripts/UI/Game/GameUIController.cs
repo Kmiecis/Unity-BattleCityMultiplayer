@@ -1,14 +1,16 @@
 ﻿using Common.MVB;
+using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Realtime;
 using Tanks.Extensions;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Tanks.UI
 {
     public class GameUIController : MonoBehaviourPunCallbacks
     {
+        [field: SerializeField]
+        public GameProperties GameProperties { get; private set; }
+
         [field: SerializeField]
         public ScriptableKeyCode ExitKeyCode { get; private set; }
         [field: SerializeField]
@@ -28,17 +30,18 @@ namespace Tanks.UI
             _currentPanel?.SetActive(true);
         }
 
-        #region Photon methods
-        public override void OnLeftRoom()
+        private void OnGameFinished()
         {
-            PhotonNetwork.Disconnect();
-
-            PhotonNetwork.LocalPlayer.ResetProperties();
+            ChangeToPanel(ScoresPanel);
         }
 
-        public override void OnDisconnected(DisconnectCause cause)
+        #region Photon methods
+        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
         {
-            SceneManager.LoadScene("Lobby");
+            if (propertiesThatChanged.TryGetTeamWon(out _))
+            {
+                OnGameFinished();
+            }
         }
         #endregion
 

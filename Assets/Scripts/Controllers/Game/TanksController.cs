@@ -15,25 +15,27 @@ namespace Tanks
         [field: SerializeField]
         public Spawn[] TeamBSpawns { get; private set; }
 
-        private string GetTankPrefabPath(int team)
+        private string GetTankPrefabPath(ETeam team)
         {
-            if (team == GameProperties.TEAM_A)
-                return tankAPrefabPath;
-            if (team == GameProperties.TEAM_B)
-                return tankBPrefabPath;
-            return null;
+            switch (team)
+            {
+                case ETeam.A: return tankAPrefabPath;
+                case ETeam.B: return tankBPrefabPath;
+                default: return null;
+            }
         }
 
-        private Spawn[] GetSpawns(int team)
+        private Spawn[] GetSpawns(ETeam team)
         {
-            if (team == GameProperties.TEAM_A)
-                return TeamASpawns;
-            if (team == GameProperties.TEAM_B)
-                return TeamBSpawns;
-            return null;
+            switch (team)
+            {
+                case ETeam.A: return TeamASpawns;
+                case ETeam.B: return TeamBSpawns;
+                default: return null;
+            }
         }
 
-        private Spawn GetBestSpawn(int team)
+        private Spawn GetBestSpawn(ETeam team)
         {
             var spawns = GetSpawns(team);
             var index = Random.Range(0, spawns.Length);

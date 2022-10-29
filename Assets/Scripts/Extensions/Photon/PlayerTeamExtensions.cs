@@ -7,22 +7,22 @@ namespace Tanks.Extensions
     {
         private const string TEAM_PROPERTY = "Team";
 
-        public static bool TryGetTeam(this Hashtable self, out int team)
+        public static bool TryGetTeam(this Hashtable self, out ETeam team)
         {
             return self.TryGetValue(TEAM_PROPERTY, out team);
         }
 
-        public static bool TryGetTeam(this Player self, out int team)
+        public static bool TryGetTeam(this Player self, out ETeam team)
         {
             return self.CustomProperties.TryGetTeam(out team);
         }
 
-        public static int GetTeam(this Player self, int defaultValue = GameProperties.NO_TEAM)
+        public static ETeam GetTeam(this Player self, ETeam defaultValue = ETeam.None)
         {
-            return self.CustomProperties.GetValueOrDefault(TEAM_PROPERTY, defaultValue);
+            return (ETeam)self.CustomProperties.GetValueOrDefault(TEAM_PROPERTY, (int)defaultValue);
         }
 
-        public static void SetTeam(this Player self, int team)
+        public static void SetTeam(this Player self, ETeam team)
         {
             var properties = new Hashtable { { TEAM_PROPERTY, team } };
             self.SetCustomProperties(properties);

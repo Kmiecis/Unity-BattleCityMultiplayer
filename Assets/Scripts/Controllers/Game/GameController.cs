@@ -1,75 +1,99 @@
-﻿using Common.Mathematics;
+﻿using ExitGames.Client.Photon;
 using Photon.Pun;
-using UnityEngine;
+using Photon.Realtime;
+using System.Collections;
 using Tanks.Extensions;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Tanks
 {
     public class GameController : MonoBehaviourPunCallbacks
     {
-        public string tankAPrefabPath;
-        public string tankBPrefabPath;
-
         [field: SerializeField]
-        public Spawn[] TeamASpawns { get; private set; }
+        public GameProperties GameProperties { get; private set; }
         [field: SerializeField]
-        public Spawn[] TeamBSpawns { get; private set; }
+        public StatuesController StatuesController { get; private set; }
 
-        private string GetTankPrefabPath(int team)
+        private bool _finished = false;
+
+        private bool IsStatueDestroyed(ETeam team)
         {
-            if (team == GameProperties.TEAM_A)
-                return tankAPrefabPath;
-            if (team == GameProperties.TEAM_B)
-                return tankBPrefabPath;
-            return null;
+            var statue = StatuesController.GetStatue(team);
+            return statue.IsDestroyed;
         }
 
-        private Spawn[] GetSpawns(int team)
+        private bool TryGetIsStatueDestroyed(out ETeam team)
         {
-            if (team == GameProperties.TEAM_A)
-                return TeamASpawns;
-            if (team == GameProperties.TEAM_B)
-                return TeamBSpawns;
-            return null;
+            team = ETeam.None;
+            if (IsStatueDestroyed(ETeam.A))
+                team = ETeam.A;
+            else if (IsStatueDestroyed(ETeam.B))
+                team = ETeam.B;
+            return team != ETeam.None;
         }
 
-        private Spawn GetBestSpawn(int team)
+        private void CheckStatuesDestroyed()
         {
-            var spawns = GetSpawns(team);
-            var index = Random.Range(0, spawns.Length);
-            for (int i = index; i != index -1; index = Mathx.NextIndex(index, spawns.Length))
+            var room = PhotonNetwork.CurrentRoom;
+            if (!_finished &&
+                TryGetIsStatueDestroyed(out var team))
             {
-                var spawn = spawns[i];
-                if (spawn.IsValid)
-                {
-                    return spawn;
-                }
-            }
-            return spawns[index];
-        }
-
-        public Spawn GetBestSpawn()
-        {
-            var team = PhotonNetwork.LocalPlayer.GetTeam();
-            return GetBestSpawn(team);
-        }
-
-        public string GetTankPrefabPath()
-        {
-            var team = PhotonNetwork.LocalPlayer.GetTeam();
-            return GetTankPrefabPath(team);
-        }
-
-        private void Start()
-        {
-            var spawn = GetBestSpawn();
-            var prefabPath = GetTankPrefabPath();
-
-            var tankObject = PhotonNetwork.Instantiate(prefabPath, spawn.transform.position, Quaternion.identity);
-            if (tankObject.TryGetComponent<Tank>(out var tank))
-            {
-                tank.Setup(this);
+                room.SetTeamWon(team.Flip());
+                _finished = true;
             }
         }
+
+        private void OnGameFinished()
+        {
+            StartCoroutine(EndGame(GameProperties.endGameDelay));
+        }
+
+        private void OnGameEnded()
+        {
+            if (PhotonNetwork.InRoom)
+            {
+                PhotonNetwork.LeaveRoom();
+            }
+        }
+
+        private IEnumerator EndGame(float delay)
+        {
+            yield return new WaitForRealSeconds(delay);
+            OnGameEnded();
+        }
+
+        #region Photon methods
+        public override void OnLeftRoom()
+        {
+            PhotonNetwork.Disconnect();
+
+            PhotonNetwork.LocalPlayer.ResetProperties();
+        }
+
+        public override void OnDisconnected(DisconnectCause cause)
+        {
+            SceneManager.LoadScene("Lobby");
+        }
+
+        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        {
+            if (propertiesThatChanged.TryGetTeamWon(out _))
+            {
+                OnGameFinished();
+            }
+        }
+        #endregion
+
+        #region Unity methods
+        private void Update()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                CheckStatuesDestroyed();
+            }
+        }
+        #endregion
     }
 }

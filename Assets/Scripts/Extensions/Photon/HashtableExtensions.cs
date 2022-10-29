@@ -6,14 +6,15 @@ namespace Tanks.Extensions
     {
         public static bool TryGetValue<T>(this Hashtable self, object key, out T value)
         {
-            if (
-                self.TryGetValue(key, out object obj) &&
-                obj is T objValue
-            )
+            try
             {
-                value = objValue;
-                return true;
+                if (self.TryGetValue(key, out object obj))
+                {
+                    value = (T)obj;
+                    return true;
+                }
             }
+            catch { }
 
             value = default;
             return false;

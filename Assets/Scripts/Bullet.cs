@@ -31,7 +31,7 @@ namespace Tanks
             get => ModelObject.activeSelf;
         }
 
-        public int Team
+        public ETeam Team
         {
             get => photonView.Owner.GetTeam();
         }

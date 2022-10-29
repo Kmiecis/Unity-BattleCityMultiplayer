@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   limit: 1
   delay: 0.33
-  bulletPrefab: {fileID: 2490198431843233260, guid: 0ac073ee066e6b140807704d34a6dc85, type: 3}
+  bulletPrefabPath: 
   <SpawnPoint>k__BackingField: {fileID: 8577378739708594821}
   <IgnoreCollider>k__BackingField: {fileID: 2800864980006118110}
 --- !u!114 &-4768851008313264919

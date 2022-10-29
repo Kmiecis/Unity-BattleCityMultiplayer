@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Tanks.Extensions;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 namespace Tanks
 {
     [RequireComponent(typeof(PhotonView))]
-    public class Tank : MonoBehaviourPun
+    public class Tank : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
         public GameObject ModelObject { get; private set; }
@@ -24,7 +25,7 @@ namespace Tanks
 
         private TanksController _gameController;
 
-        public int Team
+        public ETeam Team
         {
             get => photonView.Owner.GetTeam();
         }
@@ -90,6 +91,17 @@ namespace Tanks
             ForcefieldController.Enable();
         }
 
+        #region Photon methods
+        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        {
+            if (propertiesThatChanged.TryGetTeamWon(out _))
+            {
+                enabled = false;
+            }
+        }
+        #endregion
+
+        #region Unity methods
         private void Awake()
         {
             RespawnController.SetCallback(OnRespawn);
@@ -120,9 +132,12 @@ namespace Tanks
             }
         }
 
-        private void OnDisable()
+        public override void OnDisable()
         {
+            base.OnDisable();
+
             MovementController.ResetMovement();
         }
+        #endregion
     }
 }

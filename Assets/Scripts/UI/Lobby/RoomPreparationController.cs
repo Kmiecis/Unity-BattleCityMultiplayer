@@ -33,13 +33,11 @@ namespace Tanks.UI
         private Dictionary<int, RoomPlayerEntry> _teamA = new Dictionary<int, RoomPlayerEntry>();
         private Dictionary<int, RoomPlayerEntry> _teamB = new Dictionary<int, RoomPlayerEntry>();
 
-        private int GetBestTeam()
+        private ETeam GetBestTeam()
         {
             if (_teamB.Count < _teamA.Count)
-            {
-                return GameProperties.TEAM_B;
-            }
-            return GameProperties.TEAM_A;
+                return ETeam.B;
+            return ETeam.A;
         }
 
         private bool ArePlayersReady(Dictionary<int, RoomPlayerEntry> entries)
@@ -93,43 +91,45 @@ namespace Tanks.UI
             ClearEntries(_teamB);
         }
 
-        private Dictionary<int, RoomPlayerEntry> GetTeamEntries(int team)
+        private Dictionary<int, RoomPlayerEntry> GetTeamEntries(ETeam team)
         {
-            if (team == GameProperties.TEAM_A)
-                return _teamA;
-            if (team == GameProperties.TEAM_B)
-                return _teamB;
-            return null;
+            switch (team)
+            {
+                case ETeam.A: return _teamA;
+                case ETeam.B: return _teamB;
+                default: return null;
+            }
         }
 
-        private Transform GetTeamParent(int team)
+        private Transform GetTeamParent(ETeam team)
         {
-            if (team == GameProperties.TEAM_A)
-                return TeamAParent;
-            if (team == GameProperties.TEAM_B)
-                return TeamBParent;
-            return null;
+            switch (team)
+            {
+                case ETeam.A: return TeamAParent;
+                case ETeam.B: return TeamBParent;
+                default: return null;
+            }
         }
 
-        private void AddEntry(RoomPlayerEntry entry, int team)
+        private void AddEntry(RoomPlayerEntry entry, ETeam team)
         {
             var entries = GetTeamEntries(team);
             entries.Add(entry.Id, entry);
         }
 
-        private void RemoveEntry(RoomPlayerEntry entry, int team)
+        private void RemoveEntry(RoomPlayerEntry entry, ETeam team)
         {
             var entries = GetTeamEntries(team);
             entries.Remove(entry.Id);
         }
 
-        private void SetEntryParent(RoomPlayerEntry entry, int team)
+        private void SetEntryParent(RoomPlayerEntry entry, ETeam team)
         {
             var parent = GetTeamParent(team);
             entry.transform.SetParent(parent, false);
         }
 
-        private void SwitchPlayerEntry(RoomPlayerEntry entry, int oldTeam, int newTeam)
+        private void SwitchPlayerEntry(RoomPlayerEntry entry, ETeam oldTeam, ETeam newTeam)
         {
             RemoveEntry(entry, oldTeam);
             AddEntry(entry, newTeam);
@@ -151,7 +151,7 @@ namespace Tanks.UI
 
         private void SetupLocalEntry()
         {
-            int team = GetBestTeam();
+            ETeam team = GetBestTeam();
             bool isReady = false;
 
             LocalEntry.Setup(PhotonNetwork.LocalPlayer, isReady, team);
@@ -169,10 +169,10 @@ namespace Tanks.UI
             );
         }
 
-        private bool CanSwitchTeam(int team)
+        private bool CanSwitchTeam(ETeam team)
         {
             var currentEntries = GetTeamEntries(team);
-            var otherEntries = GetTeamEntries(team * -1);
+            var otherEntries = GetTeamEntries(team.Flip());
             return (
                 currentEntries.Count > GameProperties.minTeamPlayers &&
                 otherEntries.Count < GameProperties.maxTeamPlayers
@@ -224,7 +224,7 @@ namespace Tanks.UI
                 !entry.IsReady
             )
             {
-                entry.Team *= -1;
+                entry.Team = entry.Team.Flip();
 
                 SetEntryParent(entry, entry.Team);
 
