@@ -44,6 +44,13 @@ MonoBehaviour:
   - RPCExplode_Internal
   - RPCRespawn_Internal
   - RPCTankExplode_Internal
+  - RPCCrackImpl
+  - RPCStatueCrackImpl
+  - RPCStatueRepairImpl
+  - RPCStatueCrack_Internal
+  - RPCStatueRepair_Internal
+  - RPCStatueRepairTo_Internal
+  - RPCStatueDamage_Internal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

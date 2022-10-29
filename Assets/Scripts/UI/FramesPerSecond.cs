@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Tanks.UI
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class FPS : MonoBehaviour
+    public class FramesPerSecond : MonoBehaviour
     {
         private const float UPDATE_DELAY = 1.0f;
 

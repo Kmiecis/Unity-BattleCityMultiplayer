@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [RequireComponent(typeof(PhotonView))]
     public class Bullet : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
         private const float kExplosionDelay = 5.0f;
@@ -43,21 +44,24 @@ namespace Tanks
         private void Hit(Collider2D collider)
         {
             Explode();
-        }
 
-        private void HitMine(Collider2D collider)
-        {
-            if (collider.TryGetComponentInParent<Tank>(out var tank))
+            if (photonView.IsMine)
             {
-                HitTank(tank);
+                if (collider.TryGetComponentInParent<Tank>(out var tank))
+                {
+                    HitTank(tank);
+                }
+                if (collider.TryGetComponentInParent<Statue>(out var statue))
+                {
+                    HitStatue(statue);
+                }
+                
+                _callback();
+
+                RPCExplode();
+
+                ExplosionController.SetCallback(Destroy);
             }
-
-            _callback();
-
-            Explode();
-            RPCExplode();
-
-            ExplosionController.SetCallback(Destroy);
         }
 
         private void HitTank(Tank tank)
@@ -69,6 +73,15 @@ namespace Tanks
                 tank.RPCExplode();
 
                 photonView.Owner.IncrKills();
+            }
+        }
+
+        private void HitStatue(Statue statue)
+        {
+            if (statue.Team != Team)
+            {
+                statue.Damage();
+                statue.RPCDamage();
             }
         }
 
@@ -117,14 +130,7 @@ namespace Tanks
 
         public void _OnCollisionEntered(Collision2D collision)
         {
-            if (photonView.IsMine)
-            {
-                HitMine(collision.collider);
-            }
-            else
-            {
-                Hit(collision.collider);
-            }
+            Hit(collision.collider);
         }
 
         #region Photon methods

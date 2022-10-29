@@ -1,10 +1,10 @@
-using Common.Extensions;
 using Photon.Pun;
 using Tanks.Extensions;
 using UnityEngine;
 
 namespace Tanks
 {
+    [RequireComponent(typeof(PhotonView))]
     public class Tank : MonoBehaviourPun
     {
         [field: SerializeField]
@@ -22,14 +22,14 @@ namespace Tanks
         [field: SerializeField]
         public RespawnController RespawnController { get; private set; }
 
-        private GameController _gameController;
+        private TanksController _gameController;
 
         public int Team
         {
             get => photonView.Owner.GetTeam();
         }
 
-        public void Setup(GameController gameController)
+        public void Setup(TanksController gameController)
         {
             _gameController = gameController;
         }
