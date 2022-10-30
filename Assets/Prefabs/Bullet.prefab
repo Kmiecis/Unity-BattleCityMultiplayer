@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitMask:
     serializedVersion: 2
-    m_Bits: 968
+    m_Bits: 8
   <ModelObject>k__BackingField: {fileID: 6608108848033877547}
   <MovementController>k__BackingField: {fileID: 1922317431202854769}
   <CollisionController>k__BackingField: {fileID: 5324819681694298453}

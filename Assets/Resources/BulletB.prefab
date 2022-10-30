@@ -12,8 +12,12 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2490198431843233260, guid: 0ac073ee066e6b140807704d34a6dc85, type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2490198431843233260, guid: 0ac073ee066e6b140807704d34a6dc85, type: 3}
       propertyPath: hitMask.m_Bits
-      value: 456
+      value: 328
       objectReference: {fileID: 0}
     - target: {fileID: 5060501466293695029, guid: 0ac073ee066e6b140807704d34a6dc85, type: 3}
       propertyPath: m_Name

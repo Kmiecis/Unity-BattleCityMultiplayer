@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tanks
@@ -15,13 +16,13 @@ namespace Tanks
         public Collider2D IgnoreCollider { get; private set; }
 
         private float _fired = 0.0f;
-        private int _spawned = 0;
+        private List<Bullet> _bullets = new List<Bullet>();
 
         private bool CanFire()
         {
             return (
                 _fired + delay < Time.time &&
-                _spawned < limit
+                _bullets.Count < limit
             );
         }
 
@@ -30,19 +31,30 @@ namespace Tanks
             if (CanFire())
             {
                 _fired = Time.time;
-                _spawned += 1;
 
                 var bulletObject = PhotonNetwork.Instantiate(bulletPrefabPath, SpawnPoint.position, SpawnPoint.rotation);
-                if (bulletObject.TryGetComponent<Bullet>(out var bullet))
+                var bullet = bulletObject.GetComponent<Bullet>();
+                _bullets.Add(bullet);
+            }
+        }
+
+        private void CheckBullets()
+        {
+            for (int i = _bullets.Count - 1; i > -1; --i)
+            {
+                var bullet = _bullets[i];
+                if (!bullet.IsVisible)
                 {
-                    bullet.SetCallback(OnBulletHit);
+                    _bullets.RemoveAt(i);
                 }
             }
         }
 
-        private void OnBulletHit()
+        #region Unity methods
+        private void Update()
         {
-            _spawned -= 1;
+            CheckBullets();
         }
+        #endregion
     }
 }

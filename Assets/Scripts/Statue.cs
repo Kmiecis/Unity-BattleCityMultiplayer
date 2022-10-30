@@ -4,6 +4,7 @@ namespace Tanks
 {
     public class Statue : MonoBehaviour
     {
+        public ETeam team;
         public float repairDelay = 1.0f;
 
         [field: SerializeField]
@@ -12,13 +13,7 @@ namespace Tanks
         public CracksController CracksController { get; private set; }
 
         private StatuesController _controller;
-        private ETeam _team;
         private float _nextRepairTime = float.MaxValue;
-
-        public ETeam Team
-        {
-            get => _team;
-        }
 
         public bool IsDestroyed
         {
@@ -31,10 +26,9 @@ namespace Tanks
             DestroyController.SetDestroyed();
         }
 
-        public void Setup(StatuesController controller, ETeam team)
+        public void Setup(StatuesController controller)
         {
             _controller = controller;
-            _team = team;
         }
 
         public void Damage(float lag = 0.0f)
@@ -62,7 +56,7 @@ namespace Tanks
 
         public void RPCDamage()
         {
-            _controller.RPCStatueDamage(Team);
+            _controller.RPCStatueDamage(team);
         }
 
         public void Repair(float lag = 0.0f)
@@ -88,7 +82,7 @@ namespace Tanks
 
         public void RPCRepair()
         {
-            _controller.RPCStatueRepair(Team);
+            _controller.RPCStatueRepair(team);
         }
 
         private void UpdateRepairing()

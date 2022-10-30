@@ -8,6 +8,8 @@ namespace Tanks
     [RequireComponent(typeof(PhotonView))]
     public class Tank : MonoBehaviourPunCallbacks
     {
+        public ETeam team;
+
         [field: SerializeField]
         public GameObject ModelObject { get; private set; }
         [field: SerializeField]
@@ -23,16 +25,11 @@ namespace Tanks
         [field: SerializeField]
         public RespawnController RespawnController { get; private set; }
 
-        private TanksController _gameController;
+        private TanksController _controller;
 
-        public ETeam Team
+        public void Setup(TanksController controller)
         {
-            get => photonView.Owner.GetTeam();
-        }
-
-        public void Setup(TanksController gameController)
-        {
-            _gameController = gameController;
+            _controller = controller;
         }
 
         private void SetVisiblity(bool value)
@@ -80,7 +77,7 @@ namespace Tanks
 
         private void OnExplode()
         {
-            var spawn = _gameController.GetBestSpawn();
+            var spawn = _controller.GetBestSpawn();
             RespawnController.Respawn(spawn.transform.position);
         }
 

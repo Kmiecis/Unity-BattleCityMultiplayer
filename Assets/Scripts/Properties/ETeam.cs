@@ -2,9 +2,9 @@
 {
     public enum ETeam
     {
+        None = 0,
         A = -1,
-        B = +1,
-        None = 0
+        B = +1
     }
 
     public static class ETeamExtensions

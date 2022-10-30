@@ -9,6 +9,11 @@ namespace Tanks
         [field: SerializeField]
         public Rigidbody2D Rigidbody { get; private set; }
 
+        public Vector2 Direction
+        {
+            get => FromAngle(Rigidbody.rotation);
+        }
+
         private static float ToAngle(Vector2 direction)
         {
             var x = Mathf.RoundToInt(direction.x);

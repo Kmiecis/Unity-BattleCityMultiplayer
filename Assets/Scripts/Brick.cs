@@ -1,45 +1,113 @@
+using Common.Extensions;
+using Common.Mathematics;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tanks
 {
     public class Brick : MonoBehaviour
     {
-        public GameObject modelPrefab;
-
         [field: SerializeField]
-        public Collision2DController CollisionController { get; private set; }
+        public GameObject BlockObject { get; private set; }
+        [field: SerializeField]
+        public GameObject PiecesObject { get; private set; }
+        [field: SerializeField]
+        public List<Brick> Pieces { get; private set; }
 
-        private void _OnCollisionEntered(Collision2D collision)
+        private BricksController _controller;
+
+        private Brick _parent;
+        private int _hitframe;
+
+        public bool IsBlock
         {
-            var point = GetMeanPoint(collision);
-            var normal = GetMeanNormal(collision);
-            //TODO
+            get => BlockObject != null;
         }
 
-        private Vector2 GetMeanPoint(Collision2D collision)
+        public void Setup(BricksController controller)
         {
-            var result = Vector2.zero;
-            int count = collision.contactCount;
-            for (int i = 0; i < count; ++i)
+            _controller = controller;
+        }
+
+        public void Piecefy()
+        {
+            BlockObject.SetActive(false);
+            BlockObject = null;
+
+            PiecesObject.SetActive(true);
+
+            _hitframe = Time.frameCount;
+        }
+
+        private void Remove(Brick piece)
+        {
+            Pieces.Remove(piece);
+
+            if (Pieces.Count == 0)
             {
-                var contact = collision.GetContact(i);
-                result += contact.point;
+                Destroy(gameObject);
             }
-            result /= count;
-            return result;
         }
 
-        private Vector2 GetMeanNormal(Collision2D collision)
+        private Brick FindClosestPiece(Vector2 position)
         {
-            var result = Vector2.zero;
-            int count = collision.contactCount;
-            for (int i = 0; i < count; ++i)
+            if (Pieces.Count == 0)
+                return this;
+
+            Brick closestPiece = null;
+            float closestDistance = float.MaxValue;
+
+            for (int i = 0; i < Pieces.Count; ++i)
             {
-                var contact = collision.GetContact(i);
-                result += contact.normal;
+                var piece = Pieces[i].FindClosestPiece(position);
+
+                var distance = Vector2.Distance(position, piece.transform.position);
+                if (closestPiece == null || distance < closestDistance)
+                {
+                    closestPiece = piece;
+                    closestDistance = distance;
+                }
             }
-            result /= count;
-            return result;
+
+            return closestPiece;
         }
+
+        
+        public void Hit(Vector2 hitPosition, Vector2 hitDirection)
+        {
+            if (_hitframe == Time.frameCount)
+                return;
+            
+            const float RAY_LENGTH = 0.8f;
+
+            var piece = FindClosestPiece(hitPosition);
+
+            var position = (Vector2)piece.transform.position;
+            var parallel = Mathx.Abs(hitDirection.YX());
+            var deltaPosition = position - hitPosition;
+            var rayPosition = position - parallel * deltaPosition - parallel * RAY_LENGTH * 0.5f;
+            var rayVector = parallel * RAY_LENGTH;
+
+            _controller.StrikeBricks(rayPosition, rayVector);
+            _controller.RPCStrikeBricks(rayPosition, rayVector);
+        }
+
+        #region Unity methods
+        private void Awake()
+        {
+            foreach (var piece in Pieces)
+            {
+                piece._parent = this;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (_parent != null)
+            {
+                _parent.Remove(this);
+            }
+        }
+        #endregion
     }
 }

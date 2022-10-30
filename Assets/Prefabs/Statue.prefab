@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8b9aad95ef044419e4b334d274172f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
   repairDelay: 1
   <DestroyController>k__BackingField: {fileID: -854483549608014709}
   <CracksController>k__BackingField: {fileID: -3259348342598418392}

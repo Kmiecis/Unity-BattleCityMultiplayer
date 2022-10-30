@@ -1,7 +1,6 @@
 ﻿using Common;
 using Common.Extensions;
 using Photon.Pun;
-using System;
 using System.Collections;
 using Tanks.Extensions;
 using UnityEngine;
@@ -13,6 +12,7 @@ namespace Tanks
     {
         private const float kExplosionDelay = 5.0f;
 
+        public ETeam team;
         public LayerMask hitMask;
 
         [field: SerializeField]
@@ -24,23 +24,11 @@ namespace Tanks
         [field: SerializeField]
         public ExplosionController ExplosionController { get; private set; }
 
-        private Action _callback;
-
         public bool IsVisible
         {
             get => ModelObject.activeSelf;
         }
 
-        public ETeam Team
-        {
-            get => photonView.Owner.GetTeam();
-        }
-
-        public void SetCallback(Action callback)
-        {
-            _callback = callback;
-        }
-        
         private void Hit(Collider2D collider)
         {
             Explode();
@@ -51,13 +39,15 @@ namespace Tanks
                 {
                     HitTank(tank);
                 }
-                if (collider.TryGetComponentInParent<Statue>(out var statue))
+                else if (collider.TryGetComponentInParent<Statue>(out var statue))
                 {
                     HitStatue(statue);
                 }
+                else if (collider.TryGetComponentInParent<Brick>(out var brick))
+                {
+                    HitBrick(brick);
+                }
                 
-                _callback();
-
                 RPCExplode();
 
                 ExplosionController.SetCallback(Destroy);
@@ -67,7 +57,7 @@ namespace Tanks
         private void HitTank(Tank tank)
         {
             if (!tank.ForcefieldController.IsActive &&
-                tank.Team != Team)
+                tank.team != team)
             {
                 tank.Explode();
                 tank.RPCExplode();
@@ -78,11 +68,18 @@ namespace Tanks
 
         private void HitStatue(Statue statue)
         {
-            if (statue.Team != Team)
+            if (statue.team != team)
             {
                 statue.Damage();
                 statue.RPCDamage();
             }
+        }
+
+        private void HitBrick(Brick brick)
+        {
+            var hitPosition = transform.position;
+            var hitDirection = MovementController.Direction;
+            brick.Hit(hitPosition, hitDirection);
         }
 
         private void Fly()

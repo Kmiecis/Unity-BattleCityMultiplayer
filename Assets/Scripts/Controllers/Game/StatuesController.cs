@@ -59,8 +59,8 @@ namespace Tanks
         #region Unity methods
         private void Start()
         {
-            TeamAStatue.Setup(this, ETeam.A);
-            TeamBStatue.Setup(this, ETeam.B);
+            TeamAStatue.Setup(this);
+            TeamBStatue.Setup(this);
         }
         #endregion
     }
