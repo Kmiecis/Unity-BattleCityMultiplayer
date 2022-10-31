@@ -13,6 +13,8 @@ namespace Tanks
         [field: SerializeField]
         public GameObject ModelObject { get; private set; }
         [field: SerializeField]
+        public GameObject HighlightedObject { get; private set; }
+        [field: SerializeField]
         public AInputController InputController { get; private set; }
         [field: SerializeField]
         public MovementController MovementController { get; private set; }
@@ -36,6 +38,7 @@ namespace Tanks
         {
             enabled = value && photonView.IsMine;
             ModelObject.SetActive(value);
+            HighlightedObject.SetActive(value && photonView.IsMine);
         }
 
         public void Explode()
