@@ -18,6 +18,7 @@ namespace Tanks.UI
         [field: SerializeField]
         public ScriptableKeyCode DownKey { get; private set; }
 
+        private bool _enabled;
         private int _index;
 
         public int Index
@@ -74,13 +75,29 @@ namespace Tanks.UI
             }
         }
 
-        private void OnEnable()
+        private void LateOnEnable()
         {
             Refresh();
         }
 
+        private void CheckLateOnEnabled()
+        {
+            if (_enabled)
+            {
+                LateOnEnable();
+                _enabled = false;
+            }
+        }
+
+        private void OnEnable()
+        {
+            _enabled = true;
+        }
+
         private void Update()
         {
+            CheckLateOnEnabled();
+
             if (Input.GetKeyDown(UpKey))
             {
                 DecreaseIndex();

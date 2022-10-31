@@ -26,8 +26,6 @@ namespace Tanks.UI
             _defaultName = "P" + Random.Range(1000, 10000);
 
             NameInput.text = _defaultName;
-
-            NameInput.ActivateInputField();
         }
 
         public void _OnLoginClicked()

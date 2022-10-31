@@ -25,36 +25,22 @@ namespace Tanks
             ForcefieldObject.SetActive(value);
         }
 
-        public void Enable()
+        public void Enable(float lag = 0.0f)
         {
-            Enable(duration);
-        }
-
-        public void Enable(float duration)
-        {
-            _duration = duration;
+            _duration = duration - lag;
 
             SetForcefield(true);
-
-            RPCEnable(duration);
         }
 
         public void RPCEnable()
         {
-            RPCEnable(duration);
-        }
-
-        public void RPCEnable(float duration)
-        {
-            photonView.RPC(nameof(RPCEnable_Internal), RpcTarget.Others, duration);
+            photonView.RPC(nameof(RPCEnable_Internal), RpcTarget.Others);
         }
 
         [PunRPC]
-        private void RPCEnable_Internal(float duration, PhotonMessageInfo info)
+        private void RPCEnable_Internal(PhotonMessageInfo info)
         {
-            _duration = duration - info.GetLag();
-
-            SetForcefield(true);
+            Enable(info.GetLag());
         }
 
         private void Awake()

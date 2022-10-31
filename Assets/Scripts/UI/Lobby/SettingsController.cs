@@ -9,8 +9,6 @@ namespace Tanks.UI
         [field: SerializeField]
         public TMP_InputField NameInput { get; private set; }
 
-        private bool _onEnabled;
-
         public void _OnAcceptClicked()
         {
             var playerName = NameInput.text;
@@ -33,20 +31,9 @@ namespace Tanks.UI
         }
 
         #region Unity methods
-        private void OnEnable()
+        private void Start()
         {
-            _onEnabled = true;
-
             NameInput.text = PhotonNetwork.LocalPlayer.NickName;
-        }
-
-        private void Update()
-        {
-            if (_onEnabled)
-            {
-                NameInput.ActivateInputField();
-                _onEnabled = false;
-            }
         }
         #endregion
     }

@@ -973,6 +973,14 @@ PrefabInstance:
       propertyPath: OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 150423665}
+    - target: {fileID: 5552427814415496686, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
+      propertyPath: OnKeyDown.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 150423665}
+    - target: {fileID: 5888042270128614642, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
+      propertyPath: OnKeyDown.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 150423665}
     - target: {fileID: 6159008317813085441, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -991,7 +999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6159008317813085441, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 479.78876
+      value: 479.97324
       objectReference: {fileID: 0}
     - target: {fileID: 6159008317813085441, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1097,9 +1105,13 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 173.69
       objectReference: {fileID: 0}
+    - target: {fileID: 8783556420342643264, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 418.18
+      objectReference: {fileID: 0}
     - target: {fileID: 9080277098691990286, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 102.399994
+      value: 102
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba8a4b39c4395634991bc7234f7321c3, type: 3}

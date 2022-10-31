@@ -174,7 +174,7 @@ namespace Tanks.UI
             var currentEntries = GetTeamEntries(team);
             var otherEntries = GetTeamEntries(team.Flip());
             return (
-                currentEntries.Count > GameProperties.minTeamPlayers &&
+                currentEntries.Count >= GameProperties.minTeamPlayers &&
                 otherEntries.Count < GameProperties.maxTeamPlayers
             );
         }

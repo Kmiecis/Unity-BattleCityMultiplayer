@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Tanks
 {
     [RequireComponent(typeof(PhotonView))]
-    public class Tank : MonoBehaviourPunCallbacks
+    public class Tank : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     {
         public ETeam team;
 
@@ -86,6 +86,7 @@ namespace Tanks
             SetVisiblity(true);
 
             ForcefieldController.Enable();
+            ForcefieldController.RPCEnable();
         }
 
         #region Photon methods
@@ -96,19 +97,19 @@ namespace Tanks
                 enabled = false;
             }
         }
+
+        public void OnPhotonInstantiate(PhotonMessageInfo info)
+        {
+            SetVisiblity(true);
+
+            ForcefieldController.Enable(info.GetLag());
+        }
         #endregion
 
         #region Unity methods
         private void Awake()
         {
             RespawnController.SetCallback(OnRespawn);
-        }
-
-        private void Start()
-        {
-            SetVisiblity(true);
-
-            ForcefieldController.Enable();
         }
 
         private void Update()

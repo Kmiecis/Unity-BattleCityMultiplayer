@@ -4,7 +4,7 @@ Shader "Sprites/Default-Blend"
     {
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
-        _SubTex ("Blend Texture", 2D) = "white" {}
+        _SubTex ("Blend Texture", 2D) = "black" {}
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
         [HideInInspector] _RendererColor ("RendererColor", Color) = (1,1,1,1)
         [HideInInspector] _Flip ("Flip", Vector) = (1,1,1,1)
