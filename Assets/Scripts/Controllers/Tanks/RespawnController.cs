@@ -73,12 +73,7 @@ namespace Tanks
             SetVisibility(true);
         }
 
-        private void Awake()
-        {
-            SetVisibility(false);
-        }
-
-        private void Update()
+        private void CheckRespawning()
         {
             _duration -= Time.deltaTime;
             if (_duration <= 0.0f)
@@ -88,5 +83,17 @@ namespace Tanks
                 _callback.Invoke();
             }
         }
+
+        #region Unity methods
+        private void Awake()
+        {
+            SetVisibility(false);
+        }
+
+        private void Update()
+        {
+            CheckRespawning();
+        }
+        #endregion
     }
 }

@@ -25,7 +25,12 @@ namespace Tanks
             ForcefieldObject.SetActive(value);
         }
 
-        public void Enable(float lag = 0.0f)
+        public void Enable(float lag)
+        {
+            Enable(duration, lag);
+        }
+
+        public void Enable(float duration, float lag)
         {
             _duration = duration - lag;
 
@@ -43,12 +48,7 @@ namespace Tanks
             Enable(info.GetLag());
         }
 
-        private void Awake()
-        {
-            SetForcefield(false);
-        }
-
-        private void Update()
+        private void CheckEnabled()
         {
             _duration -= Time.deltaTime;
             if (_duration <= 0.0f)
@@ -56,5 +56,17 @@ namespace Tanks
                 SetForcefield(false);
             }
         }
+
+        #region Unity methods
+        private void Awake()
+        {
+            SetForcefield(false);
+        }
+
+        private void Update()
+        {
+            CheckEnabled();
+        }
+        #endregion
     }
 }

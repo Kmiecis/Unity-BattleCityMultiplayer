@@ -1,3 +1,5 @@
+using Common.Extensions;
+using Common.Injection;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Tanks.Extensions;
@@ -27,16 +29,25 @@ namespace Tanks
         [field: SerializeField]
         public RespawnController RespawnController { get; private set; }
 
-        private TanksController _controller;
+        [DI_Inject]
+        private TanksController _tanksController;
+        [DI_Inject]
+        private SpawnsController _spawnsController;
 
-        public void Setup(TanksController controller)
+        public bool IsVisible
         {
-            _controller = controller;
+            get => ModelObject.activeSelf;
         }
 
-        private void SetVisiblity(bool value)
+        public void SetEnabled(bool value)
         {
             enabled = value && photonView.IsMine;
+        }
+
+        public void SetVisiblity(bool value)
+        {
+            SetEnabled(value);
+
             ModelObject.SetActive(value);
             HighlightedObject.SetActive(value && photonView.IsMine);
         }
@@ -46,16 +57,13 @@ namespace Tanks
             SetVisiblity(false);
 
             ExplosionController.Explode();
-        }
 
-        private void ExplodeMine()
-        {
-            SetVisiblity(false);
+            if (photonView.IsMine)
+            {
+                ExplosionController.SetCallback(OnExplode);
 
-            ExplosionController.Explode();
-            ExplosionController.SetCallback(OnExplode);
-
-            photonView.Owner.IncrDeaths();
+                photonView.Owner.IncrDeaths();
+            }
         }
 
         public void RPCExplode()
@@ -68,19 +76,12 @@ namespace Tanks
         {
             transform.position = position;
 
-            if (photonView.IsMine)
-            {
-                ExplodeMine();
-            }
-            else
-            {
-                Explode();
-            }
+            Explode();
         }
 
         private void OnExplode()
         {
-            var spawn = _controller.GetBestSpawn();
+            var spawn = _spawnsController.GetBestSpawn();
             RespawnController.Respawn(spawn.transform.position);
         }
 
@@ -88,9 +89,33 @@ namespace Tanks
         {
             SetVisiblity(true);
 
-            ForcefieldController.Enable();
+            ForcefieldController.Enable(0.0f);
             ForcefieldController.RPCEnable();
         }
+
+        private void Touched(Collider2D other)
+        {
+            if (other.TryGetComponentInParent<Pickup>(out var pickup))
+            {
+                Touched(pickup);
+            }
+        }
+
+        private void Touched(Pickup pickup)
+        {
+            if (photonView.IsMine)
+            {
+                pickup.PickedFor(team);
+            }
+            pickup.Picked();
+        }
+
+        #region External methods
+        public void _OnTriggerEntered(Collider2D other)
+        {
+            Touched(other);
+        }
+        #endregion
 
         #region Photon methods
         public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
@@ -109,9 +134,18 @@ namespace Tanks
         }
         #endregion
 
+        #region Injection methods
+        private void OnTanksControllerInject(TanksController controller)
+        {
+            controller.GetTanks(team).Add(this);
+        }
+        #endregion
+
         #region Unity methods
         private void Awake()
         {
+            DI_Binder.Bind(this);
+
             RespawnController.SetCallback(OnRespawn);
         }
 
@@ -138,6 +172,11 @@ namespace Tanks
             base.OnDisable();
 
             MovementController.ResetMovement();
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

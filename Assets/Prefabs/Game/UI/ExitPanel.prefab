@@ -765,7 +765,7 @@ GameObject:
   - component: {fileID: 4759527191492146313}
   - component: {fileID: 6008879799798213659}
   - component: {fileID: 5169831531795914209}
-  - component: {fileID: 4102345804840558144}
+  - component: {fileID: 2791299536901135520}
   m_Layer: 5
   m_Name: FPSValueText (TMP)
   m_TagString: Untagged
@@ -904,7 +904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &4102345804840558144
+--- !u!114 &2791299536901135520
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7734657011311933340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b06b7b8bfd99fbc409aed180abeaf478, type: 3}
+  m_Script: {fileID: 11500000, guid: ed8aac89b79d63346bc35a374bc4cf87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <Text>k__BackingField: {fileID: 6008879799798213659}
@@ -929,7 +929,7 @@ GameObject:
   - component: {fileID: 5018134219398944199}
   - component: {fileID: 2189739128824203189}
   - component: {fileID: 3894246832942725439}
-  - component: {fileID: 2759773152010493331}
+  - component: {fileID: 8789811713191590369}
   m_Layer: 5
   m_Name: PingValueText (TMP)
   m_TagString: Untagged
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &2759773152010493331
+--- !u!114 &8789811713191590369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1078,7 +1078,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7802744676297511477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0921717ac46d3fd4d9b1c63066cf4095, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ecda358b92546849b5fd4a497f75ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <Text>k__BackingField: {fileID: 2189739128824203189}

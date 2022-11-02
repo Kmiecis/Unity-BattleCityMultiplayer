@@ -125,10 +125,12 @@ namespace Tanks
             }
         }
 
+        #region External methods
         public void _OnCollisionEntered(Collision2D collision)
         {
             Hit(collision.collider);
         }
+        #endregion
 
         #region Photon methods
         public void OnPhotonInstantiate(PhotonMessageInfo info)

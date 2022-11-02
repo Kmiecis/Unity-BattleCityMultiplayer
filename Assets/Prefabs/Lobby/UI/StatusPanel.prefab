@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 7382267635558432300}
   - component: {fileID: 7382267635558432301}
   - component: {fileID: 7382267635558432302}
-  - component: {fileID: 7382267635558432303}
+  - component: {fileID: 7506555096100054001}
   m_Layer: 5
   m_Name: StatusText
   m_TagString: Untagged
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!114 &7382267635558432303
+--- !u!114 &7506555096100054001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7382267635558432289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3901781d3d2a0143a5125e4388ca0a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c4a987af2dcd86498bb24f439512fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <Text>k__BackingField: {fileID: 7382267635558432301}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2800864980006118111}
   - component: {fileID: 2800864980006118080}
   - component: {fileID: 2800864980006118110}
+  - component: {fileID: 6968787106515657375}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -101,6 +102,40 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.40625
+--- !u!114 &6968787106515657375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800864980006118108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a57ac602a1837489f67dd2cf252c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Collider>k__BackingField: {fileID: 2800864980006118110}
+  CalledOnEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7516772721059094405}
+        m_TargetAssemblyTypeName: Tanks.Tank, Assembly-CSharp
+        m_MethodName: _OnTriggerEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  CalledOnStay:
+    m_PersistentCalls:
+      m_Calls: []
+  CalledOnExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2800864980058447839
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limit: 1
+  speed: 1
   delay: 0.33
   bulletPrefabPath: 
   <SpawnPoint>k__BackingField: {fileID: 8577378739708594821}

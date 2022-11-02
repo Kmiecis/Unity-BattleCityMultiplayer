@@ -1,7 +1,8 @@
+using Tanks;
 using UnityEditor;
 using UnityEngine;
 
-namespace Tanks
+namespace TanksEditor
 {
     [CustomEditor(typeof(SquareObjectPainter))]
     public class HexagonObjectPainterEditor : Editor

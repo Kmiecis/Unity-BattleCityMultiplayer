@@ -7,6 +7,7 @@ namespace Tanks
     public class BulletController : MonoBehaviourPun
     {
         public int limit = 1;
+        public float speed = 1.0f;
         public float delay = 1.0f;
         public string bulletPrefabPath;
 
