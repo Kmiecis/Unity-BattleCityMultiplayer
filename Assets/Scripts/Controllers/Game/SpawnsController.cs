@@ -1,3 +1,4 @@
+using Common.Injection;
 using Common.Mathematics;
 using Photon.Pun;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [DI_Install]
     public class SpawnsController : MonoBehaviour
     {
         private List<Spawn> _teamASpawns = new List<Spawn>();

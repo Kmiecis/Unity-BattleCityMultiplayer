@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [DI_Install]
     public class PickupsController : MonoBehaviourPun
     {
         public Range2 spawnRange;
@@ -62,7 +63,10 @@ namespace Tanks
         private void Awake()
         {
             DI_Binder.Bind(this);
+        }
 
+        private void Start()
+        {
             _spawnTime = Time.time + Random.Range(spawnDelayRange.min, spawnDelayRange.max);
         }
 

@@ -6,6 +6,7 @@ using Common.Injection;
 
 namespace Tanks
 {
+    [DI_Install]
     public class TanksController : MonoBehaviour
     {
         public string tankAPrefabPath;

@@ -97,7 +97,7 @@ namespace Tanks
 
         public IEnumerator DestroyDelayed()
         {
-            return CoroutineUtility.InvokeDelayed(Destroy, kExplosionDelay);
+            return UCoroutine.InvokeDelayed(Destroy, kExplosionDelay);
         }
 
         public void Explode()

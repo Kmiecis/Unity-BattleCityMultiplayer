@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [DI_Install]
     public class BuffsController : MonoBehaviourPun
     {
         [field: SerializeField]

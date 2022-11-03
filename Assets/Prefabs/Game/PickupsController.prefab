@@ -49,8 +49,8 @@ MonoBehaviour:
     min: {x: -11, y: -3}
     max: {x: 11, y: 9}
   spawnDelayRange:
-    min: 15
-    max: 25
+    min: 10
+    max: 15
   <Pickups>k__BackingField:
   - {fileID: 104089013211827270, guid: 0d88dbc5e50a0f54fbfa2c2fe913050a, type: 3}
   - {fileID: 9114080616186709491, guid: f1a534e67e56ffa4db92b61512c34315, type: 3}
