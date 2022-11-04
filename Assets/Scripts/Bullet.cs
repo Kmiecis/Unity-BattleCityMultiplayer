@@ -136,12 +136,13 @@ namespace Tanks
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
             var lag = info.GetLag();
+            var speed = info.GetDataAt<float>(0);
 
             var position = (Vector2)transform.position;
             var direction = (Vector2)(transform.rotation * Vector3.up);
-            var distance = lag * MovementController.speed;
+            var distance = lag * speed;
 
-            MovementController.SetMovement(direction);
+            MovementController.SetMovement(direction, speed);
 
             if (UPhysics2D.Raycast(position, direction, out var hit, distance, hitMask))
             {

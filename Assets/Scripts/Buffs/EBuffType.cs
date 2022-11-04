@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tanks
+﻿namespace Tanks
 {
     public enum EBuffType
     {

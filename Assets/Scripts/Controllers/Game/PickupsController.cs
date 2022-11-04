@@ -67,7 +67,7 @@ namespace Tanks
 
         private void Start()
         {
-            _spawnTime = Time.time + Random.Range(spawnDelayRange.min, spawnDelayRange.max);
+            _spawnTime = Time.time;
         }
 
         private void Update()

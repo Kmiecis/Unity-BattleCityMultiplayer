@@ -33,7 +33,7 @@ namespace Tanks
             {
                 _fired = Time.time;
 
-                var bulletObject = PhotonNetwork.Instantiate(bulletPrefabPath, SpawnPoint.position, SpawnPoint.rotation);
+                var bulletObject = PhotonNetwork.Instantiate(bulletPrefabPath, SpawnPoint.position, SpawnPoint.rotation, data: new object[] { speed });
                 var bullet = bulletObject.GetComponent<Bullet>();
                 _bullets.Add(bullet);
             }

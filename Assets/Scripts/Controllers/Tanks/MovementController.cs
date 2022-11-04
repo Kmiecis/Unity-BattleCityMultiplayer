@@ -38,10 +38,15 @@ namespace Tanks
             return Vector2.up;
         }
 
-        public void SetMovement(Vector2 direction)
+        public void SetMovement(Vector2 direction, float speed)
         {
             Rigidbody.rotation = ToAngle(direction);
             Rigidbody.velocity = direction * speed;
+        }
+
+        public void SetMovement(Vector2 direction)
+        {
+            SetMovement(direction, speed);
         }
 
         public void ApplyMovement(float time)

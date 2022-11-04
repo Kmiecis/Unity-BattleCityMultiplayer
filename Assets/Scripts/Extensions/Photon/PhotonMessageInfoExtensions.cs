@@ -8,5 +8,11 @@ namespace Tanks.Extensions
         {
             return (float)(PhotonNetwork.Time - self.SentServerTime);
         }
+
+        public static T GetDataAt<T>(this PhotonMessageInfo self, int index)
+        {
+            var data = self.photonView.InstantiationData;
+            return (T)data[index];
+        }
     }
 }
