@@ -17,6 +17,11 @@ namespace Tanks
             get => _current;
         }
 
+        public int Limit
+        {
+            get => Cracks.Length;
+        }
+
         public Texture CurrentCrack
         {
             get => Cracks[_current];

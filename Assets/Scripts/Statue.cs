@@ -31,6 +31,12 @@ namespace Tanks
             _controller = controller;
         }
 
+        public void Hit()
+        {
+            Damage();
+            RPCDamage();
+        }
+
         public void Damage(float lag = 0.0f)
         {
             if (IsDestroyed)

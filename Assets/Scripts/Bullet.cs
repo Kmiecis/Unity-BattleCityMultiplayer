@@ -56,13 +56,12 @@ namespace Tanks
 
         private void HitTank(Tank tank)
         {
-            if (!tank.ForcefieldController.IsActive &&
-                tank.team != team)
+            if (tank.team != team)
             {
-                tank.Explode();
-                tank.RPCExplode();
-
-                photonView.Owner.IncrKills();
+                if (tank.Hit())
+                {
+                    photonView.Owner.IncrKills();
+                }
             }
         }
 
@@ -70,8 +69,7 @@ namespace Tanks
         {
             if (statue.team != team)
             {
-                statue.Damage();
-                statue.RPCDamage();
+                statue.Hit();
             }
         }
 

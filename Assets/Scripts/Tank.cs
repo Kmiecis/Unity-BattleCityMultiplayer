@@ -28,6 +28,8 @@ namespace Tanks
         public ExplosionController ExplosionController { get; private set; }
         [field: SerializeField]
         public RespawnController RespawnController { get; private set; }
+        [field: SerializeField]
+        public UpgradeController UpgradeController { get; private set; }
 
         [DI_Inject]
         private TanksController _tanksController;
@@ -52,11 +54,76 @@ namespace Tanks
             HighlightedObject.SetActive(value && photonView.IsMine);
         }
 
+        public bool Hit()
+        {
+            if (!ForcefieldController.IsActive)
+            {
+                if (TryDowngrade())
+                {
+                    RPCDowngrade();
+                }
+                else
+                {
+                    Explode();
+                    RPCExplode();
+
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        public bool TryDowngrade()
+        {
+            if (UpgradeController.HasDowngrade)
+            {
+                UpgradeController.Downgrade();
+                return true;
+            }
+
+            return false;
+        }
+
+        public void RPCDowngrade()
+        {
+            photonView.RPC(nameof(RPCTankDowngrade_Internal), RpcTarget.Others);
+        }
+
+        [PunRPC]
+        private void RPCTankDowngrade_Internal()
+        {
+            TryDowngrade();
+        }
+
+        public bool TryUpgrade()
+        {
+            if (UpgradeController.HasUpgrade)
+            {
+                UpgradeController.Upgrade();
+                return true;
+            }
+
+            return false;
+        }
+
+        public void RPCUpgrade()
+        {
+            photonView.RPC(nameof(RPCTankUpgrade_Internal), RpcTarget.Others);
+        }
+
+        [PunRPC]
+        private void RPCTankUpgrade_Internal()
+        {
+            TryUpgrade();
+        }
+
         public void Explode()
         {
             SetVisiblity(false);
 
             ExplosionController.Explode();
+            UpgradeController.SetDefault();
 
             if (photonView.IsMine)
             {
@@ -83,6 +150,7 @@ namespace Tanks
         {
             var spawn = _spawnsController.GetBestSpawn();
             RespawnController.Respawn(spawn.transform.position);
+            RespawnController.RPCRespawn(spawn.transform.position);
         }
 
         private void OnRespawn()

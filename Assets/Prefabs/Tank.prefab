@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: -4768851008313264919}
   - component: {fileID: 4515303784969990562}
   - component: {fileID: 8987798851253315977}
+  - component: {fileID: 1969046085256359090}
   - component: {fileID: 2819395944969873370}
   - component: {fileID: 5544837013420114695}
   - component: {fileID: 322196525130057366}
@@ -226,6 +227,7 @@ MonoBehaviour:
   <ForcefieldController>k__BackingField: {fileID: -4768851008313264919}
   <ExplosionController>k__BackingField: {fileID: 4515303784969990562}
   <RespawnController>k__BackingField: {fileID: 8987798851253315977}
+  <UpgradeController>k__BackingField: {fileID: 1969046085256359090}
 --- !u!114 &4628357046836593220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +320,27 @@ MonoBehaviour:
   duration: 3
   <Target>k__BackingField: {fileID: 2800864980058447838}
   <BlinkObject>k__BackingField: {fileID: 8044135417905479839}
+--- !u!114 &1969046085256359090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800864980058447839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297cedd2eecdb154c9b52c9e70d2fa5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _starting: 1
+  <UpgradeSprites>k__BackingField: []
+  <HighlightSprites>k__BackingField:
+  - {fileID: 21300000, guid: d1d8154a21fe2a441b9b65b676ac1063, type: 3}
+  - {fileID: 21300000, guid: 8b5b00b9ccdff81419ee9dbaa96fc3c7, type: 3}
+  - {fileID: 21300000, guid: 1f4f47bf87c44de459f6db73dcd94fe1, type: 3}
+  - {fileID: 21300000, guid: feb1770b051a77641b44c9e2b0410349, type: 3}
+  <ModelRenderer>k__BackingField: {fileID: 2800864980006118080}
+  <HighlightRenderer>k__BackingField: {fileID: 100781835474699446}
 --- !u!114 &2819395944969873370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,7 +519,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d1d8154a21fe2a441b9b65b676ac1063, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -504,7 +527,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &4661009988854027101

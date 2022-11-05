@@ -46,7 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Buffs>k__BackingField:
+  - {fileID: 7496917283242575090, guid: 9bf6d6f4ee77d0a409ce755228963f33, type: 3}
+  - {fileID: 2065625591174465428, guid: 998b3974bae67c84890eb73126b235af, type: 3}
+  - {fileID: 1868183863662082278, guid: 108cbca059dd95744aec9988facb5f7a, type: 3}
   - {fileID: 4749713718692070532, guid: fbb761b2cd7c72740bc2303b9faf697a, type: 3}
+  - {fileID: 8832011387096085235, guid: 51216684b04269344824e751572c9685, type: 3}
+  - {fileID: 4298612631353966192, guid: 90862375add45ba44ace7b2ca2713617, type: 3}
 --- !u!114 &2985491010578364015
 MonoBehaviour:
   m_ObjectHideFlags: 0

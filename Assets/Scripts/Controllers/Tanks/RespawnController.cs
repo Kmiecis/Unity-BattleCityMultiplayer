@@ -51,8 +51,6 @@ namespace Tanks
             SetRespawn(position, duration);
 
             SetVisibility(true);
-
-            RPCRespawn(position, duration);
         }
 
         public void RPCRespawn(Vector3 position)

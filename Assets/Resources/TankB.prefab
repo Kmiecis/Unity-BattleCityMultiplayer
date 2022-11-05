@@ -11,17 +11,29 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1969046085256359090, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
+      propertyPath: <UpgradeSprites>k__BackingField.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1969046085256359090, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
+      propertyPath: <UpgradeSprites>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 4ed7ca022910cc64e905e5707b45647e, type: 3}
+    - target: {fileID: 1969046085256359090, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
+      propertyPath: <UpgradeSprites>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 737e583b2f9bb5141b7bf30d16f21085, type: 3}
+    - target: {fileID: 1969046085256359090, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
+      propertyPath: <UpgradeSprites>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 8016be1a37b876a46b9d94527370b0d3, type: 3}
+    - target: {fileID: 1969046085256359090, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
+      propertyPath: <UpgradeSprites>k__BackingField.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: f554c6bbe2144c94981f6c3b1197ef4a, type: 3}
     - target: {fileID: 2407051911074763354, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
       propertyPath: m_Layer
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2800864980006118080, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4ed7ca022910cc64e905e5707b45647e, type: 3}
-    - target: {fileID: 2800864980006118080, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2800864980006118108, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
       propertyPath: m_Layer
