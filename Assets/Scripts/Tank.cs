@@ -30,11 +30,10 @@ namespace Tanks
         public RespawnController RespawnController { get; private set; }
         [field: SerializeField]
         public UpgradeController UpgradeController { get; private set; }
-
-        [DI_Inject]
-        private TanksController _tanksController;
-        [DI_Inject]
-        private SpawnsController _spawnsController;
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
+        [field: DI_Inject]
+        public SpawnsController SpawnsController { get; private set; }
 
         public bool IsVisible
         {
@@ -148,7 +147,7 @@ namespace Tanks
 
         private void OnExplode()
         {
-            var spawn = _spawnsController.GetBestSpawn();
+            var spawn = SpawnsController.GetBestSpawn();
             RespawnController.Respawn(spawn.transform.position);
             RespawnController.RPCRespawn(spawn.transform.position);
         }

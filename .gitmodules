@@ -7,3 +7,6 @@
 [submodule "Assets/Packages/unity-package-materializer"]
 	path = Assets/Packages/unity-package-materializer
 	url = https://github.com/kmiecis/unity-package-materializer.git
+[submodule "Assets/Packages/unity-package-dynamicinjection"]
+	path = Assets/Packages/unity-package-dynamicinjection
+	url = https://github.com/Kmiecis/unity-package-dynamicinjection

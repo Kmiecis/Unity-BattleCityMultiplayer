@@ -10,10 +10,10 @@ namespace Tanks
 
         [field: SerializeField]
         public Trigger2DController TriggerController { get; private set; }
-
+        [field: DI_Inject]
+        public SpawnsController SpawnsController { get; private set; }
+        
         private List<GameObject> _triggers = new List<GameObject>();
-        [DI_Inject]
-        private SpawnsController _controller;
 
         public bool IsValid
         {

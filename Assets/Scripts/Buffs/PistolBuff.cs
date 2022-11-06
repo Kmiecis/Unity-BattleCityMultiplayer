@@ -6,12 +6,12 @@ namespace Tanks
     {
         public int extras = 2;
 
-        [DI_Inject]
-        private TanksController _tanksController;
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
 
         public override void OnStart()
         {
-            var tank = _tanksController.GetMineTank();
+            var tank = TanksController.GetMineTank();
             if (tank.team == _team)
             {
                 tank.BulletController.limit += extras;
@@ -20,7 +20,7 @@ namespace Tanks
 
         public override void OnFinish()
         {
-            var tank = _tanksController.GetMineTank();
+            var tank = TanksController.GetMineTank();
             if (tank.team == _team)
             {
                 tank.BulletController.limit -= extras;

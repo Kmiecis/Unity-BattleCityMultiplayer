@@ -1,4 +1,5 @@
 using Common.Extensions;
+using Common.Injection;
 using Common.Mathematics;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,21 +14,14 @@ namespace Tanks
         public GameObject PiecesObject { get; private set; }
         [field: SerializeField]
         public List<Brick> Pieces { get; private set; }
-
-        private BricksController _controller;
+        [field: DI_Inject]
+        public BricksController BricksController { get; private set; }
 
         private Brick _parent;
         private int _hitframe;
 
         public bool IsBlock
-        {
-            get => BlockObject != null;
-        }
-
-        public void Setup(BricksController controller)
-        {
-            _controller = controller;
-        }
+            => BlockObject != null;
 
         public void Piecefy()
         {
@@ -88,13 +82,15 @@ namespace Tanks
             var rayPosition = position - parallel * deltaPosition - parallel * RAY_LENGTH * 0.5f;
             var rayVector = parallel * RAY_LENGTH;
 
-            _controller.StrikeBricks(rayPosition, rayVector);
-            _controller.RPCStrikeBricks(rayPosition, rayVector);
+            BricksController.StrikeBricks(rayPosition, rayVector);
+            BricksController.RPCStrikeBricks(rayPosition, rayVector);
         }
 
         #region Unity methods
         private void Awake()
         {
+            DI_Binder.Bind(this);
+
             foreach (var piece in Pieces)
             {
                 piece._parent = this;
@@ -107,6 +103,8 @@ namespace Tanks
             {
                 _parent.Remove(this);
             }
+
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

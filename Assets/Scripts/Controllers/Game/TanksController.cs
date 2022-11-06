@@ -12,21 +12,17 @@ namespace Tanks
         public string tankAPrefabPath;
         public string tankBPrefabPath;
 
+        [field: DI_Inject]
+        public SpawnsController SpawnsController { get; private set; }
+
         private List<Tank> _teamATanks = new List<Tank>();
         private List<Tank> _teamBTanks = new List<Tank>();
 
-        [DI_Inject]
-        private SpawnsController _spawnsController;
-
         public List<Tank> TeamATanks
-        {
-            get => _teamATanks;
-        }
+            => _teamATanks;
 
         public List<Tank> TeamBTanks
-        {
-            get => _teamBTanks;
-        }
+            => _teamBTanks;
 
         public List<Tank> GetTanks(ETeam team)
         {
@@ -76,7 +72,7 @@ namespace Tanks
 
         private void Start()
         {
-            var spawn = _spawnsController.GetBestSpawn();
+            var spawn = SpawnsController.GetBestSpawn();
             var prefabPath = GetTankPrefabPath();
 
             PhotonNetwork.Instantiate(prefabPath, spawn.transform.position, Quaternion.identity);

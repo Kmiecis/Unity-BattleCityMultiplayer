@@ -4,26 +4,26 @@ namespace Tanks
 {
     public class StarBuff : ATimedBuff
     {
-        public float speedMultiplier = 1.0f;
+        public float multiplier = 1.0f;
 
-        [DI_Inject]
-        private TanksController _tanksController;
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
 
         public override void OnStart()
         {
-            var tanks = _tanksController.GetTanks(_team);
+            var tanks = TanksController.GetTanks(_team);
             foreach (var tank in tanks)
             {
-                tank.BulletController.speed *= speedMultiplier;
+                tank.BulletController.speed *= multiplier;
             }
         }
 
         public override void OnFinish()
         {
-            var tanks = _tanksController.GetTanks(_team);
+            var tanks = TanksController.GetTanks(_team);
             foreach (var tank in tanks)
             {
-                tank.BulletController.speed /= speedMultiplier;
+                tank.BulletController.speed /= multiplier;
             }
         }
 

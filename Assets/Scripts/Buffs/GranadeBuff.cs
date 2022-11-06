@@ -4,13 +4,13 @@ namespace Tanks
 {
     public class GranadeBuff : AActionBuff
     {
-        [DI_Inject]
-        private TanksController _tanksController;
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
 
         public override void OnStart()
         {
             var enemyTeam = _team.Flip();
-            var tanks = _tanksController.GetTanks(enemyTeam);
+            var tanks = TanksController.GetTanks(enemyTeam);
             foreach (var tank in tanks)
             {
                 if (tank.IsVisible)

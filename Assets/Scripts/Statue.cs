@@ -11,6 +11,8 @@ namespace Tanks
         public DestroyController DestroyController { get; private set; }
         [field: SerializeField]
         public CracksController CracksController { get; private set; }
+        [field: SerializeField]
+        public FortifyController FortifyController { get; private set; }
 
         private StatuesController _controller;
         private float _nextRepairTime = float.MaxValue;

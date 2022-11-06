@@ -1,14 +1,14 @@
 ﻿using Common.Extensions;
+using Common.Injection;
 using Photon.Pun;
 using UnityEngine;
 
 namespace Tanks
 {
+    [DI_Install]
+    [RequireComponent(typeof(PhotonView))]
     public class BricksController : MonoBehaviourPun
     {
-        [field: SerializeField]
-        public Brick[] Bricks { get; private set; }
-
         private int _hitframe;
 
         private bool TryGetBrick(RaycastHit2D hit, out Brick brick)
@@ -65,20 +65,15 @@ namespace Tanks
         }
 
         #region Unity methods
-        private void Start()
+        private void Awake()
         {
-            foreach (var brick in Bricks)
-            {
-                brick.Setup(this);
-            }
+            DI_Binder.Bind(this);
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
-
-#if UNITY_EDITOR
-        private void Reset()
-        {
-            Bricks = FindObjectsOfType<Brick>(true);
-        }
-#endif
     }
 }

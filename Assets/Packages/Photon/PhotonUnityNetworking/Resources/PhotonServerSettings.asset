@@ -50,6 +50,8 @@ MonoBehaviour:
   - RPCStrikeBricks_Internal
   - RPCTankDowngrade_Internal
   - RPCTankExplode_Internal
+  - RPCTankUpgrade_Internal
+  - RPCFortify_Internal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

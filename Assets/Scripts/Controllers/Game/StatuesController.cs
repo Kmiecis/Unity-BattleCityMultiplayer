@@ -1,9 +1,11 @@
-﻿using Photon.Pun;
+﻿using Common.Injection;
+using Photon.Pun;
 using Tanks.Extensions;
 using UnityEngine;
 
 namespace Tanks
 {
+    [DI_Install]
     [RequireComponent(typeof(PhotonView))]
     public class StatuesController : MonoBehaviourPun
     {
@@ -57,10 +59,20 @@ namespace Tanks
         }
 
         #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
+        }
+
         private void Start()
         {
             TeamAStatue.Setup(this);
             TeamBStatue.Setup(this);
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

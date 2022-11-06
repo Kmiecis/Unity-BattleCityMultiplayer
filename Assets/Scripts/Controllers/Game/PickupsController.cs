@@ -8,6 +8,7 @@ using UnityEngine;
 namespace Tanks
 {
     [DI_Install]
+    [RequireComponent(typeof(PhotonView))]
     public class PickupsController : MonoBehaviourPun
     {
         public Range2 spawnRange;

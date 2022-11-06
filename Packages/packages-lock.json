@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.common.dynamic.injection": {
-      "version": "https://github.com/kmiecis/unity-package-dynamicinjection.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "30dddeeb2ca1c1bd08abe53a892e262f099a5525"
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

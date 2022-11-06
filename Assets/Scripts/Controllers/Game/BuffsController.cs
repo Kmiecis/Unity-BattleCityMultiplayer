@@ -7,18 +7,13 @@ using UnityEngine;
 namespace Tanks
 {
     [DI_Install]
+    [RequireComponent(typeof(PhotonView))]
     public class BuffsController : MonoBehaviourPun
     {
         [field: SerializeField]
         public ABuff[] Buffs { get; private set; }
-
-        [DI_Inject]
-        private TanksController _tanksController;
-
-        public TanksController TanksController
-        {
-            get => _tanksController;
-        }
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
 
         private void CastBuff(int index, ETeam team, float lag = 0.0f)
         {

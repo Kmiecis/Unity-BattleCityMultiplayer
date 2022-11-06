@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [RequireComponent(typeof(PhotonView))]
     public class ExplosionController : MonoBehaviourPun
     {
         private const string kExplosionEndEvent = "end";

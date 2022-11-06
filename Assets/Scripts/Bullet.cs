@@ -35,18 +35,19 @@ namespace Tanks
 
             if (photonView.IsMine)
             {
-                if (collider.TryGetComponentInParent<Tank>(out var tank))
-                {
-                    HitTank(tank);
-                }
-                else if (collider.TryGetComponentInParent<Statue>(out var statue))
-                {
-                    HitStatue(statue);
-                }
-                else if (collider.TryGetComponentInParent<Brick>(out var brick))
+                if (collider.TryGetComponentInParent<Brick>(out var brick))
                 {
                     HitBrick(brick);
                 }
+                else if (collider.TryGetComponentInParent<Tank>(out var tank))
+                {
+                    HitTank(tank);
+                }
+                else if(collider.TryGetComponentInParent<Statue>(out var statue))
+                {
+                    HitStatue(statue);
+                }
+                
                 
                 RPCExplode();
 

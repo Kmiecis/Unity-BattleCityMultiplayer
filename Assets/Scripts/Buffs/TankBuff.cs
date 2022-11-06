@@ -1,22 +1,23 @@
 ﻿using Common.Injection;
-using UnityEngine;
 
 namespace Tanks
 {
     public class TankBuff : AActionBuff
     {
-        [SerializeField]
-        private int _upgrades = 1;
+        public int upgrades = 1;
 
-        [DI_Inject]
-        private TanksController _tanksController;
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
 
         public override void OnStart()
         {
-            var tanks = _tanksController.GetTanks(_team);
+            var tanks = TanksController.GetTanks(_team);
             foreach (var tank in tanks)
             {
-                tank.TryUpgrade();
+                for (int i = 0; i < upgrades; ++i)
+                {
+                    tank.TryUpgrade();
+                }
             }
         }
 

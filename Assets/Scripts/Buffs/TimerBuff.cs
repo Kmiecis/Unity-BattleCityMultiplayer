@@ -4,12 +4,12 @@ namespace Tanks
 {
     public class TimerBuff : ATimedBuff
     {
-        [DI_Inject]
-        private TanksController _tanksController;
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
 
         public override void OnStart()
         {
-            var tank = _tanksController.GetMineTank();
+            var tank = TanksController.GetMineTank();
             if (tank.team != _team)
             {
                 tank.SetEnabled(false);
@@ -18,7 +18,7 @@ namespace Tanks
 
         public override void OnFinish()
         {
-            var tank = _tanksController.GetMineTank();
+            var tank = TanksController.GetMineTank();
             if (tank.team != _team)
             {
                 tank.SetEnabled(true);

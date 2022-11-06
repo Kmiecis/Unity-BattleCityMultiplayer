@@ -8,8 +8,8 @@ namespace Tanks
         public EBuffType buffType;
         public float duration = 1.0f;
 
-        [DI_Inject]
-        private BuffsController _controller;
+        [field: DI_Inject]
+        public BuffsController BuffsController { get; private set; }
 
         private float _destroytime;
 
@@ -26,8 +26,8 @@ namespace Tanks
 
         public void PickedFor(ETeam team)
         {
-            _controller.CastBuff(buffType, team);
-            _controller.RPCCastBuff(buffType, team);
+            BuffsController.CastBuff(buffType, team);
+            BuffsController.RPCCastBuff(buffType, team);
         }
 
         private void UpdateLifetime()

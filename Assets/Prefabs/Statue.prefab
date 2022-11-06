@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -2977472981575767210}
   - component: {fileID: -854483549608014709}
   - component: {fileID: -3259348342598418392}
+  - component: {fileID: 4016856198441350134}
   - component: {fileID: 1251056454602793752}
   m_Layer: 0
   m_Name: Statue
@@ -52,6 +53,7 @@ MonoBehaviour:
   repairDelay: 1
   <DestroyController>k__BackingField: {fileID: -854483549608014709}
   <CracksController>k__BackingField: {fileID: -3259348342598418392}
+  <FortifyController>k__BackingField: {fileID: 4016856198441350134}
 --- !u!114 &-854483549608014709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,6 +93,22 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 68450d5177117c7488c011a2d1e3a260, type: 3}
   - {fileID: 2800000, guid: 7eb35a806ee35624783a555000202023, type: 3}
   <MaterialTexture>k__BackingField: {fileID: 3793204802446025250}
+--- !u!114 &4016856198441350134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6174120783565850974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85c6fa9d8816074f8d8872be347ec53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 3
+  <StonePrefab>k__BackingField: {fileID: 7698624382863261762, guid: 9e965274218c77c4ebe9eb81bd11bfa6, type: 3}
+  <BrickPrefab>k__BackingField: {fileID: 6001504902910923100, guid: 7e166858fa5b3f44eb29a65be9e340e7, type: 3}
+  <Stones>k__BackingField: []
 --- !u!114 &1251056454602793752
 MonoBehaviour:
   m_ObjectHideFlags: 0

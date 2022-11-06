@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [RequireComponent(typeof(PhotonView))]
     public class ForcefieldController : MonoBehaviourPun
     {
         public float duration = 1.0f;
@@ -25,7 +26,7 @@ namespace Tanks
             ForcefieldObject.SetActive(value);
         }
 
-        public void Enable(float lag)
+        public void Enable(float lag = 0.0f)
         {
             Enable(duration, lag);
         }

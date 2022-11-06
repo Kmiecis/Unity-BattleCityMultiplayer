@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [RequireComponent(typeof(PhotonView))]
     public class BulletController : MonoBehaviourPun
     {
         public int limit = 1;

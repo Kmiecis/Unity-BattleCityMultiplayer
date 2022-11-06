@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [RequireComponent(typeof(PhotonView))]
     public class RespawnController : MonoBehaviourPun
     {
         public float duration = 1.0f;
