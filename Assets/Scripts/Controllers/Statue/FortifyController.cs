@@ -11,8 +11,6 @@ namespace Tanks
         public float duration = 1.0f;
         
         [field: SerializeField]
-        public Stone StonePrefab { get; private set; }
-        [field: SerializeField]
         public Brick BrickPrefab { get; private set; }
         [field: SerializeField]
         public GameObject[] Stones { get; private set; }
@@ -30,14 +28,22 @@ namespace Tanks
             var time = Time.time;
             _switchtime = time + duration;
 
-            foreach (var brick in _bricks)
+            for (int i = 0; i < _bricks.Count; ++i)
             {
+                var brick = _bricks[i];
                 if (brick != null)
                 {
-                    Destroy(brick.gameObject);
+                    if (brick.IsFractured)
+                    {
+                        Destroy(brick.gameObject);
+                        _bricks[i] = null;
+                    }
+                    else
+                    {
+                        brick.gameObject.SetActive(false);
+                    }
                 }
             }
-            _bricks.Clear();
 
             foreach (var stone in Stones)
             {
@@ -63,12 +69,20 @@ namespace Tanks
 
         public void SwitchToBricks()
         {
-            foreach (var stone in Stones)
+            for (int i = 0; i < Stones.Length; ++i)
             {
+                var stone = Stones[i];
                 stone.SetActive(false);
 
-                var brick = Instantiate(BrickPrefab, stone.transform.position, stone.transform.rotation, transform);
-                _bricks.Add(brick);
+                var brick = _bricks[i];
+                if (brick == null)
+                {
+                    _bricks[i] = Instantiate(BrickPrefab, stone.transform.position, stone.transform.rotation, transform);
+                }
+                else
+                {
+                    brick.gameObject.SetActive(true);
+                }
             }
         }
 
@@ -84,6 +98,14 @@ namespace Tanks
         }
 
         #region Unity methods
+        private void Start()
+        {
+            for (int i = 0; i < Stones.Length; ++i)
+            {
+                _bricks.Add(null);
+            }
+        }
+
         private void Update()
         {
             CheckSwitch();

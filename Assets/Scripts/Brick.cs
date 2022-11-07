@@ -20,10 +20,10 @@ namespace Tanks
         private Brick _parent;
         private int _hitframe;
 
-        public bool IsBlock
-            => BlockObject != null;
+        public bool IsFractured
+            => BlockObject == null;
 
-        public void Piecefy()
+        public void Fracture()
         {
             BlockObject.SetActive(false);
             BlockObject = null;
@@ -89,22 +89,25 @@ namespace Tanks
         #region Unity methods
         private void Awake()
         {
-            DI_Binder.Bind(this);
-
             foreach (var piece in Pieces)
             {
                 piece._parent = this;
             }
         }
 
+        private void Start()
+        {
+            DI_Binder.Bind(this);
+        }
+
         private void OnDestroy()
         {
+            DI_Binder.Unbind(this);
+
             if (_parent != null)
             {
                 _parent.Remove(this);
             }
-
-            DI_Binder.Unbind(this);
         }
         #endregion
     }

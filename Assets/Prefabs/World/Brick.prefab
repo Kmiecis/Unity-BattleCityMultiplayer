@@ -281,7 +281,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4973925171622347563, guid: ec99109c1635a6740927603bcb2c8444, type: 3}
       propertyPath: m_Name
-      value: BrickQuarter (2)
+      value: BrickQuarter
       objectReference: {fileID: 0}
     - target: {fileID: 7777247437675760594, guid: ec99109c1635a6740927603bcb2c8444, type: 3}
       propertyPath: m_RootOrder
@@ -354,7 +354,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4973925171622347563, guid: ec99109c1635a6740927603bcb2c8444, type: 3}
       propertyPath: m_Name
-      value: BrickQuarter (1)
+      value: BrickQuarter
       objectReference: {fileID: 0}
     - target: {fileID: 7777247437675760594, guid: ec99109c1635a6740927603bcb2c8444, type: 3}
       propertyPath: m_RootOrder
@@ -427,7 +427,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4973925171622347563, guid: ec99109c1635a6740927603bcb2c8444, type: 3}
       propertyPath: m_Name
-      value: BrickQuarter (3)
+      value: BrickQuarter
       objectReference: {fileID: 0}
     - target: {fileID: 7777247437675760594, guid: ec99109c1635a6740927603bcb2c8444, type: 3}
       propertyPath: m_RootOrder

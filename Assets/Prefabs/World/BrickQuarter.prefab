@@ -252,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773710852905395660, guid: c1a190ea3cf9e0f469541c69fb8d1dc0, type: 3}
       propertyPath: m_Name
-      value: BrickPiece (3)
+      value: BrickPiece
       objectReference: {fileID: 0}
     - target: {fileID: 3773710852905395660, guid: c1a190ea3cf9e0f469541c69fb8d1dc0, type: 3}
       propertyPath: m_IsActive
@@ -406,7 +406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773710852905395660, guid: c1a190ea3cf9e0f469541c69fb8d1dc0, type: 3}
       propertyPath: m_Name
-      value: BrickPiece (1)
+      value: BrickPiece
       objectReference: {fileID: 0}
     - target: {fileID: 3773710852905395660, guid: c1a190ea3cf9e0f469541c69fb8d1dc0, type: 3}
       propertyPath: m_IsActive
@@ -483,7 +483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773710852905395660, guid: c1a190ea3cf9e0f469541c69fb8d1dc0, type: 3}
       propertyPath: m_Name
-      value: BrickPiece (2)
+      value: BrickPiece
       objectReference: {fileID: 0}
     - target: {fileID: 3773710852905395660, guid: c1a190ea3cf9e0f469541c69fb8d1dc0, type: 3}
       propertyPath: m_IsActive

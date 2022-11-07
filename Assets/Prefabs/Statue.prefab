@@ -106,7 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 3
-  <StonePrefab>k__BackingField: {fileID: 7698624382863261762, guid: 9e965274218c77c4ebe9eb81bd11bfa6, type: 3}
   <BrickPrefab>k__BackingField: {fileID: 6001504902910923100, guid: 7e166858fa5b3f44eb29a65be9e340e7, type: 3}
   <Stones>k__BackingField: []
 --- !u!114 &1251056454602793752

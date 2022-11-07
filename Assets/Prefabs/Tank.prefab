@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limit: 1
-  speed: 5
+  speed: 7.5
   delay: 0.33
   bulletPrefabPath: 
   <SpawnPoint>k__BackingField: {fileID: 8577378739708594821}

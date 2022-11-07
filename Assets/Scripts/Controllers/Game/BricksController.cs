@@ -26,9 +26,9 @@ namespace Tanks
                 foreach (var hit in hits)
                 {
                     if (TryGetBrick(hit, out var brick) &&
-                        brick.IsBlock)
+                        !brick.IsFractured)
                     {
-                        brick.Piecefy();
+                        brick.Fracture();
 
                         check = false;
                     }
