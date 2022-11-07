@@ -1,4 +1,5 @@
-﻿using ExitGames.Client.Photon;
+﻿using Common.Injection;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
@@ -13,7 +14,7 @@ namespace Tanks
     {
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
-        [field: SerializeField]
+        [field: DI_Inject]
         public StatuesController StatuesController { get; private set; }
 
         private bool _finished = false;
@@ -87,12 +88,22 @@ namespace Tanks
         #endregion
 
         #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
+        }
+
         private void Update()
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 CheckStatuesDestroyed();
             }
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common.Injection;
+using UnityEngine;
 
 namespace Tanks
 {
@@ -13,8 +14,9 @@ namespace Tanks
         public CracksController CracksController { get; private set; }
         [field: SerializeField]
         public FortifyController FortifyController { get; private set; }
+        [field: DI_Inject]
+        public StatuesController StatuesController { get; private set; }
 
-        private StatuesController _controller;
         private float _nextRepairTime = float.MaxValue;
 
         public bool IsDestroyed
@@ -26,11 +28,6 @@ namespace Tanks
         {
             CracksController.SetDefault();
             DestroyController.SetDestroyed();
-        }
-
-        public void Setup(StatuesController controller)
-        {
-            _controller = controller;
         }
 
         public void Hit()
@@ -64,7 +61,7 @@ namespace Tanks
 
         public void RPCDamage()
         {
-            _controller.RPCStatueDamage(team);
+            StatuesController.RPCStatueDamage(team);
         }
 
         public void Repair(float lag = 0.0f)
@@ -90,7 +87,7 @@ namespace Tanks
 
         public void RPCRepair()
         {
-            _controller.RPCStatueRepair(team);
+            StatuesController.RPCStatueRepair(team);
         }
 
         private void UpdateRepairing()
@@ -102,10 +99,27 @@ namespace Tanks
             }
         }
 
+        #region Injection methods
+        private void OnStatuesControllerInject(StatuesController controller)
+        {
+            controller.SetStatue(this);
+        }
+        #endregion
+
         #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
+        }
+
         private void Update()
         {
             UpdateRepairing();
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

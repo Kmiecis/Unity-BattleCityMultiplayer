@@ -9,18 +9,29 @@ namespace Tanks
     [RequireComponent(typeof(PhotonView))]
     public class StatuesController : MonoBehaviourPun
     {
-        [field: SerializeField]
-        public Statue TeamAStatue { get; private set; }
-        [field: SerializeField]
-        public Statue TeamBStatue { get; private set; }
+        private Statue _teamAStatue;
+        private Statue _teamBStatue;
 
         public Statue GetStatue(ETeam team)
         {
             switch (team)
             {
-                case ETeam.A: return TeamAStatue;
-                case ETeam.B: return TeamBStatue;
+                case ETeam.A: return _teamAStatue;
+                case ETeam.B: return _teamBStatue;
                 default: return null;
+            }
+        }
+
+        public void SetStatue(Statue statue)
+        {
+            switch (statue.team)
+            {
+                case ETeam.A:
+                    _teamAStatue = statue;
+                    break;
+                case ETeam.B:
+                    _teamBStatue = statue;
+                    break;
             }
         }
 
@@ -62,12 +73,6 @@ namespace Tanks
         private void Awake()
         {
             DI_Binder.Bind(this);
-        }
-
-        private void Start()
-        {
-            TeamAStatue.Setup(this);
-            TeamBStatue.Setup(this);
         }
 
         private void OnDestroy()
