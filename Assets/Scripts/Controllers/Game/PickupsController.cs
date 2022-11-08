@@ -18,27 +18,51 @@ namespace Tanks
         public Pickup[] Pickups { get; private set; }
 
         private float _spawnTime;
-
-        private void TrySpawnPickup(int index, Vector2 position)
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                RPCSpawnPickup(index, position);
-            }
-        }
+        private int _previousIndex;
 
         private void UpdateSpawner()
         {
             var time = Time.time;
             if (_spawnTime < time)
             {
-                var spawnDelay = Random.Range(spawnDelayRange.min, spawnDelayRange.max);
+                var spawnDelay = GetNextSpawnDelay();
                 _spawnTime = time + spawnDelay;
 
-                var index = Random.Range(0, Pickups.Length);
-                var position = URandom.Range(spawnRange.min, spawnRange.max);
+                var position = GetNextSpawnPosition();
+                var index = GetNextPickupIndex();
 
                 TrySpawnPickup(index, position);
+            }
+        }
+
+        private float GetNextSpawnDelay()
+        {
+            return Random.Range(spawnDelayRange.min, spawnDelayRange.max);
+        }
+
+        private Vector2 GetNextSpawnPosition()
+        {
+            return URandom.Range(spawnRange.min, spawnRange.max);
+        }
+
+        private int GetNextPickupIndex()
+        {
+            int result = 0;
+
+            while (result == _previousIndex && Pickups.Length > 1)
+            {
+                result = Random.Range(0, Pickups.Length);
+            }
+
+            _previousIndex = result;
+            return result;
+        }
+
+        private void TrySpawnPickup(int index, Vector2 position)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                RPCSpawnPickup(index, position);
             }
         }
 
