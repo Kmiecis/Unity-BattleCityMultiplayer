@@ -4,18 +4,23 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using Tanks.Extensions;
+using Tanks.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Tanks
 {
+    [RequireComponent(typeof(PhotonView))]
     public class GameController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
         [field: DI_Inject]
         public StatuesController StatuesController { get; private set; }
+        [field: DI_Inject]
+        public GameUIController GameUIController { get; private set; }
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
 
         private bool _finished = false;
 
@@ -38,31 +43,56 @@ namespace Tanks
         private void CheckStatuesDestroyed()
         {
             var room = PhotonNetwork.CurrentRoom;
+
             if (!_finished &&
                 TryGetIsStatueDestroyed(out var team))
             {
-                room.SetTeamWon(team.Flip());
+                room.IncrTeamWins(team.Flip());
+
+                EndGame();
+                RPCEndGame();
+
                 _finished = true;
             }
         }
 
-        private void OnGameFinished()
+        private IEnumerator FinishGame(float delay)
         {
-            StartCoroutine(EndGame(GameProperties.endGameDelay));
+            yield return new WaitForRealSeconds(delay);
+            OnGameFinished();
         }
 
-        private void OnGameEnded()
+        private void OnGameFinished()
         {
-            if (PhotonNetwork.InRoom)
+            const string GAME_SCENE = "Game";
+
+            if (PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.LeaveRoom();
+                PhotonNetwork.LoadLevel(GAME_SCENE);
+            }
+            else
+            {
+                SceneManager.LoadScene(GAME_SCENE);
             }
         }
 
-        private IEnumerator EndGame(float delay)
+        public void EndGame(float lag = 0.0f)
         {
-            yield return new WaitForRealSeconds(delay);
-            OnGameEnded();
+            GameUIController.OnGameEnded();
+            TanksController.GetMineTank().IsEnabled = false;
+
+            StartCoroutine(FinishGame(GameProperties.endGameDelay - lag));
+        }
+
+        public void RPCEndGame()
+        {
+            photonView.RPC(nameof(RPCEndGame_Internal), RpcTarget.Others);
+        }
+
+        [PunRPC]
+        private void RPCEndGame_Internal(PhotonMessageInfo info)
+        {
+            EndGame(info.GetLag());
         }
 
         #region Photon methods
@@ -76,14 +106,6 @@ namespace Tanks
         public override void OnDisconnected(DisconnectCause cause)
         {
             SceneManager.LoadScene("Lobby");
-        }
-
-        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-        {
-            if (propertiesThatChanged.TryGetTeamWon(out _))
-            {
-                OnGameFinished();
-            }
         }
         #endregion
 

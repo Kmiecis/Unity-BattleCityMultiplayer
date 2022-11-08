@@ -36,19 +36,17 @@ namespace Tanks
         public SpawnsController SpawnsController { get; private set; }
 
         public bool IsVisible
-        {
-            get => ModelObject.activeSelf;
-        }
+            => ModelObject.activeSelf;
 
-        public void SetEnabled(bool value)
+        public bool IsEnabled
         {
-            enabled = value && photonView.IsMine;
-        }
+            get => enabled;
+            set => enabled = value && photonView.IsMine;
+        }    
 
         public void SetVisiblity(bool value)
         {
-            SetEnabled(value);
-
+            IsEnabled = value;
             ModelObject.SetActive(value);
             HighlightedObject.SetActive(value && photonView.IsMine);
         }
@@ -185,14 +183,6 @@ namespace Tanks
         #endregion
 
         #region Photon methods
-        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-        {
-            if (propertiesThatChanged.TryGetTeamWon(out _))
-            {
-                enabled = false;
-            }
-        }
-
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
             SetVisiblity(true);

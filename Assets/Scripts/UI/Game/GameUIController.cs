@@ -1,12 +1,11 @@
-﻿using Common.MVB;
-using ExitGames.Client.Photon;
-using Photon.Pun;
-using Tanks.Extensions;
+﻿using Common.Injection;
+using Common.MVB;
 using UnityEngine;
 
 namespace Tanks.UI
 {
-    public class GameUIController : MonoBehaviourPunCallbacks
+    [DI_Install]
+    public class GameUIController : MonoBehaviour
     {
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
@@ -30,22 +29,17 @@ namespace Tanks.UI
             _currentPanel?.SetActive(true);
         }
 
-        private void OnGameFinished()
+        public void OnGameEnded()
         {
             ChangeToPanel(ScoresPanel);
         }
 
-        #region Photon methods
-        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-        {
-            if (propertiesThatChanged.TryGetTeamWon(out _))
-            {
-                OnGameFinished();
-            }
-        }
-        #endregion
-
         #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(ExitKeyCode))
@@ -61,6 +55,11 @@ namespace Tanks.UI
             {
                 ChangeToPanel(null);
             }
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

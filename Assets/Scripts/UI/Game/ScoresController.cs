@@ -19,13 +19,8 @@ namespace Tanks.UI
         public Transform EntryParent { get; private set; }
         [field: SerializeField]
         public TextMeshProUGUI ScoreText { get; private set; }
-        [field: SerializeField]
-        public GameObject WonObject { get; private set; }
-        [field: SerializeField]
-        public GameObject LostObject { get; private set; }
 
         private Dictionary<int, ScoreEntry> _entries = new Dictionary<int, ScoreEntry>();
-        private int _score = 0;
 
         private ScoreEntry CreateEntry(Player player)
         {
@@ -40,12 +35,6 @@ namespace Tanks.UI
             if (_entries.TryGetValue(id, out var entry))
             {
                 _entries.Remove(id);
-
-                var delta = -entry.Kills;
-                if (delta != 0)
-                {
-                    UpdateScore(delta);
-                }
 
                 Destroy(entry.gameObject);
             }
@@ -101,40 +90,26 @@ namespace Tanks.UI
                 _entries.Add(player.ActorNumber, entry);
             }
 
-            var kills = entry.Kills;
             entry.SetScore(player);
-            var delta = entry.Kills - kills;
-
-            if (delta != 0)
-            {
-                UpdateScore(delta);
-            }
         }
 
-        private void UpdateScore(int delta)
+        private void RefreshScore()
         {
-            _score += delta;
-            ScoreText.text = _score.ToString();
+            var wins = PhotonNetwork.CurrentRoom.GetTeamWins(team);
+            UpdateScore(wins);
         }
 
-        private void RefreshWon()
+        private void UpdateScore(int wins)
         {
-            var teamWon = PhotonNetwork.CurrentRoom.GetTeamWon();
-            RefreshWon(teamWon != ETeam.None, teamWon == team);
-        }
-
-        private void RefreshWon(bool anyWon, bool myWon)
-        {
-            WonObject.SetActive(anyWon && myWon);
-            LostObject.SetActive(anyWon && !myWon);
+            ScoreText.text = wins.ToString();
         }
 
         #region Photon methods
         public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
         {
-            if (propertiesThatChanged.TryGetTeamWon(out var teamWon))
+            if (propertiesThatChanged.TryGetTeamWins(team, out var wins))
             {
-                RefreshWon(true, teamWon == team);
+                UpdateScore(wins);
             }
         }
 
@@ -145,12 +120,7 @@ namespace Tanks.UI
             {
                 if (changedProps.TryGetKills(out int kills))
                 {
-                    var delta = entry.SetKills(kills);
-
-                    if (delta != 0)
-                    {
-                        UpdateScore(delta);
-                    }
+                    entry.SetKills(kills);
 
                     SortEntries();
                 }
@@ -169,17 +139,12 @@ namespace Tanks.UI
         #endregion
 
         #region Unity methods
-        private void Awake()
-        {
-            UpdateScore(0);
-        }
-
         public override void OnEnable()
         {
             base.OnEnable();
 
             RefreshEntries();
-            RefreshWon();
+            RefreshScore();
         }
         #endregion
     }

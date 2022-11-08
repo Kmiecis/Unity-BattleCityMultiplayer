@@ -9,7 +9,8 @@ namespace Tanks.Extensions
         {
             var properties = new Hashtable
             {
-                { TEAM_WON_PROPERTY, null }
+                { GetTeamWinsProperty(ETeam.A), null },
+                { GetTeamWinsProperty(ETeam.B), null }
             };
             self.SetCustomProperties(properties);
         }
