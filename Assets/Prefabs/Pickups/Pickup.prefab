@@ -121,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7941679244193088923}
   - component: {fileID: 8719137694213968109}
+  - component: {fileID: 8804563430861113468}
   m_Layer: 13
   m_Name: Pickup
   m_TagString: Untagged
@@ -158,3 +159,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffType: 0
   duration: 10
+--- !u!95 &8804563430861113468
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805909596921618918}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 799512ad6caa37e4fbeb5ef68259f532, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
