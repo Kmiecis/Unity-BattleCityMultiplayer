@@ -10,3 +10,6 @@
 [submodule "Assets/Packages/unity-package-dynamicinjection"]
 	path = Assets/Packages/unity-package-dynamicinjection
 	url = https://github.com/Kmiecis/unity-package-dynamicinjection
+[submodule "Assets/Packages/unity-package-objectpooling"]
+	path = Assets/Packages/unity-package-objectpooling
+	url = https://github.com/kmiecis/unity-package-objectpooling

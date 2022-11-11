@@ -25,15 +25,15 @@ namespace Tanks
         [field: SerializeField]
         public ForcefieldController ForcefieldController { get; private set; }
         [field: SerializeField]
-        public ExplosionController ExplosionController { get; private set; }
-        [field: SerializeField]
         public RespawnController RespawnController { get; private set; }
         [field: SerializeField]
         public UpgradeController UpgradeController { get; private set; }
-        [field: DI_Inject]
+        [field: DI_Inject(nameof(OnTanksControllerInject))]
         public TanksController TanksController { get; private set; }
         [field: DI_Inject]
         public SpawnsController SpawnsController { get; private set; }
+        [field: DI_Inject]
+        public EffectsController EffectsController { get; private set; }
 
         public bool IsVisible
             => ModelObject.activeSelf;
@@ -119,12 +119,12 @@ namespace Tanks
         {
             SetVisiblity(false);
 
-            ExplosionController.Explode();
+            EffectsController.SpawnBigExplosion(transform.position);
             UpgradeController.SetDefault();
 
             if (photonView.IsMine)
             {
-                ExplosionController.SetCallback(OnExplode);
+                OnExplode();
 
                 photonView.Owner.IncrDeaths();
             }

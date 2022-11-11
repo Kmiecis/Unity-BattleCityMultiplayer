@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Extensions;
+using Common.Injection;
 using Photon.Pun;
 using System.Collections;
 using Tanks.Extensions;
@@ -21,8 +22,8 @@ namespace Tanks
         public MovementController MovementController { get; private set; }
         [field: SerializeField]
         public Collision2DController CollisionController { get; private set; }
-        [field: SerializeField]
-        public ExplosionController ExplosionController { get; private set; }
+        [field: DI_Inject]
+        public EffectsController EffectsController { get; private set; }
 
         public bool IsVisible
         {
@@ -48,10 +49,7 @@ namespace Tanks
                     HitStatue(statue);
                 }
                 
-                
                 RPCExplode();
-
-                ExplosionController.SetCallback(Destroy);
             }
         }
 
@@ -83,10 +81,13 @@ namespace Tanks
 
         private void Fly()
         {
-            new CoroutineWrapper()
+            if (photonView.IsMine)
+            {
+                new CoroutineWrapper()
                 .WithTarget(this)
                 .WithEnumerator(DestroyDelayed)
                 .Start();
+            }
         }
 
         private void Destroy()
@@ -105,7 +106,7 @@ namespace Tanks
 
             MovementController.ResetMovement();
 
-            ExplosionController.Explode();
+            EffectsController.SpawnSmallExplosion(transform.position);
         }
 
         public void RPCExplode()
@@ -145,10 +146,7 @@ namespace Tanks
 
             if (UPhysics2D.Raycast(position, direction, out var hit, distance, hitMask))
             {
-                var traveled = (hit.point - position).magnitude;
-                lag = traveled / MovementController.speed;
-
-                MovementController.ApplyMovement(lag);
+                transform.position = hit.point;
 
                 Hit(hit.collider);
             }
@@ -158,6 +156,18 @@ namespace Tanks
 
                 Fly();
             }
+        }
+        #endregion
+
+        #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

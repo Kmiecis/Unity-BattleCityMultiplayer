@@ -53,6 +53,8 @@ MonoBehaviour:
   - RPCTankUpgrade_Internal
   - RPCFortify_Internal
   - RPCEndGame_Internal
+  - RPCSpawnBigExplosion_Internal
+  - RPCSpawnSmallExplosion_Internal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

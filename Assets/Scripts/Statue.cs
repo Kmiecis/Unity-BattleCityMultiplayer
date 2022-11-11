@@ -16,6 +16,8 @@ namespace Tanks
         public FortifyController FortifyController { get; private set; }
         [field: DI_Inject]
         public StatuesController StatuesController { get; private set; }
+        [field: DI_Inject]
+        public EffectsController EffectsController { get; private set; }
 
         private float _nextRepairTime = float.MaxValue;
 
@@ -28,6 +30,7 @@ namespace Tanks
         {
             CracksController.SetDefault();
             DestroyController.SetDestroyed();
+            EffectsController.SpawnBigExplosion(transform.position);
         }
 
         public void Hit()
