@@ -1,4 +1,3 @@
-using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
@@ -9,8 +8,6 @@ namespace Tanks.UI
     {
         [field: SerializeField]
         public TextMeshProUGUI NameText { get; private set; }
-        [field: SerializeField]
-        public GameObject HighlightObject { get; private set; }
         [field: SerializeField]
         public GameObject ReadyObject { get; private set; }
         [field: SerializeField]
@@ -45,11 +42,6 @@ namespace Tanks.UI
             }
         }
 
-        public bool IsLocal
-        {
-            get => _id == PhotonNetwork.LocalPlayer.ActorNumber;
-        }
-
         public void Setup(Player player, bool isReady, ETeam team)
         {
             _id = player.ActorNumber;
@@ -58,7 +50,6 @@ namespace Tanks.UI
             Team = team;
 
             NameText.text = player.NickName;
-            HighlightObject.SetActive(IsLocal);
         }
     }
 }

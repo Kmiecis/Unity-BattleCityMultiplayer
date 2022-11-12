@@ -11,6 +11,8 @@ namespace Tanks.UI
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
         [field: SerializeField]
+        public GameObject NoRoomsPanel { get; private set; }
+        [field: SerializeField]
         public RoomEntry EntryPrefab { get; private set; }
         [field: SerializeField]
         public Transform EntryParent { get; private set; }
@@ -58,6 +60,7 @@ namespace Tanks.UI
                 SelectionController.Events.Add(entry.SelectionEvent);
             }
 
+            NoRoomsPanel.SetActive(rooms.Count == 0);
             if (rooms.Count > 0)
             {
                 SelectionController.Refresh();

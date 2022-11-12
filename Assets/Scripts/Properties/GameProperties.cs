@@ -6,8 +6,8 @@ namespace Tanks
     public class GameProperties : ScriptableObject
     {
         [Header("Room generation")]
-        public int minPlayers = 2;
-        public int maxPlayers = 14;
+        public byte minPlayers = 2;
+        public byte maxPlayers = 14;
         public byte defaultPlayers = 6;
         [Header("Room preparation")]
         public int minTeamPlayers = 1;

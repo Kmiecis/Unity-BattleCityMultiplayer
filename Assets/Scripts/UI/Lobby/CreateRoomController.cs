@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using Tanks.Extensions;
 using TMPro;
 using UnityEngine;
 
@@ -17,21 +18,22 @@ namespace Tanks.UI
         public TMP_InputField SizeInput { get; private set; }
 
         private string _defaultName;
+        private byte _defaultSize;
 
         private string GetRoomName()
         {
             var roomName = NameInput.text;
-            if (string.IsNullOrEmpty(roomName))
-            {
-                return _defaultName;
-            }
-            return roomName;
+            if (!string.IsNullOrEmpty(roomName))
+                return roomName;
+            return _defaultName;
         }
 
         private byte GetRoomSize()
         {
-            byte.TryParse(SizeInput.text, out var size);
-            return (byte)Mathf.Clamp(size, GameProperties.minPlayers, GameProperties.maxPlayers);
+            var sizeText = SizeInput.text;
+            if (byte.TryParse(sizeText, out var size))
+                return (byte)Mathf.Clamp(size, GameProperties.minPlayers, GameProperties.maxPlayers);
+            return _defaultSize;
         }
 
         public void _OnNameInputFocused(bool focused)
@@ -74,16 +76,10 @@ namespace Tanks.UI
         private void Start()
         {
             _defaultName = PhotonNetwork.LocalPlayer.NickName + " ROOM";
+            _defaultSize = GameProperties.minPlayers;
 
-            if (NameInput != null)
-            {
-                NameInput.text = _defaultName;
-            }
-
-            if (SizeInput != null)
-            {
-                SizeInput.text = GameProperties.minPlayers.ToString();
-            }
+            NameInput.GetPlaceholderText().text = _defaultName;
+            SizeInput.GetPlaceholderText().text = $"{GameProperties.minPlayers}-{GameProperties.maxPlayers}";
         }
     }
 }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using Photon.Realtime;
 using Tanks.Extensions;
 using TMPro;
@@ -11,6 +12,8 @@ namespace Tanks.UI
         public TextMeshProUGUI NameText { get; private set; }
         [field: SerializeField]
         public TextMeshProUGUI ScoreText { get; private set; }
+        [field: SerializeField]
+        public GameObject HighlightedObject { get; private set; }
 
         private Player _player;
         private int _kills;
@@ -30,6 +33,7 @@ namespace Tanks.UI
             _player = player;
 
             NameText.text = player.NickName;
+            HighlightedObject.SetActive(player.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber);
         }
 
         public void SetScore(Player player)

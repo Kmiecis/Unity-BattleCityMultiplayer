@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Tanks.Extensions;
 using TMPro;
 using UnityEngine;
 
@@ -14,18 +15,17 @@ namespace Tanks.UI
         private string GetPlayerName()
         {
             var playerName = NameInput.text;
-            if (string.IsNullOrEmpty(playerName))
-            {
-                return _defaultName;
-            }
-            return playerName;
+            if (!string.IsNullOrEmpty(playerName))
+                return playerName;
+            return _defaultName;
+            
         }
 
         private void SetupNameInput()
         {
             _defaultName = "P" + Random.Range(1000, 10000);
 
-            NameInput.text = _defaultName;
+            NameInput.GetPlaceholderText().text = _defaultName;
         }
 
         public void _OnLoginClicked()

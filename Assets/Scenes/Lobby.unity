@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
+  <NoRoomsPanel>k__BackingField: {fileID: 1249977832923221206}
   <EntryPrefab>k__BackingField: {fileID: 6960645104530376976, guid: 96186967b9abd41488bae4313409fc0a, type: 3}
   <EntryParent>k__BackingField: {fileID: 306774242}
   <SelectionController>k__BackingField: {fileID: 1249977832923221205}
@@ -1769,6 +1770,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31da2579dcfedc544a05f4bb7405238d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1249977832923221206 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2444232812072380203, guid: 9b61237695938c24f9cbaa00ccfa8975, type: 3}
+  m_PrefabInstance: {fileID: 1249977832923221202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7382267636446649079
 PrefabInstance:
   m_ObjectHideFlags: 0
