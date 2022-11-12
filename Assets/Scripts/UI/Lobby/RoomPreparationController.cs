@@ -33,9 +33,22 @@ namespace Tanks.UI
         private Dictionary<int, RoomPlayerEntry> _teamA = new Dictionary<int, RoomPlayerEntry>();
         private Dictionary<int, RoomPlayerEntry> _teamB = new Dictionary<int, RoomPlayerEntry>();
 
+        private int GetTeamCount(ETeam team)
+        {
+            var count = team == LocalEntry.Team ? 1 : 0;
+            switch (team)
+            {
+                case ETeam.A:
+                    return count + _teamA.Count;
+                case ETeam.B:
+                    return count + _teamB.Count;
+            }
+            return 0;
+        }
+
         private ETeam GetBestTeam()
         {
-            if (_teamB.Count < _teamA.Count)
+            if (GetTeamCount(ETeam.B) < GetTeamCount(ETeam.A))
                 return ETeam.B;
             return ETeam.A;
         }
