@@ -18001,10 +18001,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 109.69
       objectReference: {fileID: 0}
-    - target: {fileID: 8551194915742185801, guid: 818db9b0aec173742a72cee650bd0e8a, type: 3}
-      propertyPath: m_Padding.m_Right
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 8551194916049808385, guid: 818db9b0aec173742a72cee650bd0e8a, type: 3}
       propertyPath: m_Name
       value: ScoresPanel
