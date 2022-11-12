@@ -1,6 +1,5 @@
 using Common.Extensions;
 using Common.Injection;
-using ExitGames.Client.Photon;
 using Photon.Pun;
 using Tanks.Extensions;
 using UnityEngine;
@@ -36,7 +35,9 @@ namespace Tanks
         public EffectsController EffectsController { get; private set; }
 
         public bool IsVisible
-            => ModelObject.activeSelf;
+        {
+            get => ModelObject.activeSelf;
+        }
 
         public bool IsEnabled
         {
@@ -51,68 +52,20 @@ namespace Tanks
             HighlightedObject.SetActive(value && photonView.IsMine);
         }
 
-        public bool Hit()
+        public void Hit()
         {
             if (!ForcefieldController.IsActive)
             {
-                if (TryDowngrade())
+                if (UpgradeController.TryDowngrade())
                 {
-                    RPCDowngrade();
+                    UpgradeController.RPCDowngrade();
                 }
                 else
                 {
                     Explode();
                     RPCExplode();
-
-                    return true;
                 }
             }
-            
-            return false;
-        }
-
-        public bool TryDowngrade()
-        {
-            if (UpgradeController.HasDowngrade)
-            {
-                UpgradeController.Downgrade();
-                return true;
-            }
-
-            return false;
-        }
-
-        public void RPCDowngrade()
-        {
-            photonView.RPC(nameof(RPCTankDowngrade_Internal), RpcTarget.Others);
-        }
-
-        [PunRPC]
-        private void RPCTankDowngrade_Internal()
-        {
-            TryDowngrade();
-        }
-
-        public bool TryUpgrade()
-        {
-            if (UpgradeController.HasUpgrade)
-            {
-                UpgradeController.Upgrade();
-                return true;
-            }
-
-            return false;
-        }
-
-        public void RPCUpgrade()
-        {
-            photonView.RPC(nameof(RPCTankUpgrade_Internal), RpcTarget.Others);
-        }
-
-        [PunRPC]
-        private void RPCTankUpgrade_Internal()
-        {
-            TryUpgrade();
         }
 
         public void Explode()

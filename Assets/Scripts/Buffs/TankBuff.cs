@@ -16,7 +16,7 @@ namespace Tanks
             {
                 for (int i = 0; i < upgrades; ++i)
                 {
-                    tank.TryUpgrade();
+                    tank.UpgradeController.TryUpgrade();
                 }
             }
         }

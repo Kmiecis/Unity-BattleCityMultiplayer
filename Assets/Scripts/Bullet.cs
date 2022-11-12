@@ -59,7 +59,9 @@ namespace Tanks
         {
             if (tank.team != team)
             {
-                if (tank.Hit())
+                tank.Hit();
+
+                if (!tank.IsVisible)
                 {
                     photonView.Owner.IncrKills();
                 }

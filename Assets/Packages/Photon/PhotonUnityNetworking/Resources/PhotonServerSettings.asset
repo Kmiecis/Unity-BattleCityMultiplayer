@@ -41,20 +41,19 @@ MonoBehaviour:
   - RespawnSpaceship
   - RPCBulletExplode_Internal
   - RPCCastBuff_Internal
+  - RPCDowngrade_Internal
   - RPCEnable_Internal
-  - RPCExplode_Internal
+  - RPCEndGame_Internal
+  - RPCFortify_Internal
   - RPCRespawn_Internal
+  - RPCSpawnBigExplosion_Internal
   - RPCSpawnPickup_Internal
+  - RPCSpawnSmallExplosion_Internal
   - RPCStatueDamage_Internal
   - RPCStatueRepair_Internal
   - RPCStrikeBricks_Internal
-  - RPCTankDowngrade_Internal
   - RPCTankExplode_Internal
-  - RPCTankUpgrade_Internal
-  - RPCFortify_Internal
-  - RPCEndGame_Internal
-  - RPCSpawnBigExplosion_Internal
-  - RPCSpawnSmallExplosion_Internal
+  - RPCUpgrade_Internal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -1,8 +1,10 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace Tanks
 {
-    public class UpgradeController : MonoBehaviour
+    [RequireComponent(typeof(PhotonView))]
+    public class UpgradeController : MonoBehaviourPun
     {
         [SerializeField]
         private int _starting;
@@ -54,15 +56,59 @@ namespace Tanks
             SetUpgrade(_current + 1);
         }
 
+        public bool TryUpgrade()
+        {
+            if (HasUpgrade)
+            {
+                Upgrade();
+                return true;
+            }
+            return false;
+        }
+
         public void Downgrade()
         {
             SetUpgrade(_current - 1);
+        }
+
+        public bool TryDowngrade()
+        {
+            if (HasDowngrade)
+            {
+                Downgrade();
+                return true;
+            }
+            return false;
         }
 
         public void SetDefault()
         {
             SetUpgrade(_starting);
         }
+
+        #region Photon methods
+        public void RPCUpgrade()
+        {
+            photonView.RPC(nameof(RPCUpgrade_Internal), RpcTarget.Others);
+        }
+
+        [PunRPC]
+        private void RPCUpgrade_Internal()
+        {
+            TryUpgrade();
+        }
+
+        public void RPCDowngrade()
+        {
+            photonView.RPC(nameof(RPCDowngrade_Internal), RpcTarget.Others);
+        }
+
+        [PunRPC]
+        private void RPCDowngrade_Internal()
+        {
+            TryDowngrade();
+        }
+        #endregion
 
         #region Unity methods
         private void Start()
