@@ -54,7 +54,7 @@ namespace Tanks
             Rigidbody.transform.position += (Vector3)(Rigidbody.velocity * time);
         }
 
-        public void ResetMovement()
+        public void StopMovement()
         {
             Rigidbody.velocity = Vector2.zero;
         }

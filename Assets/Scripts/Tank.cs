@@ -215,7 +215,7 @@ namespace Tanks
             }
             else
             {
-                MovementController.ResetMovement();
+                MovementController.StopMovement();
             }
 
             if (InputController.Shoot)
@@ -228,7 +228,7 @@ namespace Tanks
         {
             base.OnDisable();
 
-            MovementController.ResetMovement();
+            MovementController.StopMovement();
         }
 
         private void OnDestroy()

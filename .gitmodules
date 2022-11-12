@@ -13,3 +13,6 @@
 [submodule "Assets/Packages/unity-package-objectpooling"]
 	path = Assets/Packages/unity-package-objectpooling
 	url = https://github.com/kmiecis/unity-package-objectpooling
+[submodule "Assets/Packages/unity-package-coroutines"]
+	path = Assets/Packages/unity-package-coroutines
+	url = https://github.com/kmiecis/unity-package-coroutines

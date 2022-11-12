@@ -1,8 +1,8 @@
 ﻿using Common;
+using Common.Coroutines;
 using Common.Extensions;
 using Common.Injection;
 using Photon.Pun;
-using System.Collections;
 using Tanks.Extensions;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace Tanks
     [RequireComponent(typeof(PhotonView))]
     public class Bullet : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
-        private const float kExplosionDelay = 5.0f;
+        private const float kLivetime = 5.0f;
 
         public ETeam team;
         public LayerMask hitMask;
@@ -25,14 +25,16 @@ namespace Tanks
         [field: DI_Inject]
         public EffectsController EffectsController { get; private set; }
 
-        public bool IsVisible
+        public bool IsExploded
         {
-            get => ModelObject.activeSelf;
+            get => !ModelObject.activeSelf;
+            set => ModelObject.SetActive(!value);
         }
 
         private void Hit(Collider2D collider)
         {
-            Explode();
+            if (IsExploded)
+                return;
 
             if (photonView.IsMine)
             {
@@ -48,9 +50,9 @@ namespace Tanks
                 {
                     HitStatue(statue);
                 }
-                
-                RPCExplode();
             }
+
+            Explode();
         }
 
         private void HitTank(Tank tank)
@@ -79,39 +81,27 @@ namespace Tanks
             brick.Hit(hitPosition, hitDirection);
         }
 
-        private void Fly()
+        public void Explode()
         {
+            IsExploded = true;
+
+            EffectsController.SpawnSmallExplosion(transform.position);
+
             if (photonView.IsMine)
             {
-                new CoroutineWrapper()
-                .WithTarget(this)
-                .WithEnumerator(DestroyDelayed)
-                .Start();
+                RPCExplode(transform.position);
+
+                PhotonNetwork.Destroy(gameObject);
+            }
+            else
+            {
+                MovementController.StopMovement();
             }
         }
 
-        private void Destroy()
+        public void RPCExplode(Vector3 position)
         {
-            PhotonNetwork.Destroy(gameObject);
-        }
-
-        public IEnumerator DestroyDelayed()
-        {
-            return UCoroutine.InvokeDelayed(Destroy, kExplosionDelay);
-        }
-
-        public void Explode()
-        {
-            ModelObject.SetActive(false);
-
-            MovementController.ResetMovement();
-
-            EffectsController.SpawnSmallExplosion(transform.position);
-        }
-
-        public void RPCExplode()
-        {
-            photonView.RPC(nameof(RPCBulletExplode_Internal), RpcTarget.Others, transform.position);
+            photonView.RPC(nameof(RPCBulletExplode_Internal), RpcTarget.Others, position);
         }
 
         [PunRPC]
@@ -119,10 +109,10 @@ namespace Tanks
         {
             transform.position = position;
 
-            if (IsVisible)
-            {
-                Explode();
-            }
+            if (IsExploded)
+                return;
+
+            Explode();
         }
 
         #region External methods
@@ -153,8 +143,6 @@ namespace Tanks
             else
             {
                 MovementController.ApplyMovement(lag);
-
-                Fly();
             }
         }
         #endregion
@@ -163,6 +151,13 @@ namespace Tanks
         private void Awake()
         {
             DI_Binder.Bind(this);
+        }
+
+        private void Start()
+        {
+            UCoroutine.YieldTime(kLivetime)
+                .Then(Explode)
+                .Start(this);
         }
 
         private void OnDestroy()

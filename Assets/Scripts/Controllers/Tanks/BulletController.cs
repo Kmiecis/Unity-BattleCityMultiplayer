@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Tanks
 {
-    [RequireComponent(typeof(PhotonView))]
-    public class BulletController : MonoBehaviourPun
+    public class BulletController : MonoBehaviour
     {
         public int limit = 1;
         public float speed = 1.0f;
@@ -45,7 +44,7 @@ namespace Tanks
             for (int i = _bullets.Count - 1; i > -1; --i)
             {
                 var bullet = _bullets[i];
-                if (!bullet.IsVisible)
+                if (bullet == null)
                 {
                     _bullets.RemoveAt(i);
                 }
