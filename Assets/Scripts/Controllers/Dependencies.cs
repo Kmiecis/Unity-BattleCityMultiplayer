@@ -1,5 +1,4 @@
-﻿using Common.Injection;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tanks
 {
@@ -15,15 +14,6 @@ namespace Tanks
         {
             _tanks = Instantiate(_tanks);
             _spawns = Instantiate(_spawns);
-
-            DI_Binder.Bind(_tanks);
-            DI_Binder.Bind(_spawns);
-        }
-
-        private void OnDestroy()
-        {
-            DI_Binder.Unbind(_tanks);
-            DI_Binder.Unbind(_spawns);
         }
         #endregion
     }

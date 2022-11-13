@@ -49,11 +49,6 @@ namespace Tanks
         {
             UpdateLifetime();
         }
-
-        private void OnDestroy()
-        {
-            DI_Binder.Unbind(this);
-        }
         #endregion
     }
 }

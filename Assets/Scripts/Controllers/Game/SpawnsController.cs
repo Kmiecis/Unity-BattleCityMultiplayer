@@ -53,5 +53,17 @@ namespace Tanks
             var team = PhotonNetwork.LocalPlayer.GetTeam();
             return GetBestSpawn(team);
         }
+
+        #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
+        }
+        #endregion
     }
 }

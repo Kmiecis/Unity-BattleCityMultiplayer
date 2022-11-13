@@ -161,11 +161,6 @@ namespace Tanks
                 .Then(Explode)
                 .Start(this);
         }
-
-        private void OnDestroy()
-        {
-            DI_Binder.Unbind(this);
-        }
         #endregion
     }
 }

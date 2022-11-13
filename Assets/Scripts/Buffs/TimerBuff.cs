@@ -30,11 +30,6 @@ namespace Tanks
         {
             DI_Binder.Bind(this);
         }
-
-        private void OnDestroy()
-        {
-            DI_Binder.Unbind(this);
-        }
         #endregion
     }
 }

@@ -102,8 +102,6 @@ namespace Tanks
 
         private void OnDestroy()
         {
-            DI_Binder.Unbind(this);
-
             if (_parent != null)
             {
                 _parent.Remove(this);

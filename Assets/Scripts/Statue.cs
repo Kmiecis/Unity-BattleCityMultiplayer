@@ -119,11 +119,6 @@ namespace Tanks
         {
             UpdateRepairing();
         }
-
-        private void OnDestroy()
-        {
-            DI_Binder.Unbind(this);
-        }
         #endregion
     }
 }

@@ -183,11 +183,6 @@ namespace Tanks
 
             MovementController.StopMovement();
         }
-
-        private void OnDestroy()
-        {
-            DI_Binder.Unbind(this);
-        }
         #endregion
     }
 }
