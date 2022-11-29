@@ -2,6 +2,7 @@ using Common.MVB;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Tanks
 {
@@ -11,25 +12,28 @@ namespace Tanks
         public ServerSettings ServerSettings { get; private set; }
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
-
+        [field: SerializeField]
+        public GameScenes GameScenes { get; private set; }
+        
         [field: SerializeField]
         public GameObject LoginPanel { get; private set; }
-        [field: SerializeField]
-        public GameObject LoginAttemptPanel { get; private set; }
+        
         [field: SerializeField]
         public GameObject MenuPanel { get; private set; }
         [field: SerializeField]
         public GameObject CreateRoomPanel { get; private set; }
         [field: SerializeField]
-        public GameObject JoinRandomRoomAttemptPanel { get; private set; }
+        public GameObject RoomListPanel { get; private set; }
         [field: SerializeField]
         public GameObject SettingsPanel { get; private set; }
         [field: SerializeField]
-        public GameObject RoomListPanel { get; private set; }
+        public GameObject RoomPreparationPanel { get; private set; }
+        [field: SerializeField]
+        public GameObject LoginAttemptPanel { get; private set; }
+        [field: SerializeField]
+        public GameObject JoinRandomRoomAttemptPanel { get; private set; }
         [field: SerializeField]
         public GameObject LeaveRoomAttemptPanel { get; private set; }
-        [field: SerializeField]
-        public GameObject RoomPreparationPanel { get; private set; }
         [field: SerializeField]
         public ScriptableKeyCode CancelKeyCode { get; private set; }
 
@@ -70,6 +74,11 @@ namespace Tanks
         public void _OnSettingsClicked()
         {
             ChangeToPanel(SettingsPanel);
+        }
+
+        public void _OnConstructionClicked()
+        {
+            SceneManager.LoadScene(GameScenes.ConstructionScene);
         }
 
         public void _OnBackClicked()

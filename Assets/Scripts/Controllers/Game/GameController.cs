@@ -15,6 +15,8 @@ namespace Tanks
     {
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
+        [field: SerializeField]
+        public GameScenes GameScenes { get; private set; }
         [field: DI_Inject]
         public StatuesController StatuesController { get; private set; }
         [field: DI_Inject]
@@ -64,15 +66,13 @@ namespace Tanks
 
         private void OnGameFinished()
         {
-            const string GAME_SCENE = "Game";
-
             if (PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.LoadLevel(GAME_SCENE);
+                PhotonNetwork.LoadLevel(GameScenes.GameScene);
             }
             else
             {
-                SceneManager.LoadScene(GAME_SCENE);
+                SceneManager.LoadScene(GameScenes.GameScene);
             }
         }
 
@@ -105,7 +105,7 @@ namespace Tanks
 
         public override void OnDisconnected(DisconnectCause cause)
         {
-            SceneManager.LoadScene("Lobby");
+            SceneManager.LoadScene(GameScenes.LobbyScene);
         }
         #endregion
 

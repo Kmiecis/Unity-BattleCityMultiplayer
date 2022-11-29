@@ -14,6 +14,8 @@ namespace Tanks.UI
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
         [field: SerializeField]
+        public GameScenes GameScenes { get; private set; }
+        [field: SerializeField]
         public TextMeshProUGUI RoomNameText { get; private set; }
         [field: SerializeField]
         public RoomPlayerEntry EntryPrefab { get; private set; }
@@ -214,7 +216,7 @@ namespace Tanks.UI
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
-            PhotonNetwork.LoadLevel("Game");
+            PhotonNetwork.LoadLevel(GameScenes.GameScene);
         }
 
         public void _OnSwitchReadiness()

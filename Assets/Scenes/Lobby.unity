@@ -156,15 +156,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ServerSettings>k__BackingField: {fileID: 11400000, guid: 70b45deba4bf0bf4caf5234ec9ff0ba4, type: 2}
   <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
+  <GameScenes>k__BackingField: {fileID: 11400000, guid: 52557736ba2509a478b68a3198576cde, type: 2}
   <LoginPanel>k__BackingField: {fileID: 416481553}
-  <LoginAttemptPanel>k__BackingField: {fileID: 1864368181}
   <MenuPanel>k__BackingField: {fileID: 1764612902}
   <CreateRoomPanel>k__BackingField: {fileID: 712490622}
-  <JoinRandomRoomAttemptPanel>k__BackingField: {fileID: 1922193461}
-  <SettingsPanel>k__BackingField: {fileID: 1287492925}
   <RoomListPanel>k__BackingField: {fileID: 1249977832923221204}
-  <LeaveRoomAttemptPanel>k__BackingField: {fileID: 1864057621}
+  <SettingsPanel>k__BackingField: {fileID: 1287492925}
   <RoomPreparationPanel>k__BackingField: {fileID: 1687651674}
+  <LoginAttemptPanel>k__BackingField: {fileID: 1864368181}
+  <JoinRandomRoomAttemptPanel>k__BackingField: {fileID: 1922193461}
+  <LeaveRoomAttemptPanel>k__BackingField: {fileID: 1864057621}
   <CancelKeyCode>k__BackingField: {fileID: 11400000, guid: b937500f43dc9864085d849038b1c211, type: 2}
 --- !u!224 &150423664
 RectTransform:
@@ -199,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
+  <GameScenes>k__BackingField: {fileID: 11400000, guid: 52557736ba2509a478b68a3198576cde, type: 2}
   <RoomNameText>k__BackingField: {fileID: 1804929405}
   <EntryPrefab>k__BackingField: {fileID: 5093056903322025271, guid: e656a516fdb18fa49bb861881f972d7a, type: 3}
   <TeamAParent>k__BackingField: {fileID: 371249109}
