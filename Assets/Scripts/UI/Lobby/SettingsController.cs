@@ -12,9 +12,12 @@ namespace Tanks.UI
         public void _OnAcceptClicked()
         {
             var playerName = NameInput.text;
+
             if (!string.IsNullOrEmpty(playerName))
             {
                 PhotonNetwork.LocalPlayer.NickName = playerName;
+
+                UPlayerPrefs.SetName(playerName);
             }
         }
 

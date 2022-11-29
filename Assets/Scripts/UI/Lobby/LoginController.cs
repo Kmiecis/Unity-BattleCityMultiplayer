@@ -23,14 +23,18 @@ namespace Tanks.UI
 
         private void SetupNameInput()
         {
-            _defaultName = "P" + Random.Range(1000, 10000);
+            _defaultName = UPlayerPrefs.GetName("P" + Random.Range(1000, 10000));
 
             NameInput.GetPlaceholderText().text = _defaultName;
         }
 
         public void _OnLoginClicked()
         {
-            PhotonNetwork.LocalPlayer.NickName = GetPlayerName();
+            var playerName = GetPlayerName();
+
+            PhotonNetwork.LocalPlayer.NickName = playerName;
+
+            UPlayerPrefs.SetName(playerName);
         }
 
         public void _OnNameInputFocused(bool focused)
