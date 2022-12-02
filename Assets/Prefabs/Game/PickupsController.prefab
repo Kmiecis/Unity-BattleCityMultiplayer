@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRange:
-    min: {x: -11, y: -3}
-    max: {x: 11, y: 9}
+    min: {x: -11, y: -6}
+    max: {x: 11, y: 6}
   spawnDelayRange:
     min: 10
     max: 15

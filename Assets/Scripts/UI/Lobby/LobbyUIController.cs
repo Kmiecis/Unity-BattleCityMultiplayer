@@ -27,6 +27,8 @@ namespace Tanks
         [field: SerializeField]
         public GameObject SettingsPanel { get; private set; }
         [field: SerializeField]
+        public GameObject ConstructionPanel { get; private set; }
+        [field: SerializeField]
         public GameObject RoomPreparationPanel { get; private set; }
         [field: SerializeField]
         public GameObject LoginAttemptPanel { get; private set; }
