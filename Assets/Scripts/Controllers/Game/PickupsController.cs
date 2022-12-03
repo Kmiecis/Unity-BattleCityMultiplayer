@@ -110,7 +110,7 @@ namespace Tanks
         [Header("Gizmos"), SerializeField]
         private Color _color = Color.cyan;
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = _color;
             UGizmos.DrawWireRect(spawnRange.Center, spawnRange.Size);
