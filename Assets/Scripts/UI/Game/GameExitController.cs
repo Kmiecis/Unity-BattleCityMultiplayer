@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Tanks.UI
 {
-    public class ExitController : MonoBehaviour
+    public class GameExitController : MonoBehaviour
     {
         #region External methods
         public void _OnExitGame()

@@ -149,13 +149,20 @@ namespace Tanks
             }
             else
             {
-                _OnLoginClicked();
+                if (PhotonNetwork.IsConnected)
+                {
+                    ChangeToPanel(MenuPanel);
+                }
+                else
+                {
+                    _OnLoginClicked();
+                }
             }
         }
 
         private void Update()
         {
-            if (PhotonNetwork.IsConnected && Input.GetKeyDown(CancelKeyCode))
+            if (Input.GetKeyDown(CancelKeyCode) && PhotonNetwork.IsConnected)
             {
                 if (PhotonNetwork.InRoom)
                 {

@@ -17,7 +17,7 @@ namespace Tanks.UI
             {
                 PhotonNetwork.LocalPlayer.NickName = playerName;
 
-                UPlayerPrefs.SetName(playerName);
+                CustomPlayerPrefs.SetName(playerName);
             }
         }
 
