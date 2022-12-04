@@ -60,7 +60,7 @@ namespace Tanks
 
         private IEnumerator FinishGame(float delay)
         {
-            yield return new WaitForRealSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
             OnGameFinished();
         }
 

@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833c96b13f328dd47ad818c8eaeb7595, type: 3}
   m_Name: GameScenes
   m_EditorClassIdentifier: 
-  _lobbyScene: {fileID: 102900000, guid: a546b3f9747e6704bbe100a741ae5263, type: 3}
-  _gameScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
-  _constructionScene: {fileID: 102900000, guid: ce825e50ca131f942899c6fdd4d86a27, type: 3}
+  _lobbyScene:
+    _scene: {fileID: 102900000, guid: a546b3f9747e6704bbe100a741ae5263, type: 3}
+    _name: Lobby
+  _gameScene:
+    _scene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+    _name: Game
+  _constructionScene:
+    _scene: {fileID: 102900000, guid: ce825e50ca131f942899c6fdd4d86a27, type: 3}
+    _name: Construction

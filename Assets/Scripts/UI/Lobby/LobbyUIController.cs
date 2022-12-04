@@ -17,7 +17,6 @@ namespace Tanks
         
         [field: SerializeField]
         public GameObject LoginPanel { get; private set; }
-        
         [field: SerializeField]
         public GameObject MenuPanel { get; private set; }
         [field: SerializeField]
@@ -26,8 +25,6 @@ namespace Tanks
         public GameObject RoomListPanel { get; private set; }
         [field: SerializeField]
         public GameObject SettingsPanel { get; private set; }
-        [field: SerializeField]
-        public GameObject ConstructionPanel { get; private set; }
         [field: SerializeField]
         public GameObject RoomPreparationPanel { get; private set; }
         [field: SerializeField]

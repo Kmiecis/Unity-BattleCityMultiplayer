@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 
 namespace Tanks
 {
@@ -6,19 +7,19 @@ namespace Tanks
     public class GameScenes : ScriptableObject
     {
         [SerializeField]
-        private Object _lobbyScene;
+        private SceneReference _lobbyScene;
         [SerializeField]
-        private Object _gameScene;
+        private SceneReference _gameScene;
         [SerializeField]
-        private Object _constructionScene;
+        private SceneReference _constructionScene;
 
         public string LobbyScene
-            => _lobbyScene.name;
+            => _lobbyScene.Name;
 
         public string GameScene
-            => _gameScene.name;
+            => _gameScene.Name;
 
         public string ConstructionScene
-            => _constructionScene.name;
+            => _constructionScene.Name;
     }
 }
