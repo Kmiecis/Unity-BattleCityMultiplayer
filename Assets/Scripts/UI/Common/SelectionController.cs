@@ -1,3 +1,5 @@
+using Common.Extensions;
+using Common.Mathematics;
 using Common.MVB;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,13 +33,21 @@ namespace Tanks.UI
             get => Events[Index];
         }
 
+        public void ChangeTo(SelectionEventHandler handler)
+        {
+            if (Events.TryIndexOf(handler, out int index))
+            {
+                ChangeIndex(index);
+            }
+        }
+
         private void ChangeIndex(int index)
         {
-            Events[_index].SetHighlighted(false);
+            Current.SetHighlighted(false);
 
             _index = index;
 
-            Events[_index].SetHighlighted(true);
+            Current.SetHighlighted(true);
         }
 
         public void TryChangeIndex(int index)
@@ -52,12 +62,28 @@ namespace Tanks.UI
 
         public void IncreaseIndex()
         {
-            TryChangeIndex(_index + 1);
+            var cindex = _index;
+            var nindex = Mathx.NextIndex(cindex, Events.Count);
+
+            while (!Events[nindex].enabled && nindex != cindex)
+            {
+                nindex = Mathx.NextIndex(nindex, Events.Count);
+            }
+
+            TryChangeIndex(nindex);
         }
 
         public void DecreaseIndex()
         {
-            TryChangeIndex(_index - 1);
+            var cindex = _index;
+            var nindex = Mathx.PrevIndex(cindex, Events.Count);
+
+            while (!Events[nindex].enabled && nindex != cindex)
+            {
+                nindex = Mathx.PrevIndex(nindex, Events.Count);
+            }
+
+            TryChangeIndex(nindex);
         }
 
         public void SelectCurrent()
@@ -67,8 +93,14 @@ namespace Tanks.UI
 
         public void Refresh()
         {
-            _index = index;
+            var cindex = Mathx.PrevIndex(index, Events.Count);
+            var nindex = index;
+            while (!Events[nindex].enabled && nindex != cindex)
+            {
+                nindex = Mathx.NextIndex(nindex, Events.Count);
+            }
 
+            _index = nindex;
             for (int i = 0; i < Events.Count; ++i)
             {
                 Events[i].SetHighlighted(_index == i);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common.Injection;
+using UnityEngine;
 
 namespace Tanks.UI
 {
@@ -7,19 +8,22 @@ namespace Tanks.UI
         [field: SerializeField]
         public GameObject ExitPanel { get; private set; }
 
-        private GameObject _currentPanel;
-
-        private void ChangeToPanel(GameObject panel)
-        {
-            _currentPanel?.SetActive(false);
-            _currentPanel = panel;
-            _currentPanel?.SetActive(true);
-        }
+        [field: DI_Inject]
+        public ConstructionTank ConstructionTank { get; private set; }
 
         #region External methods
         public void _ToggleExitPanel()
         {
-            ChangeToPanel(ExitPanel.activeSelf ? null : ExitPanel);
+            var isActive = !ExitPanel.activeSelf;
+            ExitPanel.SetActive(isActive);
+            ConstructionTank.gameObject.SetActive(!isActive);
+        }
+        #endregion
+
+        #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
         }
         #endregion
     }

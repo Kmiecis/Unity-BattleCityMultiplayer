@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Tanks
 {
+    [DI_Install]
     public class ConstructionTank : MonoBehaviour
     {
         public Range2Int bounds;
@@ -53,6 +54,11 @@ namespace Tanks
         private void Awake()
         {
             DI_Binder.Bind(this);
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
 

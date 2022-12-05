@@ -17,17 +17,24 @@ namespace Tanks
 
         private Dictionary<Vector2Int, int> _ids = new();
         private Dictionary<Vector2Int, GameObject> _objects = new();
-        private int _cached = CLEAR_TILE;
+
+        private int _previous = CLEAR_TILE;
+        private bool _isDirty = false;
+
+        public bool IsDirty
+            => _isDirty;
 
         public void ChangeTile(Vector2Int coordinates)
         {
             var index = GetId(coordinates);
-            if (index != CLEAR_TILE || _cached == CLEAR_TILE)
+            if (index != CLEAR_TILE || _previous == CLEAR_TILE)
             {
-                _cached = Mathx.NextIndex(index, Prefabs.Length);
+                _previous = Mathx.NextIndex(index, Prefabs.Length);
             }
 
-            SetTile(coordinates, _cached);
+            SetTile(coordinates, _previous);
+
+            _isDirty = true;
         }
 
         private void SetTile(Vector2Int coordinates, int id)
@@ -76,6 +83,13 @@ namespace Tanks
             _objects.Clear();
         }
 
+        private void Reload()
+        {
+            Clear();
+            var map = GetMapToLoad();
+            SetCurrentMap(map);
+        }
+
         private string GetMapToLoad()
         {
             if (!CustomPlayerPrefs.TryGetMap(out var map))
@@ -83,12 +97,12 @@ namespace Tanks
             return map;
         }
 
-        public string GetMap()
+        public string GetCurrentMap()
         {
             return MapSerializer.Serialize(_ids);
         }
 
-        public void SetMap(string serialized)
+        public void SetCurrentMap(string serialized)
         {
             var map = MapSerializer.Deserialize(serialized);
 
@@ -98,11 +112,22 @@ namespace Tanks
             }
         }
 
-        public void Reload()
+        public void SaveCurrentMap()
         {
-            Clear();
-            var map = GetMapToLoad();
-            SetMap(map);
+            var map = GetCurrentMap();
+
+            CustomPlayerPrefs.SetMap(map);
+
+            _isDirty = false;
+        }
+
+        public void RestoreDefaultMap()
+        {
+            CustomPlayerPrefs.DeleteMap();
+
+            Reload();
+
+            _isDirty = false;
         }
 
         #region Unity methods

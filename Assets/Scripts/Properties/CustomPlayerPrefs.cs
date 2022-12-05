@@ -8,6 +8,11 @@ namespace Tanks
         private const string NAME_KEY = "PlayerName";
         private const string MAP_KEY = "PlayerMap";
 
+        public static bool HasName()
+        {
+            return PlayerPrefs.HasKey(NAME_KEY);
+        }
+
         public static string GetName(string defaultValue = "")
         {
             return PlayerPrefs.GetString(NAME_KEY, defaultValue);
@@ -21,6 +26,11 @@ namespace Tanks
         public static void DeleteName()
         {
             PlayerPrefs.DeleteKey(NAME_KEY);
+        }
+
+        public static bool HasMap()
+        {
+            return PlayerPrefs.HasKey(MAP_KEY);
         }
 
         public static bool TryGetMap(out string value)

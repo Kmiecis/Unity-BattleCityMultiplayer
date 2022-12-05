@@ -14,12 +14,12 @@ namespace Tanks
         private SceneReference _constructionScene;
 
         public string LobbyScene
-            => _lobbyScene.Name;
+            => _lobbyScene.SceneName;
 
         public string GameScene
-            => _gameScene.Name;
+            => _gameScene.SceneName;
 
         public string ConstructionScene
-            => _constructionScene.Name;
+            => _constructionScene.SceneName;
     }
 }
