@@ -2,7 +2,7 @@
 
 namespace Tanks
 {
-    public class Stone : MonoBehaviour
+    public class Block : MonoBehaviour
     {
     }
 }

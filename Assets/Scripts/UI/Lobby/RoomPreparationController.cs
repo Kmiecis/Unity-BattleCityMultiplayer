@@ -16,6 +16,8 @@ namespace Tanks.UI
         [field: SerializeField]
         public GameScenes GameScenes { get; private set; }
         [field: SerializeField]
+        public MapSerialized DefaultMap { get; private set; }
+        [field: SerializeField]
         public TextMeshProUGUI RoomNameText { get; private set; }
         [field: SerializeField]
         public RoomPlayerEntry EntryPrefab { get; private set; }
@@ -197,6 +199,18 @@ namespace Tanks.UI
         private void SetupStart(bool isMaster)
         {
             StartObject.SetActive(isMaster);
+
+            if (isMaster)
+            {
+                SetupMap();
+            }
+        }
+
+        private void SetupMap()
+        {
+            if (!CustomPlayerPrefs.TryGetMap(out var map))
+                map = DefaultMap.Value;
+            PhotonNetwork.CurrentRoom.SetMap(map);
         }
 
         private void SetupStartSelection(bool active)

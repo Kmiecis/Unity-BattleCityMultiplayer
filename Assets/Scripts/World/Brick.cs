@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Tanks
 {
-    public class Brick : MonoBehaviour
+    public class Brick : Block
     {
         [field: SerializeField]
         public GameObject BlockObject { get; private set; }

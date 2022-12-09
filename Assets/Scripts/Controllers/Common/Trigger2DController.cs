@@ -33,9 +33,11 @@ namespace Tanks
             CalledOnExit?.Invoke(collider);
         }
 
+#if UNITY_EDITOR
         private void Reset()
         {
             Collider = GetComponent<Collider2D>();
         }
+#endif
     }
 }

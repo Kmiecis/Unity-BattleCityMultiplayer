@@ -10,8 +10,6 @@ namespace Tanks.UI
         public TextMeshProUGUI NameText { get; private set; }
         [field: SerializeField]
         public GameObject ReadyObject { get; private set; }
-        [field: SerializeField]
-        public SelectionEventHandler SelectionEvent { get; private set; }
 
         private int _id;
         private bool _isReady;

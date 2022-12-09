@@ -62,28 +62,34 @@ namespace Tanks.UI
 
         public void IncreaseIndex()
         {
-            var cindex = _index;
-            var nindex = Mathx.NextIndex(cindex, Events.Count);
-
-            while (!Events[nindex].enabled && nindex != cindex)
-            {
-                nindex = Mathx.NextIndex(nindex, Events.Count);
-            }
-
+            var nindex = FindNextIndex(_index);
             TryChangeIndex(nindex);
         }
 
         public void DecreaseIndex()
         {
-            var cindex = _index;
-            var nindex = Mathx.PrevIndex(cindex, Events.Count);
+            var pindex = FindPrevIndex(_index);
+            TryChangeIndex(pindex);
+        }
 
-            while (!Events[nindex].enabled && nindex != cindex)
+        private int FindNextIndex(int index)
+        {
+            var result = Mathx.NextIndex(index, Events.Count);
+            while (!Events[result].enabled && result != index)
             {
-                nindex = Mathx.PrevIndex(nindex, Events.Count);
+                result = Mathx.NextIndex(result, Events.Count);
             }
+            return result;
+        }
 
-            TryChangeIndex(nindex);
+        private int FindPrevIndex(int index)
+        {
+            var result = Mathx.PrevIndex(index, Events.Count);
+            while (!Events[result].enabled && result != index)
+            {
+                result = Mathx.PrevIndex(result, Events.Count);
+            }
+            return result;
         }
 
         public void SelectCurrent()
@@ -93,17 +99,13 @@ namespace Tanks.UI
 
         public void Refresh()
         {
-            var cindex = Mathx.PrevIndex(index, Events.Count);
-            var nindex = index;
-            while (!Events[nindex].enabled && nindex != cindex)
+            if (Events.Count > 0)
             {
-                nindex = Mathx.NextIndex(nindex, Events.Count);
-            }
-
-            _index = nindex;
-            for (int i = 0; i < Events.Count; ++i)
-            {
-                Events[i].SetHighlighted(_index == i);
+                _index = FindNextIndex(_index - 1);
+                for (int i = 0; i < Events.Count; ++i)
+                {
+                    Events[i].SetHighlighted(_index == i);
+                }
             }
         }
 

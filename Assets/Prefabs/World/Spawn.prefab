@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3781bd74065a3499163d539ba8e921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
   <TriggerController>k__BackingField: {fileID: 824812332262872202}
 --- !u!1 &6567446505156729224
 GameObject:
@@ -94,7 +95,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49
+  m_Radius: 0.475
 --- !u!114 &824812332262872202
 MonoBehaviour:
   m_ObjectHideFlags: 0

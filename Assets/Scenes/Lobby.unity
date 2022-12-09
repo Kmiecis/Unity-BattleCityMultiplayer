@@ -162,7 +162,6 @@ MonoBehaviour:
   <CreateRoomPanel>k__BackingField: {fileID: 712490622}
   <RoomListPanel>k__BackingField: {fileID: 1249977832923221204}
   <SettingsPanel>k__BackingField: {fileID: 1287492925}
-  <ConstructionPanel>k__BackingField: {fileID: 0}
   <RoomPreparationPanel>k__BackingField: {fileID: 1687651674}
   <LoginAttemptPanel>k__BackingField: {fileID: 1864368181}
   <JoinRandomRoomAttemptPanel>k__BackingField: {fileID: 1922193461}
@@ -202,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <GameScenes>k__BackingField: {fileID: 11400000, guid: 52557736ba2509a478b68a3198576cde, type: 2}
+  <DefaultMap>k__BackingField: {fileID: 0}
   <RoomNameText>k__BackingField: {fileID: 1804929405}
   <EntryPrefab>k__BackingField: {fileID: 5093056903322025271, guid: e656a516fdb18fa49bb861881f972d7a, type: 3}
   <TeamAParent>k__BackingField: {fileID: 371249109}

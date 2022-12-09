@@ -11,12 +11,12 @@ namespace Tanks
         private const int CLEAR_TILE = 0;
 
         [field: SerializeField]
-        public GameObject[] Prefabs;
+        public ConstructionBlocks Blocks { get; private set; }
         [field: SerializeField]
-        public MapSerialized DefaultMap;
+        public MapSerialized DefaultMap { get; private set; }
 
         private Dictionary<Vector2Int, int> _ids = new();
-        private Dictionary<Vector2Int, GameObject> _objects = new();
+        private Dictionary<Vector2Int, Block> _objects = new();
 
         private int _previous = CLEAR_TILE;
         private bool _isDirty = false;
@@ -29,7 +29,7 @@ namespace Tanks
             var index = GetId(coordinates);
             if (index != CLEAR_TILE || _previous == CLEAR_TILE)
             {
-                _previous = Mathx.NextIndex(index, Prefabs.Length);
+                _previous = Mathx.NextIndex(index, Blocks.Length);
             }
 
             SetTile(coordinates, _previous);
@@ -46,7 +46,7 @@ namespace Tanks
             {
                 var position = (Vector2)coordinates;
                 var rotation = Quaternion.identity;
-                var prefab = Prefabs[id];
+                var prefab = Blocks[id];
                 var instance = Instantiate(prefab, position, rotation, transform);
 
                 _ids[coordinates] = id;
@@ -68,9 +68,9 @@ namespace Tanks
 
         private void ClearObject(Vector2Int coordinates)
         {
-            if (_objects.TryGetValue(coordinates, out var gameObject))
+            if (_objects.TryGetValue(coordinates, out var block))
             {
-                Destroy(gameObject);
+                Destroy(block.gameObject);
                 _objects.Remove(coordinates);
             }
         }
@@ -93,7 +93,7 @@ namespace Tanks
         private string GetMapToLoad()
         {
             if (!CustomPlayerPrefs.TryGetMap(out var map))
-                map = DefaultMap.value;
+                map = DefaultMap.Value;
             return map;
         }
 
