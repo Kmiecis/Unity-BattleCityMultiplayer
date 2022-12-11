@@ -10,18 +10,18 @@ namespace Tanks
         public override void OnStart()
         {
             var tank = TanksController.GetMineTank();
-            if (tank.team != _team && tank.IsEnabled)
+            if (tank.team != _team && tank.InputController.IsEnabled)
             {
-                tank.IsEnabled = false;
+                tank.InputController.IsEnabled = false;
             }
         }
 
         public override void OnFinish()
         {
             var tank = TanksController.GetMineTank();
-            if (tank.team != _team && !tank.IsEnabled)
+            if (tank.team != _team && !tank.InputController.IsEnabled)
             {
-                tank.IsEnabled = true;
+                tank.InputController.IsEnabled = true;
             }
         }
 

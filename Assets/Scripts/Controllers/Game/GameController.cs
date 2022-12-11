@@ -79,7 +79,7 @@ namespace Tanks
         public void EndGame(float lag = 0.0f)
         {
             GameUIController.OnGameEnded();
-            TanksController.GetMineTank().IsEnabled = false;
+            TanksController.GetMineTank().InputController.IsEnabled = false;
 
             StartCoroutine(FinishGame(GameProperties.endGameDelay - lag));
         }

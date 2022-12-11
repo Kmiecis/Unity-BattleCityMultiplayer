@@ -14,7 +14,9 @@ namespace Tanks
             var tank = TanksController.GetMineTank();
             if (tank.team == _team)
             {
-                tank.BulletController.limit += extras;
+                tank.InputController
+                    .BulletController
+                    .limit += extras;
             }
         }
 
@@ -23,7 +25,9 @@ namespace Tanks
             var tank = TanksController.GetMineTank();
             if (tank.team == _team)
             {
-                tank.BulletController.limit -= extras;
+                tank.InputController
+                    .BulletController
+                    .limit -= extras;
             }
         }
 

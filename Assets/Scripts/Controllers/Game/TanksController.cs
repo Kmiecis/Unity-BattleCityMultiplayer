@@ -48,6 +48,14 @@ namespace Tanks
             return null;
         }
 
+        private void SpawnMineTank()
+        {
+            var spawn = SpawnsController.GetBestSpawn();
+            var prefabPath = GetTankPrefabPath();
+
+            PhotonNetwork.Instantiate(prefabPath, spawn.transform.position, Quaternion.identity);
+        }
+
         private string GetTankPrefabPath(ETeam team)
         {
             switch (team)
@@ -72,10 +80,7 @@ namespace Tanks
 
         private void Start()
         {
-            var spawn = SpawnsController.GetBestSpawn();
-            var prefabPath = GetTankPrefabPath();
-
-            PhotonNetwork.Instantiate(prefabPath, spawn.transform.position, Quaternion.identity);
+            SpawnMineTank();
         }
 
         private void OnDestroy()

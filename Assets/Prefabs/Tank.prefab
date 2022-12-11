@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 2800864980058447838}
   - component: {fileID: 5420529899281120738}
   - component: {fileID: 7516772721059094405}
-  - component: {fileID: 4628357046836593220}
   - component: {fileID: 3019554945046643063}
   - component: {fileID: 9130183082392391059}
   - component: {fileID: -4768851008313264919}
@@ -219,29 +218,10 @@ MonoBehaviour:
   team: 0
   <ModelObject>k__BackingField: {fileID: 2800864980006118108}
   <HighlightedObject>k__BackingField: {fileID: 7012063459285262393}
-  <InputController>k__BackingField: {fileID: 4628357046836593220}
-  <MovementController>k__BackingField: {fileID: 3019554945046643063}
-  <BulletController>k__BackingField: {fileID: 9130183082392391059}
+  <InputController>k__BackingField: {fileID: 0}
   <ForcefieldController>k__BackingField: {fileID: -4768851008313264919}
   <RespawnController>k__BackingField: {fileID: 8987798851253315977}
   <UpgradeController>k__BackingField: {fileID: 1969046085256359090}
---- !u!114 &4628357046836593220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2800864980058447839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a84f5be4604aa144b9ca46a525faeff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upKey: {fileID: 11400000, guid: 219f1583399c9c1449c4d8be110edfe8, type: 2}
-  downKey: {fileID: 11400000, guid: 77c27579e1b63a048874798cfbe113d0, type: 2}
-  leftKey: {fileID: 11400000, guid: c2b616dbe81262946a80abae8d7e5334, type: 2}
-  rightKey: {fileID: 11400000, guid: f5d04fcf8e74ea748a48cf753f214191, type: 2}
-  fireKey: {fileID: 11400000, guid: 4a6a35daf2635c74c8e9f333ba05f5dc, type: 2}
 --- !u!114 &3019554945046643063
 MonoBehaviour:
   m_ObjectHideFlags: 0

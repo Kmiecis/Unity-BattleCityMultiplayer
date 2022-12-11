@@ -14,7 +14,9 @@ namespace Tanks
             var tanks = TanksController.GetTanks(_team);
             foreach (var tank in tanks)
             {
-                tank.BulletController.speed *= multiplier;
+                tank.InputController
+                    .BulletController
+                    .speed *= multiplier;
             }
         }
 
@@ -23,7 +25,9 @@ namespace Tanks
             var tanks = TanksController.GetTanks(_team);
             foreach (var tank in tanks)
             {
-                tank.BulletController.speed /= multiplier;
+                tank.InputController
+                    .BulletController
+                    .speed /= multiplier;
             }
         }
 

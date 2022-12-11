@@ -18,10 +18,6 @@ namespace Tanks
         [field: SerializeField]
         public AInputController InputController { get; private set; }
         [field: SerializeField]
-        public MovementController MovementController { get; private set; }
-        [field: SerializeField]
-        public BulletController BulletController { get; private set; }
-        [field: SerializeField]
         public ForcefieldController ForcefieldController { get; private set; }
         [field: SerializeField]
         public RespawnController RespawnController { get; private set; }
@@ -39,17 +35,11 @@ namespace Tanks
             get => ModelObject.activeSelf;
         }
 
-        public bool IsEnabled
-        {
-            get => enabled;
-            set => enabled = value && photonView.IsMine;
-        }    
-
         public void SetVisiblity(bool value)
         {
-            IsEnabled = value;
             ModelObject.SetActive(value);
             HighlightedObject.SetActive(value && photonView.IsMine);
+            InputController.IsEnabled = value;
         }
 
         public void Hit()
@@ -157,31 +147,6 @@ namespace Tanks
             DI_Binder.Bind(this);
 
             RespawnController.SetCallback(OnRespawn);
-        }
-
-        private void Update()
-        {
-            var direction = InputController.Direction;
-            if (direction != Vector2Int.zero)
-            {
-                MovementController.SetMovement(direction);
-            }
-            else
-            {
-                MovementController.StopMovement();
-            }
-
-            if (InputController.Shoot)
-            {
-                BulletController.Fire();
-            }
-        }
-
-        public override void OnDisable()
-        {
-            base.OnDisable();
-
-            MovementController.StopMovement();
         }
         #endregion
     }
