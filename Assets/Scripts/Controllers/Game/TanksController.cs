@@ -15,29 +15,25 @@ namespace Tanks
         [field: DI_Inject]
         public SpawnsController SpawnsController { get; private set; }
 
-        private List<Tank> _teamATanks = new List<Tank>();
-        private List<Tank> _teamBTanks = new List<Tank>();
+        private Dictionary<ETeam, List<Tank>> _tanks = new Dictionary<ETeam, List<Tank>>
+        {
+            { ETeam.A, new List<Tank>() },
+            { ETeam.B, new List<Tank>() }
+        };
+
+        public Dictionary<ETeam, List<Tank>> Tanks
+            => _tanks;
 
         public List<Tank> TeamATanks
-            => _teamATanks;
+            => _tanks[ETeam.A];
 
         public List<Tank> TeamBTanks
-            => _teamBTanks;
-
-        public List<Tank> GetTanks(ETeam team)
-        {
-            switch (team)
-            {
-                case ETeam.A: return _teamATanks;
-                case ETeam.B: return _teamBTanks;
-            }
-            return null;
-        }
+            => _tanks[ETeam.B];
 
         public Tank GetMineTank()
         {
             var team = PhotonNetwork.LocalPlayer.GetTeam();
-            var tanks = GetTanks(team);
+            var tanks = _tanks[team];
             foreach (var tank in tanks)
             {
                 if (tank.photonView.IsMine)
@@ -50,8 +46,8 @@ namespace Tanks
 
         private void SpawnMineTank()
         {
-            var spawn = SpawnsController.GetBestSpawn();
             var prefabPath = GetTankPrefabPath();
+            var spawn = SpawnsController.GetBestSpawn();
 
             PhotonNetwork.Instantiate(prefabPath, spawn.transform.position, Quaternion.identity);
         }

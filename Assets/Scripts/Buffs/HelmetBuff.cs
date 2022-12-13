@@ -11,7 +11,7 @@ namespace Tanks
 
         public override void OnStart()
         {
-            var tanks = TanksController.GetTanks(_team);
+            var tanks = TanksController.Tanks[_team];
             foreach (var tank in tanks)
             {
                 if (tank.IsVisible)

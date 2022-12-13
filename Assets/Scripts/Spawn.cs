@@ -12,28 +12,37 @@ namespace Tanks
         public Trigger2DController TriggerController { get; private set; }
         [field: DI_Inject]
         public SpawnsController SpawnsController { get; private set; }
-        
+
+        private bool _valid = true;
         private List<GameObject> _triggers = new List<GameObject>();
 
         public bool IsValid
         {
-            get => _triggers.Count == 0;
+            get => _valid;
+            set => _valid = value;
         }
 
         public void _OnTriggerEntered(Collider2D collision)
         {
             _triggers.Add(collision.gameObject);
+            OnTriggersChange();
         }
 
         public void _OnTriggerExited(Collider2D collision)
         {
             _triggers.Remove(collision.gameObject);
+            OnTriggersChange();
+        }
+
+        private void OnTriggersChange()
+        {
+            var valid = _triggers.Count == 0;
         }
 
         #region Injection methods
         private void OnSpawnsControllerInject(SpawnsController controller)
         {
-            controller.GetSpawns(team).Add(this);
+            controller.Spawns[team].Add(this);
         }
         #endregion
 

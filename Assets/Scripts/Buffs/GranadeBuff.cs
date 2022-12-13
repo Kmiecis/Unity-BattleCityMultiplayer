@@ -10,7 +10,7 @@ namespace Tanks
         public override void OnStart()
         {
             var enemyTeam = _team.Flip();
-            var tanks = TanksController.GetTanks(enemyTeam);
+            var tanks = TanksController.Tanks[enemyTeam];
             foreach (var tank in tanks)
             {
                 if (tank.IsVisible)

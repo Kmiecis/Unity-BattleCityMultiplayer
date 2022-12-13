@@ -89,15 +89,12 @@ namespace Tanks
         #region Unity methods
         private void Awake()
         {
+            DI_Binder.Bind(this);
+
             foreach (var piece in Pieces)
             {
                 piece._parent = this;
             }
-        }
-
-        private void Start()
-        {
-            DI_Binder.Bind(this);
         }
 
         private void OnDestroy()

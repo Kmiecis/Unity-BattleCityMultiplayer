@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <GameScenes>k__BackingField: {fileID: 11400000, guid: 52557736ba2509a478b68a3198576cde, type: 2}
-  <DefaultMap>k__BackingField: {fileID: 0}
+  <DefaultMap>k__BackingField: {fileID: 11400000, guid: d218d1dc723e3dd41af9413c8c1e3cd9, type: 2}
   <RoomNameText>k__BackingField: {fileID: 1804929405}
   <EntryPrefab>k__BackingField: {fileID: 5093056903322025271, guid: e656a516fdb18fa49bb861881f972d7a, type: 3}
   <TeamAParent>k__BackingField: {fileID: 371249109}

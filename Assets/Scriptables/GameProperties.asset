@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: GameProperties
   m_EditorClassIdentifier: 
   minPlayers: 2
-  maxPlayers: 14
-  defaultPlayers: 6
+  maxPlayers: 10
+  defaultPlayers: 10
   minTeamPlayers: 0
   maxTeamPlayers: 7
   maxRoomsListed: 7
+  endGameDelay: 5

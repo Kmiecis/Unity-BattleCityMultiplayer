@@ -38,7 +38,7 @@ namespace Tanks
         public void SetVisiblity(bool value)
         {
             ModelObject.SetActive(value);
-            HighlightedObject.SetActive(value && photonView.IsMine);
+            HighlightedObject.SetActive(value && photonView.IsMine && !photonView.IsRoomView);
             InputController.IsEnabled = value;
         }
 
@@ -69,7 +69,10 @@ namespace Tanks
             {
                 OnExplode();
 
-                photonView.Owner.IncrDeaths();
+                if (!photonView.IsRoomView)
+                {
+                    photonView.Owner.IncrDeaths();
+                }
             }
         }
 
@@ -88,7 +91,7 @@ namespace Tanks
 
         private void OnExplode()
         {
-            var spawn = SpawnsController.GetBestSpawn();
+            var spawn = SpawnsController.GetBestSpawn(team);
             RespawnController.Respawn(spawn.transform.position);
             RespawnController.RPCRespawn(spawn.transform.position);
         }
@@ -137,7 +140,7 @@ namespace Tanks
         #region Injection methods
         private void OnTanksControllerInject(TanksController controller)
         {
-            controller.GetTanks(team).Add(this);
+            controller.Tanks[team].Add(this);
         }
         #endregion
 
@@ -147,6 +150,11 @@ namespace Tanks
             DI_Binder.Bind(this);
 
             RespawnController.SetCallback(OnRespawn);
+        }
+
+        private void Start()
+        {
+            SetVisiblity(true);
         }
         #endregion
     }

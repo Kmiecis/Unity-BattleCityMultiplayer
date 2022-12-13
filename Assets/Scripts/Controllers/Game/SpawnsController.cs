@@ -10,34 +10,27 @@ namespace Tanks
     [DI_Install]
     public class SpawnsController : MonoBehaviour
     {
-        private List<Spawn> _teamASpawns = new List<Spawn>();
-        private List<Spawn> _teamBSpawns = new List<Spawn>();
+        private Dictionary<ETeam, List<Spawn>> _spawns = new Dictionary<ETeam, List<Spawn>>
+        {
+            { ETeam.A, new List<Spawn>() },
+            { ETeam.B, new List<Spawn>() }
+        };
+
+        public Dictionary<ETeam, List<Spawn>> Spawns
+            => _spawns;
 
         public List<Spawn> TeamASpawns
-        {
-            get => _teamASpawns;
-        }
+            => _spawns[ETeam.A];
 
         public List<Spawn> TeamBSpawns
-        {
-            get => _teamBSpawns;
-        }
+            => _spawns[ETeam.B];
 
-        public List<Spawn> GetSpawns(ETeam team)
+        public Spawn FindBestSpawn(ETeam team)
         {
-            switch (team)
-            {
-                case ETeam.A: return TeamASpawns;
-                case ETeam.B: return TeamBSpawns;
-                default: return null;
-            }
-        }
-
-        public Spawn GetBestSpawn(ETeam team)
-        {
-            var spawns = GetSpawns(team);
-            var index = Random.Range(0, spawns.Count);
-            for (int i = index; i != index - 1; index = Mathx.NextIndex(index, spawns.Count))
+            var spawns = _spawns[team];
+            var from = Random.Range(0, spawns.Count);
+            var to = Mathx.PrevIndex(from, spawns.Count);
+            for (int i = from; i != to; i = Mathx.NextIndex(i, spawns.Count))
             {
                 var spawn = spawns[i];
                 if (spawn.IsValid)
@@ -45,7 +38,14 @@ namespace Tanks
                     return spawn;
                 }
             }
-            return spawns[index];
+            return spawns[from];
+        }
+
+        public Spawn GetBestSpawn(ETeam team)
+        {
+            var spawn = FindBestSpawn(team);
+            spawn.IsValid = false;
+            return spawn;
         }
 
         public Spawn GetBestSpawn()

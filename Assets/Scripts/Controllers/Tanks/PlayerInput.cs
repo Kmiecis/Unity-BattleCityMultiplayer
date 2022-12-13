@@ -32,23 +32,6 @@ namespace Tanks
             _shoot = ReadShoot();
         }
 
-        private void ApplyInput()
-        {
-            if (_direction != Vector2Int.zero)
-            {
-                MovementController.SetMovement(_direction);
-            }
-            else
-            {
-                MovementController.StopMovement();
-            }
-
-            if (_shoot)
-            {
-                BulletController.Fire();
-            }
-        }
-
         private Vector2Int ReadDirection()
         {
             if (Input.GetKey(upKey))
@@ -68,15 +51,10 @@ namespace Tanks
         }
 
         #region Unity methods
-        private void Start()
-        {
-            IsEnabled = true;
-        }
-
-        private void Update()
+        protected override void Update()
         {
             ReadInput();
-            ApplyInput();
+            base.Update();
         }
         #endregion
     }

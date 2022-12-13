@@ -20,7 +20,29 @@ namespace Tanks
         public abstract Vector2Int Direction { get; }
         public abstract bool Shoot { get; }
 
+        private void ApplyInput()
+        {
+            if (Direction != Vector2Int.zero)
+            {
+                MovementController.SetMovement(Direction);
+            }
+            else
+            {
+                MovementController.StopMovement();
+            }
+
+            if (Shoot)
+            {
+                BulletController.Fire();
+            }
+        }
+
         #region Unity methods
+        protected virtual void Update()
+        {
+            ApplyInput();
+        }
+
         private void OnDisable()
         {
             MovementController.StopMovement();
