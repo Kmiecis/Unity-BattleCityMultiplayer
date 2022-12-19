@@ -18,6 +18,7 @@ namespace Tanks
         }
 
         public abstract Vector2Int Direction { get; }
+
         public abstract bool Shoot { get; }
 
         private void ApplyInput()

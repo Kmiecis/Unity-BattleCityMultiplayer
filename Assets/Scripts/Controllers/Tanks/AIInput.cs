@@ -1,5 +1,4 @@
-﻿using Common;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 namespace Tanks
@@ -15,18 +14,32 @@ namespace Tanks
         }
 
         private Vector2Int _direction;
+        private bool _shoot;
 
         public override Vector2Int Direction
             => _direction;
 
         public override bool Shoot
-            => true;
+            => _shoot;
 
-        #region Unity methods
-        private void Start()
+        public void SetDirection(Vector2Int value)
         {
-            _direction = new Vector2Int(URandom.Sign(), URandom.Sign());
+            _direction = value;
         }
-        #endregion
+
+        public bool HasDirection()
+        {
+            return _direction != Vector2Int.zero;
+        }
+
+        public void ResetDirection()
+        {
+            SetDirection(Vector2Int.zero);
+        }
+
+        public void SetShoot(bool value)
+        {
+            _shoot = value;
+        }
     }
 }

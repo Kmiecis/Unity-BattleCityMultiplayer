@@ -44,5 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa5b73c5b45841449bf33775500c5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankABotPrefab: BotTankA
-  tankBBotPrefab: BotTankB
+  tankABotPrefab:
+    _value: {fileID: 4301977655183545320, guid: 98fe5a889096582408176c0b796d3229, type: 3}
+    _path: Assets/Resources/BotTankA
+  tankBBotPrefab:
+    _value: {fileID: 1759463912017103743, guid: 77bdc1c47af8b7d46bf9788e5873109b, type: 3}
+    _path: Assets/Resources/BotTankB

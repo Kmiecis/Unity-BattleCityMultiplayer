@@ -1,5 +1,4 @@
 ﻿using Common.Injection;
-using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
@@ -28,7 +27,7 @@ namespace Tanks
 
         private bool IsStatueDestroyed(ETeam team)
         {
-            var statue = StatuesController.GetStatue(team);
+            var statue = StatuesController.Statues[team];
             return statue.IsDestroyed;
         }
 

@@ -1,3 +1,4 @@
+using Common;
 using Common.Injection;
 using Photon.Pun;
 using Photon.Realtime;
@@ -9,11 +10,13 @@ namespace Tanks
 {
     public class BotsController : MonoBehaviourPunCallbacks
     {
-        public string tankABotPrefab;
-        public string tankBBotPrefab;
+        public ObjectReference tankABotPrefab;
+        public ObjectReference tankBBotPrefab;
 
         [field: DI_Inject]
         public SpawnsController SpawnsController { get; private set; }
+        [field: DI_Inject]
+        public TanksController TanksController { get; private set; }
 
         #region Unity methods
         private void Awake()
@@ -33,7 +36,10 @@ namespace Tanks
         #region Photon methods
         public override void OnMasterClientSwitched(Player newMasterClient)
         {
-
+            if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                ControlBots();
+            }
         }
         #endregion
 
@@ -56,6 +62,21 @@ namespace Tanks
                 {
                     CreateBot(ETeam.B);
                     ++teamBCount;
+                }
+            }
+        }
+
+        private void ControlBots()
+        {
+            foreach (var kv in TanksController.Tanks)
+            {
+                var tanks = kv.Value;
+                foreach (var tank in tanks)
+                {
+                    if (tank.IsBot)
+                    {
+                        tank.InputController.IsEnabled = true;
+                    }
                 }
             }
         }
@@ -86,8 +107,8 @@ namespace Tanks
         {
             switch (team)
             {
-                case ETeam.A: return tankABotPrefab;
-                case ETeam.B: return tankBBotPrefab;
+                case ETeam.A: return tankABotPrefab.ResourcePath;
+                case ETeam.B: return tankBBotPrefab.ResourcePath;
             }
             return null;
         }

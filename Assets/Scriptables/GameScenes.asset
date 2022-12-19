@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GameScenes
   m_EditorClassIdentifier: 
   _lobbyScene:
-    _scene: {fileID: 102900000, guid: a546b3f9747e6704bbe100a741ae5263, type: 3}
-    _name: Lobby
+    _value: {fileID: 102900000, guid: a546b3f9747e6704bbe100a741ae5263, type: 3}
+    _path: Assets/Scenes/Lobby
   _gameScene:
-    _scene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
-    _name: Game
+    _value: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+    _path: Assets/Scenes/Game
   _constructionScene:
-    _scene: {fileID: 102900000, guid: ce825e50ca131f942899c6fdd4d86a27, type: 3}
-    _name: Construction
+    _value: {fileID: 102900000, guid: ce825e50ca131f942899c6fdd4d86a27, type: 3}
+    _path: Assets/Scenes/Construction

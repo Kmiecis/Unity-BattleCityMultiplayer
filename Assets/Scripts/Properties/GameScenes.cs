@@ -7,19 +7,19 @@ namespace Tanks
     public class GameScenes : ScriptableObject
     {
         [SerializeField]
-        private SceneReference _lobbyScene;
+        private ObjectReference _lobbyScene;
         [SerializeField]
-        private SceneReference _gameScene;
+        private ObjectReference _gameScene;
         [SerializeField]
-        private SceneReference _constructionScene;
+        private ObjectReference _constructionScene;
 
         public string LobbyScene
-            => _lobbyScene.SceneName;
+            => _lobbyScene.AssetName;
 
         public string GameScene
-            => _gameScene.SceneName;
+            => _gameScene.AssetName;
 
         public string ConstructionScene
-            => _constructionScene.SceneName;
+            => _constructionScene.AssetName;
     }
 }

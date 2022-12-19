@@ -44,5 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d1aa63a83f6704fa03d9261e8fee75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankAPrefabPath: PlayerTankA
-  tankBPrefabPath: PlayerTankB
+  tankAPrefab:
+    _value: {fileID: 8550970977203122035, guid: d19fc844bbe6bbf4aa86a69f2f9790c3, type: 3}
+    _path: Assets/Resources/PlayerTankA
+  tankBPrefab:
+    _value: {fileID: 1896654088794489514, guid: 248e9f2d96ea77f468f560af5d0aabf2, type: 3}
+    _path: Assets/Resources/PlayerTankB

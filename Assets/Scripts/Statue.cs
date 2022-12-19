@@ -105,7 +105,7 @@ namespace Tanks
         #region Injection methods
         private void OnStatuesControllerInject(StatuesController controller)
         {
-            controller.SetStatue(this);
+            controller.Statues[team] = this;
         }
         #endregion
 

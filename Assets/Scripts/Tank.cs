@@ -31,9 +31,13 @@ namespace Tanks
         public EffectsController EffectsController { get; private set; }
 
         public bool IsVisible
-        {
-            get => ModelObject.activeSelf;
-        }
+            => ModelObject.activeSelf;
+
+        public bool IsPlayer
+            => InputController is PlayerInput;
+
+        public bool IsBot
+            => InputController is AIInput;
 
         public void SetVisiblity(bool value)
         {

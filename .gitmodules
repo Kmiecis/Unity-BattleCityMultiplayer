@@ -16,3 +16,6 @@
 [submodule "Assets/Packages/unity-package-coroutines"]
 	path = Assets/Packages/unity-package-coroutines
 	url = https://github.com/kmiecis/unity-package-coroutines
+[submodule "Assets/Packages/unity-package-behaviourtrees"]
+	path = Assets/Packages/unity-package-behaviourtrees
+	url = https://github.com/kmiecis/unity-package-behaviourtrees

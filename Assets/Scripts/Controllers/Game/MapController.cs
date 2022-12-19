@@ -12,7 +12,10 @@ namespace Tanks
         [field: SerializeField]
         public ConstructionBlocks Blocks { get; private set; }
 
-        private List<Block> _blocks = new();
+        private Dictionary<Vector2Int, Block> _tiles = new Dictionary<Vector2Int, Block>();
+
+        public Dictionary<Vector2Int, Block> Tiles
+            => _tiles;
 
         private void Load()
         {
@@ -29,7 +32,7 @@ namespace Tanks
                 var id = kv.Value;
 
                 var block = CreateBlock(coordinates, id);
-                _blocks.Add(block);
+                _tiles.Add(coordinates, block);
             }
         }
 

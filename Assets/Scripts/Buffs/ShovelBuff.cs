@@ -11,7 +11,7 @@ namespace Tanks
 
         public override void OnStart()
         {
-            var statue = StatuesController.GetStatue(_team);
+            var statue = StatuesController.Statues[_team];
             statue.FortifyController.Fortify(duration - _lag);
         }
 

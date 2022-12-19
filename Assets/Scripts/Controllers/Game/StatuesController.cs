@@ -1,5 +1,6 @@
 ﻿using Common.Injection;
 using Photon.Pun;
+using System.Collections.Generic;
 using Tanks.Extensions;
 using UnityEngine;
 
@@ -9,35 +10,14 @@ namespace Tanks
     [RequireComponent(typeof(PhotonView))]
     public class StatuesController : MonoBehaviourPun
     {
-        private Statue _teamAStatue;
-        private Statue _teamBStatue;
+        private Dictionary<ETeam, Statue> _statues = new Dictionary<ETeam, Statue>();
 
-        public Statue GetStatue(ETeam team)
-        {
-            switch (team)
-            {
-                case ETeam.A: return _teamAStatue;
-                case ETeam.B: return _teamBStatue;
-                default: return null;
-            }
-        }
-
-        public void SetStatue(Statue statue)
-        {
-            switch (statue.team)
-            {
-                case ETeam.A:
-                    _teamAStatue = statue;
-                    break;
-                case ETeam.B:
-                    _teamBStatue = statue;
-                    break;
-            }
-        }
+        public Dictionary<ETeam, Statue> Statues
+            => _statues;
 
         public void StatueDamage(ETeam team, float lag = 0.0f)
         {
-            var statue = GetStatue(team);
+            var statue = Statues[team];
             statue.Damage(lag);
         }
 
@@ -54,7 +34,7 @@ namespace Tanks
 
         public void StatueRepair(ETeam team, float lag = 0.0f)
         {
-            var statue = GetStatue(team);
+            var statue = Statues[team];
             statue.Repair(lag);
         }
 

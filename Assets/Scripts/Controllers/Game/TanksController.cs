@@ -3,14 +3,15 @@ using UnityEngine;
 using Tanks.Extensions;
 using System.Collections.Generic;
 using Common.Injection;
+using Common;
 
 namespace Tanks
 {
     [DI_Install]
     public class TanksController : MonoBehaviour
     {
-        public string tankAPrefabPath;
-        public string tankBPrefabPath;
+        public ObjectReference tankAPrefab;
+        public ObjectReference tankBPrefab;
 
         [field: DI_Inject]
         public SpawnsController SpawnsController { get; private set; }
@@ -56,8 +57,8 @@ namespace Tanks
         {
             switch (team)
             {
-                case ETeam.A: return tankAPrefabPath;
-                case ETeam.B: return tankBPrefabPath;
+                case ETeam.A: return tankAPrefab.ResourcePath;
+                case ETeam.B: return tankBPrefab.ResourcePath;
                 default: return null;
             }
         }

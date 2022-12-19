@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Common;
+using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Tanks
         public int limit = 1;
         public float speed = 1.0f;
         public float delay = 1.0f;
-        public string bulletPrefabPath;
+        public ObjectReference bulletPrefab;
 
         [field: SerializeField]
         public Transform SpawnPoint { get; private set; }
@@ -19,9 +20,9 @@ namespace Tanks
         private float _fired = 0.0f;
         private List<Bullet> _bullets = new List<Bullet>();
 
-        private bool CanFire()
+        public bool CanFire
         {
-            return (
+            get => (
                 _fired + delay < Time.time &&
                 _bullets.Count < limit
             );
@@ -29,11 +30,11 @@ namespace Tanks
 
         public void Fire()
         {
-            if (CanFire())
+            if (CanFire)
             {
                 _fired = Time.time;
 
-                var bulletObject = PhotonNetwork.Instantiate(bulletPrefabPath, SpawnPoint.position, SpawnPoint.rotation, data: new object[] { speed });
+                var bulletObject = PhotonNetwork.Instantiate(bulletPrefab.ResourcePath, SpawnPoint.position, SpawnPoint.rotation, data: new object[] { speed });
                 var bullet = bulletObject.GetComponent<Bullet>();
                 _bullets.Add(bullet);
             }

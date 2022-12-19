@@ -77,6 +77,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3674477102013084880, guid: af75b90f44ed6b946999c9b50d6a84e4, type: 3}
   m_PrefabInstance: {fileID: 3068220663126687663}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2796633927557015237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759463912017103743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d00dd6d577b7924fb51a5b82de8690b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootDelayRange:
+    min: 1
+    max: 3
+  driveDelayRange:
+    min: 0.25
+    max: 0.5
+  driveTimeRange:
+    min: 3
+    max: 6
+  boundsRange:
+    min: {x: -11, y: -6}
+    max: {x: 11, y: 6}
+  <InputController>k__BackingField: {fileID: 2572691586208365190}
 --- !u!114 &2572691586208365190
 MonoBehaviour:
   m_ObjectHideFlags: 0

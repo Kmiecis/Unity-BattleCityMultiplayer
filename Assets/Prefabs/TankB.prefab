@@ -107,5 +107,13 @@ PrefabInstance:
       propertyPath: bulletPrefabPath
       value: BulletB
       objectReference: {fileID: 0}
+    - target: {fileID: 9130183082392391059, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
+      propertyPath: bulletPrefab._path
+      value: Assets/Resources/BulletB
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130183082392391059, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
+      propertyPath: bulletPrefab._value
+      value: 
+      objectReference: {fileID: 8467470080059388761, guid: d001fa8819c065b4fb9905dd17f7d088, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5d8f4f3f22554b4fb2023cb2fc57f17, type: 3}
