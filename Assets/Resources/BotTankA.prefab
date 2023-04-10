@@ -101,6 +101,7 @@ MonoBehaviour:
   boundsRange:
     min: {x: -11, y: -6}
     max: {x: 11, y: 6}
+  <Tank>k__BackingField: {fileID: 8448166623697163186}
   <InputController>k__BackingField: {fileID: 6988432430847925383}
 --- !u!114 &6988432430847925383
 MonoBehaviour:
@@ -125,5 +126,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cf40d882f47b21479c1d79aadac0bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8448166623697163186 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8966673858906961034, guid: c9924b44c8bb76643bfb3f5269e2fb12, type: 3}
+  m_PrefabInstance: {fileID: 670452051492857656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4301977655183545320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f28e0bacd080c224784e6419ab047c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

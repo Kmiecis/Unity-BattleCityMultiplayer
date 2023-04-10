@@ -14,6 +14,8 @@ namespace Tanks
         public Range2Int boundsRange;
 
         [field: SerializeField]
+        public Tank Tank { get; private set; }
+        [field: SerializeField]
         public AIInput InputController { get; private set; }
         [field: DI_Inject]
         public MapController MapController { get; private set; }
@@ -54,28 +56,32 @@ namespace Tanks
             // Otherwise the good direction is pushing forward
             // If seeing a goal, then should focus on it
 
+            var shootDelayTask = new BT_Wait(shootDelayRange.Center, shootDelayRange.Length);
             _shootingBehaviour = new BT_TreeNode
             {
                 Task = new BT_SequenceNode
                 {
                     Tasks = new BT_ITask[]
                     {
-                        new BT_Wait(shootDelayRange.Center, shootDelayRange.Length),
+                        shootDelayTask,
                         new ShootTask(this)
                     }
                 },
             };
+
+            var driveDelayTask = new BT_Wait(driveDelayRange.Center, driveDelayRange.Length);
+            var driveLimitTask = new BT_Limit(driveTimeRange.Center, driveTimeRange.Length);
             _drivingBehaviour = new BT_TreeNode
             {
                 Task = new BT_SequenceNode
                 {
                     Tasks = new BT_ITask[]
                     {
-                        new BT_Wait(driveDelayRange.Center, driveDelayRange.Length),
+                        driveDelayTask,
                         new DriveTask(this)
                         {
                             Conditionals = new BT_IConditional[] {
-                                new BT_Limit(driveTimeRange.Center, driveTimeRange.Length),
+                                driveLimitTask,
                                 new IsNotStuckConditional(this)
                             }
                         }
@@ -83,7 +89,7 @@ namespace Tanks
                 }
             };
         }
-        // TODO: Add not shooting at your own Statue
+        
         private class ShootTask : BT_ATask<AIController>
         {
             public ShootTask(AIController context) :
@@ -91,9 +97,30 @@ namespace Tanks
             {
             }
 
+            private bool IsLookingAtOwnStatue()
+            {
+                var team = _context.Tank.team;
+                var position = Mathx.Round(_context.transform.position);
+                var friendlyStatue = _context.StatuesController.Statues[team];
+                var statuePosition = Mathx.Round(friendlyStatue.transform.position);
+                var statueDirection = (statuePosition - position).normalized;
+                var movementDirection = _context.InputController.MovementController.Direction.normalized;
+
+                var directionsDot = Vector2.Dot(statueDirection, movementDirection);
+                return Mathf.Approximately(directionsDot, 1.0f);
+            }
+
+            private bool CanShoot()
+            {
+                return (
+                    !IsLookingAtOwnStatue() &&
+                    _context.InputController.BulletController.CanFire
+                );
+            }
+
             protected override BT_EStatus OnUpdate()
             {
-                var shoot = _context.InputController.BulletController.CanFire;
+                var shoot = CanShoot();
                 _context.InputController.SetShoot(shoot);
                 return shoot ? BT_EStatus.Running : BT_EStatus.Success;
             }
