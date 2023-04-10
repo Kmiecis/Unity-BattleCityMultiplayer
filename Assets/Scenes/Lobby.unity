@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708985, g: 0.3783704, b: 0.35722548, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c116c5d1552845b41ac79fc4c65e58e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ServerSettings>k__BackingField: {fileID: 11400000, guid: 70b45deba4bf0bf4caf5234ec9ff0ba4, type: 2}
+  <ServerAppId>k__BackingField: {fileID: 11400000, guid: 4dac07415cb6cbd48ba2d42c5df1cd90, type: 2}
   <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <GameScenes>k__BackingField: {fileID: 11400000, guid: 52557736ba2509a478b68a3198576cde, type: 2}
   <LoginPanel>k__BackingField: {fileID: 416481553}

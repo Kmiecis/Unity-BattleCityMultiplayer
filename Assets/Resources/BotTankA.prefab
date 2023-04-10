@@ -102,7 +102,6 @@ MonoBehaviour:
     min: {x: -11, y: -6}
     max: {x: 11, y: 6}
   <InputController>k__BackingField: {fileID: 6988432430847925383}
-  <Collider>k__BackingField: {fileID: 4301977655400312553}
 --- !u!114 &6988432430847925383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,11 +116,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MovementController>k__BackingField: {fileID: 3785986901154106688}
   <BulletController>k__BackingField: {fileID: 7195053586455364004}
---- !u!58 &4301977655400312553 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 3674477102232783313, guid: c9924b44c8bb76643bfb3f5269e2fb12, type: 3}
-  m_PrefabInstance: {fileID: 670452051492857656}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7195053586455364004 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7679793548802877084, guid: c9924b44c8bb76643bfb3f5269e2fb12, type: 3}

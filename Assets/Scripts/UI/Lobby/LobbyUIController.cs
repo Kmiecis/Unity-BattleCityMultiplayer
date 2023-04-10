@@ -9,7 +9,7 @@ namespace Tanks
     public class LobbyUIController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
-        public ServerSettings ServerSettings { get; private set; }
+        public StringAsset ServerAppId { get; private set; }
         [field: SerializeField]
         public GameProperties GameProperties { get; private set; }
         [field: SerializeField]
@@ -34,7 +34,7 @@ namespace Tanks
         [field: SerializeField]
         public GameObject LeaveRoomAttemptPanel { get; private set; }
         [field: SerializeField]
-        public ScriptableKeyCode CancelKeyCode { get; private set; }
+        public KeyCodeAsset CancelKeyCode { get; private set; }
 
         private GameObject _currentPanel;
 
@@ -47,8 +47,11 @@ namespace Tanks
 
         public void _OnLoginClicked()
         {
-            ServerSettings.AppSettings.FixedRegion = "eu";
-            PhotonNetwork.ConnectUsingSettings(ServerSettings.AppSettings, ServerSettings.StartInOfflineMode);
+            var serverSettings = PhotonNetwork.PhotonServerSettings;
+            var appSettings = serverSettings.AppSettings;
+            appSettings.FixedRegion = "eu";
+            appSettings.AppIdRealtime = ServerAppId;
+            PhotonNetwork.ConnectUsingSettings(serverSettings.AppSettings, serverSettings.StartInOfflineMode);
 
             ChangeToPanel(LoginAttemptPanel);
         }

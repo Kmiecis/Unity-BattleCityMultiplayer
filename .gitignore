@@ -70,4 +70,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Photon server settings
-/[Aa]ssets/[Ss]ettings/PhotonServerSettings*
+/[Aa]ssets/[Ss]ettings/*

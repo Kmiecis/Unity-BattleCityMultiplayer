@@ -14,11 +14,11 @@ namespace Tanks.UI
         public List<SelectionEventHandler> Events { get; private set; }
         [field: Header("Input")]
         [field: SerializeField]
-        public ScriptableKeyCode SelectKey { get; private set; }
+        public KeyCodeAsset SelectKey { get; private set; }
         [field: SerializeField]
-        public ScriptableKeyCode UpKey { get; private set; }
+        public KeyCodeAsset UpKey { get; private set; }
         [field: SerializeField]
-        public ScriptableKeyCode DownKey { get; private set; }
+        public KeyCodeAsset DownKey { get; private set; }
 
         private bool _enabled;
         private int _index;

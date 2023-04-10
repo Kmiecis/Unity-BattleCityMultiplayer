@@ -7,7 +7,7 @@ namespace Tanks
     public class KeyDownEventHandler : MonoBehaviour
     {
         [field: SerializeField]
-        public ScriptableKeyCode KeyCode { get; private set; }
+        public KeyCodeAsset KeyCode { get; private set; }
 
         public UnityEvent OnKeyDown;
 

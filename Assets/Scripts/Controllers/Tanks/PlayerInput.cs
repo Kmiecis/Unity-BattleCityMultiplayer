@@ -6,18 +6,21 @@ namespace Tanks
     public class PlayerInput : AInputController
     {
         [Header("Input keys")]
-        public ScriptableKeyCode upKey;
-        public ScriptableKeyCode downKey;
-        public ScriptableKeyCode leftKey;
-        public ScriptableKeyCode rightKey;
-        public ScriptableKeyCode fireKey;
+        public KeyCodeAsset upKey;
+        public KeyCodeAsset downKey;
+        public KeyCodeAsset leftKey;
+        public KeyCodeAsset rightKey;
+        public KeyCodeAsset fireKey;
 
         private Vector2Int _direction;
         private bool _shoot;
 
         public override bool IsEnabled
         {
-            set => base.IsEnabled = value && photonView.IsMine;
+            set => base.IsEnabled = (
+                value &&
+                photonView.IsMine
+            );
         }
 
         public override Vector2Int Direction

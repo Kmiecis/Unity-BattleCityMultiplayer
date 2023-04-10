@@ -5,14 +5,6 @@ namespace Tanks
 {
     public class AIInput : AInputController
     {
-        public override bool IsEnabled
-        {
-            set => base.IsEnabled = (
-                value &&
-                PhotonNetwork.LocalPlayer.IsMasterClient
-            );
-        }
-
         private Vector2Int _direction;
         private bool _shoot;
 
@@ -21,6 +13,14 @@ namespace Tanks
 
         public override bool Shoot
             => _shoot;
+
+        public override bool IsEnabled
+        {
+            set => base.IsEnabled = (
+                value &&
+                PhotonNetwork.LocalPlayer.IsMasterClient
+            );
+        }
 
         public void SetDirection(Vector2Int value)
         {

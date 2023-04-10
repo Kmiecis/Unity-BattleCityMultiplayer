@@ -11,9 +11,9 @@ namespace Tanks.UI
         public GameProperties GameProperties { get; private set; }
 
         [field: SerializeField]
-        public ScriptableKeyCode ExitKeyCode { get; private set; }
+        public KeyCodeAsset ExitKeyCode { get; private set; }
         [field: SerializeField]
-        public ScriptableKeyCode ScoresKeyCode { get; private set; }
+        public KeyCodeAsset ScoresKeyCode { get; private set; }
 
         [field: SerializeField]
         public GameObject ExitPanel { get; private set; }
