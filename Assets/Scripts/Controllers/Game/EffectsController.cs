@@ -10,9 +10,9 @@ namespace Tanks
     public class EffectsController : MonoBehaviourPun
     {
         [field: SerializeField]
-        public BehaviourPool<Explosion> SmallExplosionPool { get; private set; }
+        public ComponentPool<Explosion> SmallExplosionPool { get; private set; }
         [field: SerializeField]
-        public BehaviourPool<Explosion> BigExplosionPool { get; private set; }
+        public ComponentPool<Explosion> BigExplosionPool { get; private set; }
 
         public void SpawnSmallExplosion(Vector2 position)
         {
