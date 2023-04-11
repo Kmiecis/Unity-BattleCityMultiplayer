@@ -10,7 +10,7 @@ namespace Tanks
         public int limit = 1;
         public float speed = 1.0f;
         public float delay = 1.0f;
-        public ObjectReference bulletPrefab;
+        public AssetReference bulletPrefab;
 
         [field: SerializeField]
         public Transform SpawnPoint { get; private set; }

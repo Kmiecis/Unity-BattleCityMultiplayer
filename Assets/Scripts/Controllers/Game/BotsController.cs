@@ -10,8 +10,8 @@ namespace Tanks
 {
     public class BotsController : MonoBehaviourPunCallbacks
     {
-        public ObjectReference tankABotPrefab;
-        public ObjectReference tankBBotPrefab;
+        public AssetReference tankABotPrefab;
+        public AssetReference tankBBotPrefab;
 
         [field: DI_Inject]
         public SpawnsController SpawnsController { get; private set; }

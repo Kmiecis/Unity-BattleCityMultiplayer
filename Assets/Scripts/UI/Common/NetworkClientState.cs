@@ -21,7 +21,7 @@ namespace Tanks.UI
             {
                 Text.text = state.ToString()
                     .SplitByCamelCase()
-                    .Join(' ')
+                    .Join(" ")
                     .ToUpper();
 
                 _state = state;

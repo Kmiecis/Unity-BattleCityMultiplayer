@@ -1,5 +1,54 @@
 {
   "dependencies": {
+    "com.common.assemblies": {
+      "version": "https://github.com/Kmiecis/unity-package-common.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b3d263c54b062cdc2f6fab3839b466b3ced78cb7"
+    },
+    "com.common.behaviour.trees": {
+      "version": "https://github.com/kmiecis/unity-package-behaviourtrees.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "509654c4d1ac90e9330ef846a7f38294f6d9b335"
+    },
+    "com.common.coroutines": {
+      "version": "https://github.com/kmiecis/unity-package-coroutines.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "821618c5fd1dc86e081e73f2a018c9f13349f3b1"
+    },
+    "com.common.dynamic.injection": {
+      "version": "https://github.com/Kmiecis/unity-package-dynamicinjection.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "565b9a5c7f756fb5d76b4da55282e69060700aef"
+    },
+    "com.common.materials": {
+      "version": "https://github.com/kmiecis/unity-package-materializer.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "3f0393e62a76566900749f6fab906046fded3270"
+    },
+    "com.common.model.view.behaviour": {
+      "version": "https://github.com/kmiecis/unity-package-mvb.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2c4c24316f726167547859db0eb67867277c0699"
+    },
+    "com.common.object.pooling": {
+      "version": "https://github.com/kmiecis/unity-package-objectpooling.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "65a1fa9a2cd49228f323d413eb0aa0fb9f51aa58"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

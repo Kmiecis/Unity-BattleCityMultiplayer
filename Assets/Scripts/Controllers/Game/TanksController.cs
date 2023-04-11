@@ -10,8 +10,8 @@ namespace Tanks
     [DI_Install]
     public class TanksController : MonoBehaviour
     {
-        public ObjectReference tankAPrefab;
-        public ObjectReference tankBPrefab;
+        public AssetReference tankAPrefab;
+        public AssetReference tankBPrefab;
 
         [field: DI_Inject]
         public SpawnsController SpawnsController { get; private set; }
