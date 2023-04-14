@@ -45,7 +45,7 @@ namespace Tanks.AI
         private void SetDirection()
         {
             var direction = URandom.Bool() ? GetRandomDirection() : GetStatueDirection();
-            _context.InputController.SetDirection(direction);
+            _context.InputController.Direction = direction;
         }
 
         protected override void OnStart()
@@ -60,7 +60,7 @@ namespace Tanks.AI
 
         protected override void OnFinish()
         {
-            _context.InputController.ResetDirection();
+            _context.InputController.Direction = Vector2Int.zero;
         }
     }
 }

@@ -22,8 +22,12 @@ namespace Tanks
         public MovementController MovementController { get; private set; }
         [field: SerializeField]
         public Collision2DController CollisionController { get; private set; }
+        [field: SerializeField]
+        public SoundData ShootSound { get; private set; }
         [field: DI_Inject]
         public EffectsController EffectsController { get; private set; }
+        [field: DI_Inject]
+        public SoundsController SoundsController { get; private set; }
 
         public bool IsExploded
         {
@@ -133,6 +137,8 @@ namespace Tanks
             var position = (Vector2)transform.position;
             var direction = (Vector2)(transform.rotation * Vector3.up);
             var distance = lag * speed;
+
+            SoundsController.PlaySound(ShootSound);
 
             MovementController.SetMovement(direction, speed);
 

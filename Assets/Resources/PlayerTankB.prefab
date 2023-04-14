@@ -84,13 +84,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896654088794489514}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a84f5be4604aa144b9ca46a525faeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <MovementController>k__BackingField: {fileID: 1543452904547146754}
   <BulletController>k__BackingField: {fileID: 4771566174143238374}
+  <MovementSound>k__BackingField: {fileID: 11400000, guid: 8d5acdc023ae014489da85a282bd8004, type: 2}
+  <IdleSound>k__BackingField: {fileID: 11400000, guid: df3aa68184477cd42b0fe1e8a90b6974, type: 2}
   upKey: {fileID: 11400000, guid: 219f1583399c9c1449c4d8be110edfe8, type: 2}
   downKey: {fileID: 11400000, guid: 77c27579e1b63a048874798cfbe113d0, type: 2}
   leftKey: {fileID: 11400000, guid: c2b616dbe81262946a80abae8d7e5334, type: 2}

@@ -20,7 +20,7 @@ namespace Tanks
         private float _fired = 0.0f;
         private List<Bullet> _bullets = new List<Bullet>();
 
-        public bool CanFire
+        public bool CanShoot
         {
             get => (
                 _fired + delay < Time.time &&
@@ -28,16 +28,21 @@ namespace Tanks
             );
         }
 
-        public void Fire()
+        public void TryShoot()
         {
-            if (CanFire)
+            if (CanShoot)
             {
-                _fired = Time.time;
-
-                var bulletObject = PhotonNetwork.Instantiate(bulletPrefab.ResourcePath, SpawnPoint.position, SpawnPoint.rotation, data: new object[] { speed });
-                var bullet = bulletObject.GetComponent<Bullet>();
-                _bullets.Add(bullet);
+                Shoot();
             }
+        }
+
+        private void Shoot()
+        {
+            _fired = Time.time;
+
+            var bulletObject = PhotonNetwork.Instantiate(bulletPrefab.ResourcePath, SpawnPoint.position, SpawnPoint.rotation, data: new object[] { speed });
+            var bullet = bulletObject.GetComponent<Bullet>();
+            _bullets.Add(bullet);
         }
 
         private void CheckBullets()

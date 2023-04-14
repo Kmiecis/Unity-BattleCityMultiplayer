@@ -76,6 +76,7 @@ MonoBehaviour:
   <ModelObject>k__BackingField: {fileID: 6608108848033877547}
   <MovementController>k__BackingField: {fileID: 1922317431202854769}
   <CollisionController>k__BackingField: {fileID: 5324819681694298453}
+  <ShootSound>k__BackingField: {fileID: 11400000, guid: 6eb77c3814777af4090a1cc2fce9b25c, type: 2}
 --- !u!114 &1922317431202854769
 MonoBehaviour:
   m_ObjectHideFlags: 0

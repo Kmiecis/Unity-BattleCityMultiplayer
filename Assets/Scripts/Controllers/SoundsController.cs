@@ -1,26 +1,49 @@
+using Common.Injection;
 using Common.Pooling;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tanks
 {
+    [DI_Install]
     public class SoundsController : MonoBehaviour
     {
-        public ComponentPool<AudioSource> sources = new ComponentPool<AudioSource>();
+        private class Sample
+        {
+            public AudioSource source;
+            public SoundData data;
+            public Action onFinish;
+        }
 
-        private List<AudioSource> _sounds;
+        [SerializeField]
+        private ComponentPool<AudioSource> _sources = new ComponentPool<AudioSource>();
+        [Range(0.0f, 1.0f), SerializeField]
+        private float _volume = 1.0f;
+
+        private List<Sample> _sounds = new List<Sample>();
         private AudioSource _music;
 
-        public AudioSource PlaySound(SoundData sound)
+        public float Volume
         {
-            var source = sources.Borrow();
+            get => _volume;
+            set { _volume = value; UpdateVolume(); }
+        }
 
-            source.clip = sound.clip;
-            source.volume = sound.volume;
+        public AudioSource PlaySound(SoundData data, Action onFinish = null)
+        {
+            if (!enabled)
+                return null;
+
+            var source = _sources.Borrow();
+
+            source.clip = data.clip;
+            source.volume = data.volume * _volume;
             source.loop = false;
             source.Play();
 
-            _sounds.Add(source);
+            var sample = new Sample { source = source, data = data, onFinish = onFinish };
+            _sounds.Add(sample);
 
             return source;
         }
@@ -29,15 +52,20 @@ namespace Tanks
         {
             source.Stop();
 
-            sources.Return(source);
+            _sources.Return(source);
         }
 
-        public void PlayMusic(SoundData sound)
+        public void PlayMusic(SoundData data)
         {
-            var source = sources.Borrow();
+            if (!enabled)
+                return;
 
-            source.clip = sound.clip;
-            source.volume = sound.volume;
+            StopMusic();
+
+            var source = _sources.Borrow();
+
+            source.clip = data.clip;
+            source.volume = data.volume * _volume;
             source.loop = true;
             source.Play();
 
@@ -51,36 +79,66 @@ namespace Tanks
 
             _music.Stop();
 
-            sources.Return(_music);
+            _sources.Return(_music);
 
             _music = null;
+        }
+
+        public bool HasMusic()
+        {
+            return _music != null;
         }
 
         private void UpdateSounds()
         {
             for (int i = 0; i < _sounds.Count; ++i)
             {
-                var source = _sounds[i];
+                var sample = _sounds[i];
 
-                if (!source.isPlaying)
+                if (!sample.source.isPlaying)
                 {
                     _sounds.RemoveAt(i);
                     i -= 1;
 
-                    sources.Return(source);
+                    _sources.Return(sample.source);
+
+                    if (sample.onFinish != null)
+                    {
+                        sample.onFinish();
+                    }
                 }
+            }
+        }
+        
+        private void UpdateVolume()
+        {
+            foreach (var sample in _sounds)
+            {
+                sample.source.volume = sample.data.volume * _volume;
             }
         }
 
         #region Unity methods
-        private void Start()
+        private void Awake()
         {
-            _sounds = new List<AudioSource>();
+            DI_Binder.Bind(this);
         }
 
         private void Update()
         {
             UpdateSounds();
+        }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            UpdateVolume();
+        }
+#endif
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

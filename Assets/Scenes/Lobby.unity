@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c116c5d1552845b41ac79fc4c65e58e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ServerAppId>k__BackingField: {fileID: 11400000, guid: 4dac07415cb6cbd48ba2d42c5df1cd90, type: 2}
+  <ServerAppId>k__BackingField: {fileID: 11400000, guid: 4349581465f066b40aedbea30cccd7fd, type: 2}
   <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <GameScenes>k__BackingField: {fileID: 11400000, guid: 52557736ba2509a478b68a3198576cde, type: 2}
   <LoginPanel>k__BackingField: {fileID: 416481553}
@@ -735,53 +735,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!1 &1068103734
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1068103736}
-  - component: {fileID: 1068103735}
-  m_Layer: 0
-  m_Name: Sounds
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1068103735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068103734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2297c4ade9f7484daf1d308d46bdc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sources:
-    _capacity: 16
-    _prefab: {fileID: 5016313364123605069, guid: ff2850528b8446941b767f12b780614e, type: 3}
---- !u!4 &1068103736
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068103734}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1219015261
 GameObject:
   m_ObjectHideFlags: 0

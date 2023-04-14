@@ -1,3 +1,4 @@
+using Common.Injection;
 using Common.MVB;
 using UnityEngine;
 
@@ -12,8 +13,13 @@ namespace Tanks
         public KeyCodeAsset rightKey;
         public KeyCodeAsset fireKey;
 
-        private Vector2Int _direction;
-        private bool _shoot;
+        [field: SerializeField]
+        public SoundData MovementSound { get; private set; }
+        [field: SerializeField]
+        public SoundData IdleSound { get; private set; }
+
+        [field: DI_Inject]
+        public SoundsController SoundsController { get; private set; }
 
         public override bool IsEnabled
         {
@@ -23,16 +29,22 @@ namespace Tanks
             );
         }
 
-        public override Vector2Int Direction
-            => _direction;
-
-        public override bool Shoot
-            => _shoot;
+        protected override void OnMovementChange(Vector2Int value)
+        {
+            if (value != Vector2Int.zero)
+            {
+                SoundsController.PlayMusic(MovementSound);
+            }
+            else
+            {
+                SoundsController.PlayMusic(IdleSound);
+            }
+        }
 
         private void ReadInput()
         {
-            _direction = ReadDirection();
-            _shoot = ReadShoot();
+            Direction = ReadDirection();
+            Shooting = ReadShoot();
         }
 
         private Vector2Int ReadDirection()
@@ -54,10 +66,20 @@ namespace Tanks
         }
 
         #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
+        }
+
         protected override void Update()
         {
             ReadInput();
             base.Update();
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

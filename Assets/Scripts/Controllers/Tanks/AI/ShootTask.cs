@@ -28,14 +28,14 @@ namespace Tanks.AI
         {
             return (
                 !IsLookingAtOwnStatue() &&
-                _context.InputController.BulletController.CanFire
+                _context.InputController.BulletController.CanShoot
             );
         }
 
         protected override BT_EStatus OnUpdate()
         {
             var shoot = CanShoot();
-            _context.InputController.SetShoot(shoot);
+            _context.InputController.Shooting = shoot;
             return shoot ? BT_EStatus.Running : BT_EStatus.Success;
         }
     }
