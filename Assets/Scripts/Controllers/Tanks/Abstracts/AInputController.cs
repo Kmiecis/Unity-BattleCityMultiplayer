@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Tanks
 {
     [RequireComponent(typeof(PhotonView))]
-    public abstract class AInputController : MonoBehaviourPun, IInputController
+    public abstract class AInputController : MonoBehaviourPun
     {
         [field: SerializeField]
         public MovementController MovementController { get; private set; }

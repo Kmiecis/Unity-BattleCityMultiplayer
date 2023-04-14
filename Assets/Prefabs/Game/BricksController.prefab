@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2a007ed0246194b9c320966f564c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DestroySound>k__BackingField: {fileID: 11400000, guid: b3d1ac59c2b63a14bae57f09daf3be6c, type: 2}
 --- !u!114 &475360933388856588
 MonoBehaviour:
   m_ObjectHideFlags: 0

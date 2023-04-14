@@ -9,7 +9,10 @@ namespace Tanks
     [RequireComponent(typeof(PhotonView))]
     public class BricksController : MonoBehaviourPun
     {
-        private int _hitframe;
+        [field: SerializeField]
+        public SoundData DestroySound { get; private set; }
+        [field: DI_Inject]
+        public SoundsController SoundsController { get; private set; }
 
         private bool TryGetBrick(RaycastHit2D hit, out Brick brick)
         {
@@ -18,32 +21,31 @@ namespace Tanks
 
         private RaycastHit2D[] MakeCleanHits(Vector2 position, Vector2 direction, float length)
         {
-            while (true)
-            {
-                var check = true;
+            RaycastHit2D[] result;
 
-                var hits = Physics2D.RaycastAll(position, direction, length);
-                foreach (var hit in hits)
+            do
+            {
+                result = Physics2D.RaycastAll(position, direction, length);
+                foreach (var hit in result)
                 {
                     if (TryGetBrick(hit, out var brick) &&
                         !brick.IsFractured)
                     {
                         brick.Fracture();
 
-                        check = false;
+                        result = null;
                     }
                 }
-
-                if (check)
-                {
-                    return hits;
-                }
             }
+            while (result == null);
+
+            return result;
         }
 
         public void StrikeBricks(Vector2 rayPosition, Vector2 rayVector)
         {
             var hits = MakeCleanHits(rayPosition, rayVector.normalized, rayVector.magnitude);
+
             foreach (var hit in hits)
             {
                 if (TryGetBrick(hit, out var piece))
@@ -51,6 +53,8 @@ namespace Tanks
                     Destroy(piece.gameObject);
                 }
             }
+
+            SoundsController.PlaySound(DestroySound);
         }
 
         public void RPCStrikeBricks(Vector2 rayPosition, Vector2 rayVector)
