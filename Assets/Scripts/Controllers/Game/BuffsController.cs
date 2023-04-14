@@ -14,6 +14,7 @@ namespace Tanks
         public ABuff[] Buffs { get; private set; }
         [field: SerializeField]
         public SoundData BuffPickupSound { get; private set; }
+
         [field: DI_Inject]
         public TanksController TanksController { get; private set; }
         [field: DI_Inject]

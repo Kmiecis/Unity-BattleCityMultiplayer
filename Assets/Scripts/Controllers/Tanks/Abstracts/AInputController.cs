@@ -26,15 +26,15 @@ namespace Tanks
 
         private void UpdateInput()
         {
-            if (Direction != _direction)
+            if (_direction != Direction)
             {
                 OnMovementChange(Direction);
+                _direction = Direction;
             }
-            _direction = Direction;
 
             if (Direction != Vector2Int.zero)
             {
-                MovementController.SetMovement(_direction);
+                MovementController.SetMovement(Direction);
             }
             else
             {

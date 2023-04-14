@@ -1,3 +1,4 @@
+using Common.Extensions;
 using Common.Injection;
 using Common.Pooling;
 using System;
@@ -21,83 +22,98 @@ namespace Tanks
         [Range(0.0f, 1.0f), SerializeField]
         private float _volume = 1.0f;
 
-        private List<Sample> _sounds = new List<Sample>();
-        private AudioSource _music;
+        private float _override = 1.0f;
+        private List<Sample> _samples = new List<Sample>();
 
         public float Volume
         {
             get => _volume;
-            set { _volume = value; UpdateVolume(); }
+            set { _volume = value; RestoreVolume(); }
         }
 
         public AudioSource PlaySound(SoundData data, Action onFinish = null)
         {
-            if (!enabled)
-                return null;
-
             var source = _sources.Borrow();
-
+            
             source.clip = data.clip;
-            source.volume = data.volume * _volume;
-            source.loop = false;
+            source.volume = data.volume * _volume * _override;
+            source.loop = data.loop;
             source.Play();
 
             var sample = new Sample { source = source, data = data, onFinish = onFinish };
-            _sounds.Add(sample);
+            _samples.Add(sample);
 
             return source;
         }
 
+        public void StopSound(SoundData data)
+        {
+            if (_samples.TryFindIndex(s => Equals(s.data, data), out int i))
+            {
+                var source = _samples[i].source;
+                
+                if (source.isPlaying)
+                {
+                    source.Stop();
+
+                    _samples.RemoveAt(i);
+
+                    _sources.Return(source);
+                }
+            }
+        }
+
         public void StopSound(AudioSource source)
         {
-            source.Stop();
-
-            _sources.Return(source);
-        }
-
-        public void PlayMusic(SoundData data)
-        {
-            if (!enabled)
-                return;
-
-            StopMusic();
-
-            var source = _sources.Borrow();
-
-            source.clip = data.clip;
-            source.volume = data.volume * _volume;
-            source.loop = true;
-            source.Play();
-
-            _music = source;
-        }
-
-        public void StopMusic()
-        {
-            if (_music == null)
-                return;
-
-            _music.Stop();
-
-            _sources.Return(_music);
-
-            _music = null;
-        }
-
-        public bool HasMusic()
-        {
-            return _music != null;
-        }
-
-        private void UpdateSounds()
-        {
-            for (int i = 0; i < _sounds.Count; ++i)
+            if (source.isPlaying && _samples.TryFindIndex(s => Equals(s.source, source), out int i))
             {
-                var sample = _sounds[i];
+                source.Stop();
+
+                _samples.RemoveAt(i);
+
+                _sources.Return(source);
+            }
+        }
+
+        public void SetVolume(float value)
+        {
+            foreach (var sample in _samples)
+            {
+                sample.source.volume = sample.data.volume * _override * value;
+            }
+        }
+
+        public void MuteVolume()
+        {
+            SetVolume(0.0f);
+        }
+
+        public void RestoreVolume()
+        {
+            SetVolume(_volume);
+        }
+
+        public void MuteIncoming()
+        {
+            _override = 0.0f;
+        }
+
+        public void UnmuteIncoming()
+        {
+            _override = 1.0f;
+
+            RestoreVolume();
+        }
+
+        private void UpdateSamples()
+        {
+            for (int i = 0; i < _samples.Count; ++i)
+            {
+                var sample = _samples[i];
 
                 if (!sample.source.isPlaying)
                 {
-                    _sounds.RemoveAt(i);
+                    _samples.RemoveAt(i);
                     i -= 1;
 
                     _sources.Return(sample.source);
@@ -109,14 +125,6 @@ namespace Tanks
                 }
             }
         }
-        
-        private void UpdateVolume()
-        {
-            foreach (var sample in _sounds)
-            {
-                sample.source.volume = sample.data.volume * _volume;
-            }
-        }
 
         #region Unity methods
         private void Awake()
@@ -126,13 +134,13 @@ namespace Tanks
 
         private void Update()
         {
-            UpdateSounds();
+            UpdateSamples();
         }
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            UpdateVolume();
+            RestoreVolume();
         }
 #endif
 

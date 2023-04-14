@@ -18,6 +18,7 @@ namespace Tanks
         public Pickup[] Pickups { get; private set; }
         [field: SerializeField]
         public SoundData PickupSpawnSound { get; private set; }
+
         [field: DI_Inject]
         public SoundsController SoundsController { get; private set; }
 

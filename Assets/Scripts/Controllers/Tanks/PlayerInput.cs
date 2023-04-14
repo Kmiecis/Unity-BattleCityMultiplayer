@@ -31,14 +31,11 @@ namespace Tanks
 
         protected override void OnMovementChange(Vector2Int value)
         {
-            if (value != Vector2Int.zero)
-            {
-                SoundsController.PlayMusic(MovementSound);
-            }
-            else
-            {
-                SoundsController.PlayMusic(IdleSound);
-            }
+            SoundsController.StopSound(IdleSound);
+            SoundsController.StopSound(MovementSound);
+
+            var sound = value != Vector2Int.zero ? MovementSound : IdleSound;
+            SoundsController.PlaySound(sound);
         }
 
         private void ReadInput()
