@@ -59,6 +59,7 @@ MonoBehaviour:
   - {fileID: 860433804087920074, guid: daaa312785edf604480177ca9a7e4925, type: 3}
   - {fileID: 4219117669620950968, guid: 281301f5b7edf46449ec3c20ce22e1c8, type: 3}
   - {fileID: 5689523755439361640, guid: ff7bf9fa44771d647890e892c1a649af, type: 3}
+  <PickupSpawnSound>k__BackingField: {fileID: 11400000, guid: e33f174a0d3ebf24a95c500922f50e7f, type: 2}
   _color: {r: 0, g: 1, b: 1, a: 1}
 --- !u!114 &-8046654250175332986
 MonoBehaviour:

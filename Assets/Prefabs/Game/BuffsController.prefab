@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 4749713718692070532, guid: fbb761b2cd7c72740bc2303b9faf697a, type: 3}
   - {fileID: 8832011387096085235, guid: 51216684b04269344824e751572c9685, type: 3}
   - {fileID: 4298612631353966192, guid: 90862375add45ba44ace7b2ca2713617, type: 3}
+  <BuffPickupSound>k__BackingField: {fileID: 11400000, guid: c173c329aa121fc4f8305b8ba797f5c7, type: 2}
 --- !u!114 &2985491010578364015
 MonoBehaviour:
   m_ObjectHideFlags: 0

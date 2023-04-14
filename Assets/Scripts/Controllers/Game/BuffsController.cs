@@ -12,8 +12,12 @@ namespace Tanks
     {
         [field: SerializeField]
         public ABuff[] Buffs { get; private set; }
+        [field: SerializeField]
+        public SoundData BuffPickupSound { get; private set; }
         [field: DI_Inject]
         public TanksController TanksController { get; private set; }
+        [field: DI_Inject]
+        public SoundsController SoundsController { get; private set; }
 
         private void CastBuff(int index, ETeam team, float lag = 0.0f)
         {
@@ -21,6 +25,8 @@ namespace Tanks
             {
                 var instance = Instantiate(buff);
                 instance.Setup(team, lag);
+
+                SoundsController.PlaySound(BuffPickupSound);
             }
         }
 

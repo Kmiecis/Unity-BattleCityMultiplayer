@@ -16,6 +16,10 @@ namespace Tanks
 
         [field: SerializeField]
         public Pickup[] Pickups { get; private set; }
+        [field: SerializeField]
+        public SoundData PickupSpawnSound { get; private set; }
+        [field: DI_Inject]
+        public SoundsController SoundsController { get; private set; }
 
         private float _spawnTime;
         private int _previousIndex;
@@ -71,6 +75,8 @@ namespace Tanks
             var pickup = Pickups[index];
             var instance = Instantiate(pickup, position, Quaternion.identity);
             instance.Setup(lag);
+
+            SoundsController.PlaySound(PickupSpawnSound);
         }
 
         public void RPCSpawnPickup(int index, Vector2 position)
