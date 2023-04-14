@@ -23,12 +23,18 @@ namespace Tanks
         public RespawnController RespawnController { get; private set; }
         [field: SerializeField]
         public UpgradeController UpgradeController { get; private set; }
-        [field: DI_Inject(nameof(OnTanksControllerInject))]
+        [field: SerializeField]
+        public SoundData DestroySelfSound { get; private set; }
+        [field: SerializeField]
+        public SoundData DestroyOtherSound { get; private set; }
+        [field: DI_Inject]
         public TanksController TanksController { get; private set; }
         [field: DI_Inject]
         public SpawnsController SpawnsController { get; private set; }
         [field: DI_Inject]
         public EffectsController EffectsController { get; private set; }
+        [field: DI_Inject]
+        public SoundsController SoundsController { get; private set; }
 
         public bool IsVisible
             => ModelObject.activeSelf;
@@ -68,6 +74,7 @@ namespace Tanks
 
             EffectsController.SpawnBigExplosion(transform.position);
             UpgradeController.SetDefault();
+            SoundsController.PlaySound(GetDestroySound());
 
             if (photonView.IsMine)
             {
@@ -123,6 +130,11 @@ namespace Tanks
                 pickup.PickedFor(team);
             }
             pickup.Picked();
+        }
+
+        private SoundData GetDestroySound()
+        {
+            return photonView.IsMine ? DestroySelfSound : DestroyOtherSound;
         }
 
         #region External methods

@@ -222,6 +222,8 @@ MonoBehaviour:
   <ForcefieldController>k__BackingField: {fileID: -4768851008313264919}
   <RespawnController>k__BackingField: {fileID: 8987798851253315977}
   <UpgradeController>k__BackingField: {fileID: 1969046085256359090}
+  <DestroySelfSound>k__BackingField: {fileID: 11400000, guid: 87d8ee14f7ec5494c989b06fde1253d6, type: 2}
+  <DestroyOtherSound>k__BackingField: {fileID: 11400000, guid: 6b459b1020001c446b2618f9ceb82d26, type: 2}
 --- !u!114 &3019554945046643063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +253,9 @@ MonoBehaviour:
   limit: 1
   speed: 7.5
   delay: 0.33
-  bulletPrefabPath: 
+  bulletPrefab:
+    _value: {fileID: 0}
+    _path: 
   <SpawnPoint>k__BackingField: {fileID: 8577378739708594821}
   <IgnoreCollider>k__BackingField: {fileID: 2800864980006118110}
 --- !u!114 &-4768851008313264919
