@@ -24,18 +24,60 @@ namespace Tanks.UI
         private int _index;
 
         public int Index
-        {
-            get => _index;
-        }
+            => _index;
 
         public SelectionEventHandler Current
-        {
-            get => Events[Index];
-        }
+            => Events[Index];
 
         public void ChangeTo(SelectionEventHandler handler)
         {
             if (Events.TryIndexOf(handler, out int index))
+            {
+                ChangeIndex(index);
+            }
+        }
+
+        public void IncreaseIndex()
+        {
+            var nindex = FindNextIndex(_index);
+            ChangeTo(nindex);
+        }
+
+        public void DecreaseIndex()
+        {
+            var pindex = FindPrevIndex(_index);
+            ChangeTo(pindex);
+        }
+
+        private int FindNextIndex(int index)
+        {
+            for (int t = 0; t < Events.Count; ++t)
+            {
+                int i = (index + t + 1) % Events.Count;
+                if (Events[i].enabled)
+                {
+                    return i;
+                }
+            }
+            return index;
+        }
+
+        private int FindPrevIndex(int index)
+        {
+            for (int t = 0; t < Events.Count; ++t)
+            {
+                int i = (index - t - 1 + Events.Count) % Events.Count;
+                if (Events[i].enabled)
+                {
+                    return i;
+                }
+            }
+            return index;
+        }
+
+        private void ChangeTo(int index)
+        {
+            if (_index != index)
             {
                 ChangeIndex(index);
             }
@@ -50,48 +92,6 @@ namespace Tanks.UI
             Current.SetHighlighted(true);
         }
 
-        public void TryChangeIndex(int index)
-        {
-            var sanitized = (index + Events.Count) % Events.Count;
-
-            if (_index != sanitized)
-            {
-                ChangeIndex(sanitized);
-            }
-        }
-
-        public void IncreaseIndex()
-        {
-            var nindex = FindNextIndex(_index);
-            TryChangeIndex(nindex);
-        }
-
-        public void DecreaseIndex()
-        {
-            var pindex = FindPrevIndex(_index);
-            TryChangeIndex(pindex);
-        }
-
-        private int FindNextIndex(int index)
-        {
-            var result = Mathx.NextIndex(index, Events.Count);
-            while (!Events[result].enabled && result != index)
-            {
-                result = Mathx.NextIndex(result, Events.Count);
-            }
-            return result;
-        }
-
-        private int FindPrevIndex(int index)
-        {
-            var result = Mathx.PrevIndex(index, Events.Count);
-            while (!Events[result].enabled && result != index)
-            {
-                result = Mathx.PrevIndex(result, Events.Count);
-            }
-            return result;
-        }
-
         public void SelectCurrent()
         {
             Current.Select();
@@ -99,13 +99,10 @@ namespace Tanks.UI
 
         public void Refresh()
         {
-            if (Events.Count > 0)
+            _index = FindNextIndex(_index - 1);
+            for (int i = 0; i < Events.Count; ++i)
             {
-                _index = FindNextIndex(_index - 1);
-                for (int i = 0; i < Events.Count; ++i)
-                {
-                    Events[i].SetHighlighted(_index == i);
-                }
+                Events[i].SetHighlighted(_index == i);
             }
         }
 
@@ -123,9 +120,15 @@ namespace Tanks.UI
             }
         }
 
+        #region Unity methods
         private void OnEnable()
         {
             _enabled = true;
+        }
+
+        private void Start()
+        {
+            Refresh();
         }
 
         private void Update()
@@ -147,5 +150,6 @@ namespace Tanks.UI
                 SelectCurrent();
             }
         }
+        #endregion
     }
 }

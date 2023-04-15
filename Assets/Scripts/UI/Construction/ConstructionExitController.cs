@@ -1,4 +1,3 @@
-using Common.Extensions;
 using Common.Injection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,7 +52,7 @@ namespace Tanks.UI
             }
             else
             {
-                SelectionController.TryChangeIndex(0);
+                SelectionController.Refresh();
             }
         }
 
