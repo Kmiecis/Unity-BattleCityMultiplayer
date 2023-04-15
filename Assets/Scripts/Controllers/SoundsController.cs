@@ -15,6 +15,7 @@ namespace Tanks
             public AudioSource source;
             public SoundData data;
             public Action onFinish;
+            public float muter;
         }
 
         [SerializeField]
@@ -22,13 +23,13 @@ namespace Tanks
         [Range(0.0f, 1.0f), SerializeField]
         private float _volume = 1.0f;
 
-        private float _override = 1.0f;
-        private List<Sample> _samples = new List<Sample>();
+        private List<Sample> _playing = new List<Sample>();
+        private bool _muted = false;
 
         public float Volume
         {
             get => _volume;
-            set { _volume = value; RestoreVolume(); }
+            set { _volume = value; ApplyVolume(); }
         }
 
         public AudioSource PlaySound(SoundData data, Action onFinish = null)
@@ -36,27 +37,28 @@ namespace Tanks
             var source = _sources.Borrow();
             
             source.clip = data.clip;
-            source.volume = data.volume * _volume * _override;
+            source.volume = data.volume * _volume;
             source.loop = data.loop;
+            source.mute = _muted;
             source.Play();
 
             var sample = new Sample { source = source, data = data, onFinish = onFinish };
-            _samples.Add(sample);
+            _playing.Add(sample);
 
             return source;
         }
 
         public void StopSound(SoundData data)
         {
-            if (_samples.TryFindIndex(s => Equals(s.data, data), out int i))
+            if (_playing.TryFindIndex(s => Equals(s.data, data), out int i))
             {
-                var source = _samples[i].source;
+                var source = _playing[i].source;
                 
                 if (source.isPlaying)
                 {
                     source.Stop();
 
-                    _samples.RemoveAt(i);
+                    _playing.RemoveAt(i);
 
                     _sources.Return(source);
                 }
@@ -65,11 +67,11 @@ namespace Tanks
 
         public void StopSound(AudioSource source)
         {
-            if (source.isPlaying && _samples.TryFindIndex(s => Equals(s.source, source), out int i))
+            if (source.isPlaying && _playing.TryFindIndex(s => Equals(s.source, source), out int i))
             {
                 source.Stop();
 
-                _samples.RemoveAt(i);
+                _playing.RemoveAt(i);
 
                 _sources.Return(source);
             }
@@ -77,37 +79,35 @@ namespace Tanks
 
         public void SetVolume(float value)
         {
-            foreach (var sample in _samples)
+            foreach (var sample in _playing)
             {
-                sample.source.volume = sample.data.volume * _override * value;
+                sample.source.volume = sample.data.volume * value;
             }
         }
 
-        public void MuteVolume()
+        public void SetMuted(bool muted)
         {
-            SetVolume(0.0f);
-        }
-
-        public void RestoreVolume()
-        {
-            SetVolume(_volume);
+            foreach (var sample in _playing)
+            {
+                sample.source.mute = muted;
+            }
         }
 
         public void MuteIncoming()
         {
-            _override = 0.0f;
+            _muted = true;
         }
 
         public void UnmuteIncoming()
         {
-            _override = 1.0f;
+            _muted = false;
 
-            RestoreVolume();
+            SetMuted(_muted);
         }
 
         public void Clear()
         {
-            foreach (var sample in _samples)
+            foreach (var sample in _playing)
             {
                 var source = sample.source;
 
@@ -118,18 +118,33 @@ namespace Tanks
                     _sources.Return(source);
                 }
             }
-            _samples.Clear();
+            _playing.Clear();
+        }
+
+        public void SaveVolume()
+        {
+            CustomPlayerPrefs.SetVolume(_volume);
+        }
+
+        public void LoadVolume()
+        {
+            _volume = CustomPlayerPrefs.GetVolume();
+        }
+
+        private void ApplyVolume()
+        {
+            SetVolume(_volume);
         }
 
         private void UpdateSamples()
         {
-            for (int i = 0; i < _samples.Count; ++i)
+            for (int i = 0; i < _playing.Count; ++i)
             {
-                var sample = _samples[i];
+                var sample = _playing[i];
 
                 if (!sample.source.isPlaying)
                 {
-                    _samples.RemoveAt(i);
+                    _playing.RemoveAt(i);
                     i -= 1;
 
                     _sources.Return(sample.source);
@@ -146,6 +161,9 @@ namespace Tanks
         private void Awake()
         {
             DI_Binder.Bind(this);
+
+            LoadVolume();
+            ApplyVolume();
         }
 
         private void Update()
@@ -156,7 +174,7 @@ namespace Tanks
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            RestoreVolume();
+            ApplyVolume();
         }
 #endif
 

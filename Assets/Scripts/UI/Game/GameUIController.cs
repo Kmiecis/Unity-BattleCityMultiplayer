@@ -8,9 +8,6 @@ namespace Tanks.UI
     public class GameUIController : MonoBehaviour
     {
         [field: SerializeField]
-        public GameProperties GameProperties { get; private set; }
-
-        [field: SerializeField]
         public KeyCodeAsset ExitKeyCode { get; private set; }
         [field: SerializeField]
         public KeyCodeAsset ScoresKeyCode { get; private set; }
