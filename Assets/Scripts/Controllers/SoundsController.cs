@@ -105,6 +105,22 @@ namespace Tanks
             RestoreVolume();
         }
 
+        public void Clear()
+        {
+            foreach (var sample in _samples)
+            {
+                var source = sample.source;
+
+                if (source != null)
+                {
+                    source.Stop();
+
+                    _sources.Return(source);
+                }
+            }
+            _samples.Clear();
+        }
+
         private void UpdateSamples()
         {
             for (int i = 0; i < _samples.Count; ++i)
@@ -146,6 +162,8 @@ namespace Tanks
 
         private void OnDestroy()
         {
+            Clear();
+
             DI_Binder.Unbind(this);
         }
         #endregion

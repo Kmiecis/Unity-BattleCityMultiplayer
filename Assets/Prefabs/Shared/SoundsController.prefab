@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sources:
-    _capacity: 16
+    _capacity: 32
     _prefab: {fileID: 5016313364123605069, guid: ff2850528b8446941b767f12b780614e, type: 3}
   _volume: 1
