@@ -308,6 +308,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: feb1770b051a77641b44c9e2b0410349, type: 3}
   <ModelRenderer>k__BackingField: {fileID: 2800864980006118080}
   <HighlightRenderer>k__BackingField: {fileID: 100781835474699446}
+  <DowngradeSound>k__BackingField: {fileID: 11400000, guid: aad0edf0f45915c4a8e00eaf057086dc, type: 2}
 --- !u!114 &2819395944969873370
 MonoBehaviour:
   m_ObjectHideFlags: 0

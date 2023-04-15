@@ -1,3 +1,4 @@
+using Common.Injection;
 using Photon.Pun;
 using UnityEngine;
 
@@ -17,6 +18,11 @@ namespace Tanks
         public SpriteRenderer ModelRenderer { get; private set; }
         [field: SerializeField]
         public SpriteRenderer HighlightRenderer { get; private set; }
+        [field: SerializeField]
+        public SoundData DowngradeSound { get; private set; }
+
+        [field: DI_Inject]
+        public SoundsController SoundsController { get; private set; }
 
         private int _current;
 
@@ -69,6 +75,8 @@ namespace Tanks
         public void Downgrade()
         {
             SetUpgrade(_current - 1);
+
+            SoundsController.PlaySound(DowngradeSound);
         }
 
         public bool TryDowngrade()
@@ -111,9 +119,19 @@ namespace Tanks
         #endregion
 
         #region Unity methods
+        private void Awake()
+        {
+            DI_Binder.Bind(this);
+        }
+
         private void Start()
         {
             SetDefault();
+        }
+
+        private void OnDestroy()
+        {
+            DI_Binder.Unbind(this);
         }
         #endregion
     }

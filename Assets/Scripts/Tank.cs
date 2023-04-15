@@ -27,6 +27,7 @@ namespace Tanks
         public SoundData DestroySelfSound { get; private set; }
         [field: SerializeField]
         public SoundData DestroyOtherSound { get; private set; }
+
         [field: DI_Inject]
         public TanksController TanksController { get; private set; }
         [field: DI_Inject]
