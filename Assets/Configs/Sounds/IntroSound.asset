@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: IntroSound
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 2247f22845628dd4582031762b13ed01, type: 3}
-  volume: 1
+  volume: 0.5
+  loop: 0

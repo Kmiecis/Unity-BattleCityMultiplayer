@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3edb04141f9327458fda109c8ec56bd, type: 3}
   m_Name: UISound
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: dacd073e9b752a945bbda6aa316fae99, type: 3}
   volume: 1
   loop: 0
