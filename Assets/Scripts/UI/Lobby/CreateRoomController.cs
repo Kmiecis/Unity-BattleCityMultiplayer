@@ -11,7 +11,7 @@ namespace Tanks.UI
         private const int kPlayerTtl = 1000 * 10;
 
         [field: SerializeField]
-        public GameProperties GameProperties { get; private set; }
+        public GameData GameProperties { get; private set; }
         [field: SerializeField]
         public TMP_InputField NameInput { get; private set; }
         [field: SerializeField]

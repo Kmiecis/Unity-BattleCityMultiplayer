@@ -11,9 +11,9 @@ namespace Tanks
         [field: SerializeField]
         public StringAsset ServerAppId { get; private set; }
         [field: SerializeField]
-        public GameProperties GameProperties { get; private set; }
+        public GameData GameProperties { get; private set; }
         [field: SerializeField]
-        public GameScenes GameScenes { get; private set; }
+        public ScenesData GameScenes { get; private set; }
         
         [field: SerializeField]
         public GameObject LoginPanel { get; private set; }

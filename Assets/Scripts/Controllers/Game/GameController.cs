@@ -13,9 +13,9 @@ namespace Tanks
     public class GameController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
-        public GameProperties GameProperties { get; private set; }
+        public GameData GameProperties { get; private set; }
         [field: SerializeField]
-        public GameScenes GameScenes { get; private set; }
+        public ScenesData GameScenes { get; private set; }
         [field: DI_Inject]
         public StatuesController StatuesController { get; private set; }
         [field: DI_Inject]

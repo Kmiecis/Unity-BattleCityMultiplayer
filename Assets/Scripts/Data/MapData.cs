@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Tanks
 {
-    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(MapSerialized), fileName = nameof(MapSerialized))]
-    public class MapSerialized : ScriptableObject
+    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(MapData), fileName = nameof(MapData))]
+    public class MapData : ScriptableObject
     {
         [field: SerializeField]
         public string Value { get; private set; }

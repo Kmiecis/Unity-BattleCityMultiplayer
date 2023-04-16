@@ -12,11 +12,11 @@ namespace Tanks.UI
     public class RoomPreparationController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
-        public GameProperties GameProperties { get; private set; }
+        public GameData GameProperties { get; private set; }
         [field: SerializeField]
-        public GameScenes GameScenes { get; private set; }
+        public ScenesData GameScenes { get; private set; }
         [field: SerializeField]
-        public MapSerialized DefaultMap { get; private set; }
+        public MapData DefaultMap { get; private set; }
         [field: SerializeField]
         public TextMeshProUGUI RoomNameText { get; private set; }
         [field: SerializeField]

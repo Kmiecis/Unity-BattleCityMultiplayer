@@ -11,9 +11,9 @@ namespace Tanks
         private const int CLEAR_TILE = 0;
 
         [field: SerializeField]
-        public ConstructionBlocks Blocks { get; private set; }
+        public ConstructionData Blocks { get; private set; }
         [field: SerializeField]
-        public MapSerialized DefaultMap { get; private set; }
+        public MapData DefaultMap { get; private set; }
 
         private Dictionary<Vector2Int, int> _ids = new();
         private Dictionary<Vector2Int, Block> _objects = new();

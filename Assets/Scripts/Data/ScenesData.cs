@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Tanks
 {
-    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(GameScenes), fileName = nameof(GameScenes))]
-    public class GameScenes : ScriptableObject
+    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(ScenesData), fileName = nameof(ScenesData))]
+    public class ScenesData : ScriptableObject
     {
         [SerializeField]
         private AssetReference _lobbyScene;

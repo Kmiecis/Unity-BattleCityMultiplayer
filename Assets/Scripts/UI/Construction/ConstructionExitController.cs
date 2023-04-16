@@ -8,7 +8,7 @@ namespace Tanks.UI
     public class ConstructionExitController : MonoBehaviour
     {
         [field: SerializeField]
-        public GameScenes GameScenes { get; private set; }
+        public ScenesData GameScenes { get; private set; }
         [field: SerializeField]
         public SelectionController SelectionController { get; private set; }
         [field: SerializeField]

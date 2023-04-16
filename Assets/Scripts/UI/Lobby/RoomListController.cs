@@ -9,7 +9,7 @@ namespace Tanks.UI
     public class RoomListController : MonoBehaviourPunCallbacks
     {
         [field: SerializeField]
-        public GameProperties GameProperties { get; private set; }
+        public GameData GameProperties { get; private set; }
         [field: SerializeField]
         public GameObject NoRoomsPanel { get; private set; }
         [field: SerializeField]

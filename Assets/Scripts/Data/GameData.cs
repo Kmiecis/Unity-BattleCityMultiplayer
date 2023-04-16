@@ -2,8 +2,8 @@
 
 namespace Tanks
 {
-    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(GameProperties), fileName = nameof(GameProperties))]
-    public class GameProperties : ScriptableObject
+    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(GameData), fileName = nameof(GameData))]
+    public class GameData : ScriptableObject
     {
         [Header("Room generation")]
         public byte minPlayers = 2;

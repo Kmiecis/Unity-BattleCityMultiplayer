@@ -2,8 +2,8 @@
 
 namespace Tanks
 {
-    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(ConstructionBlocks), fileName = nameof(ConstructionBlocks))]
-    public class ConstructionBlocks : ScriptableObject
+    [CreateAssetMenu(menuName = nameof(Tanks) + "/" + nameof(ConstructionData), fileName = nameof(ConstructionData))]
+    public class ConstructionData : ScriptableObject
     {
         [field: SerializeField]
         public Block[] Blocks { get; private set; }

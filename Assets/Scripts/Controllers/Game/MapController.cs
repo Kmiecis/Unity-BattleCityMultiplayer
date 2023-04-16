@@ -10,7 +10,7 @@ namespace Tanks
     public class MapController : MonoBehaviour
     {
         [field: SerializeField]
-        public ConstructionBlocks Blocks { get; private set; }
+        public ConstructionData Blocks { get; private set; }
 
         private Dictionary<Vector2Int, Block> _tiles = new Dictionary<Vector2Int, Block>();
 
