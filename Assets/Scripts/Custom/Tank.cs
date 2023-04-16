@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Tanks
 {
     [RequireComponent(typeof(PhotonView))]
-    public class Tank : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
+    public class Tank : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
         public ETeam team;
 

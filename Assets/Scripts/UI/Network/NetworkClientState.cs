@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Tanks.UI
 {
-    [RequireComponent(typeof(TextMeshProUGUI))]
     public class NetworkClientState : MonoBehaviour
     {
         [field: SerializeField]
@@ -28,6 +27,7 @@ namespace Tanks.UI
             }
         }
 
+        #region Unity methods
         private void Start()
         {
             enabled = Text != null;
@@ -37,12 +37,6 @@ namespace Tanks.UI
         {
             UpdateStatus();
         }
-
-#if UNITY_EDITOR
-        private void Reset()
-        {
-            Text = GetComponent<TextMeshProUGUI>();
-        }
-#endif
+        #endregion
     }
 }

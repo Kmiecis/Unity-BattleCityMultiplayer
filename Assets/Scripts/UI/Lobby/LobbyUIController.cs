@@ -1,6 +1,7 @@
 using Common.MVB;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -45,6 +46,7 @@ namespace Tanks
             _currentPanel.SetActive(true);
         }
 
+        #region External methods
         public void _OnLoginClicked()
         {
             var serverSettings = PhotonNetwork.PhotonServerSettings;
@@ -55,7 +57,7 @@ namespace Tanks
 
             ChangeToPanel(LoginAttemptPanel);
         }
-
+        
         public void _OnCreateRoomClicked()
         {
             ChangeToPanel(CreateRoomPanel);
@@ -87,7 +89,9 @@ namespace Tanks
         {
             ChangeToPanel(MenuPanel);
         }
+        #endregion
 
+        #region Photon methods
         public override void OnConnectedToMaster()
         {
             PhotonNetwork.JoinLobby();
@@ -136,6 +140,13 @@ namespace Tanks
             ChangeToPanel(MenuPanel);
         }
 
+        public override void OnDisconnected(DisconnectCause cause)
+        {
+            ChangeToPanel(LoginPanel);
+        }
+        #endregion
+
+        #region Unity methods
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
@@ -176,5 +187,6 @@ namespace Tanks
                 }
             }
         }
+        #endregion
     }
 }
