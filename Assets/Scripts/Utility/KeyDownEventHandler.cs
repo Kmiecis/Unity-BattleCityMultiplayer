@@ -1,4 +1,4 @@
-﻿using Common.MVB;
+﻿using Common.MVVM;
 using UnityEngine;
 using UnityEngine.Events;
 

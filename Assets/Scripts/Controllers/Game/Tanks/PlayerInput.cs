@@ -1,5 +1,5 @@
 using Common.Injection;
-using Common.MVB;
+using Common.MVVM;
 using UnityEngine;
 
 namespace Tanks

@@ -35,12 +35,12 @@
       "dependencies": {},
       "hash": "3f0393e62a76566900749f6fab906046fded3270"
     },
-    "com.common.model.view.behaviour": {
-      "version": "https://github.com/kmiecis/unity-package-mvb.git",
+    "com.common.model.view.viewmodel": {
+      "version": "https://github.com/kmiecis/unity-package-mvvm.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "2c4c24316f726167547859db0eb67867277c0699"
+      "hash": "e72defb164c567c91db3fa7199f089c22fc774dc"
     },
     "com.common.object.pooling": {
       "version": "https://github.com/kmiecis/unity-package-objectpooling.git",
