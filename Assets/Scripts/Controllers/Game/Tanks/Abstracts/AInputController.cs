@@ -18,6 +18,8 @@ namespace Tanks
 
         public bool Shooting { get; set; }
 
+        public abstract bool IsPlayer { get; }
+
         public virtual bool IsEnabled
         {
             get => enabled;
@@ -43,7 +45,10 @@ namespace Tanks
 
             if (Shooting)
             {
-                BulletController.TryShoot();
+                if (BulletController.TryShoot(out var bullet))
+                {
+                    bullet.IsPlayer = IsPlayer;
+                }
             }
         }
 

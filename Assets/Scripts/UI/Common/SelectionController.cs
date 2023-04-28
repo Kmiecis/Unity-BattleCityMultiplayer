@@ -1,5 +1,4 @@
 using Common.Extensions;
-using Common.Mathematics;
 using Common.MVVM;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +24,9 @@ namespace Tanks.UI
 
         public int Index
             => _index;
+
+        public bool HasCurrent
+            => -1 < Index && Index < Events.Count;
 
         public SelectionEventHandler Current
             => Events[Index];
@@ -94,7 +96,10 @@ namespace Tanks.UI
 
         public void SelectCurrent()
         {
-            Current.Select();
+            if (HasCurrent)
+            {
+                Current.Select();
+            }
         }
 
         public void Refresh()

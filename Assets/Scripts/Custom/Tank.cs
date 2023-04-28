@@ -41,10 +41,10 @@ namespace Tanks
             => ModelObject.activeSelf;
 
         public bool IsPlayer
-            => InputController is PlayerInput;
+            => InputController.IsPlayer;
 
         public bool IsBot
-            => InputController is AIInput;
+            => !InputController.IsPlayer;
 
         public void SetVisiblity(bool value)
         {

@@ -28,21 +28,25 @@ namespace Tanks
             );
         }
 
-        public void TryShoot()
+        public bool TryShoot(out Bullet bullet)
         {
+            bullet = default;
+
             if (CanShoot)
             {
-                Shoot();
+                bullet = Shoot();
+                _bullets.Add(bullet);
             }
+
+            return bullet != null;
         }
 
-        private void Shoot()
+        private Bullet Shoot()
         {
             _fired = Time.time;
 
             var bulletObject = PhotonNetwork.Instantiate(bulletPrefab.ResourcePath, SpawnPoint.position, SpawnPoint.rotation, data: new object[] { speed });
-            var bullet = bulletObject.GetComponent<Bullet>();
-            _bullets.Add(bullet);
+            return bulletObject.GetComponent<Bullet>();
         }
 
         private void CheckBullets()

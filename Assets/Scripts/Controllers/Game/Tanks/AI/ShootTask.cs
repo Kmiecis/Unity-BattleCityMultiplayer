@@ -36,7 +36,7 @@ namespace Tanks.AI
         {
             var shoot = CanShoot();
             _context.InputController.Shooting = shoot;
-            return shoot ? BT_EStatus.Running : BT_EStatus.Success;
+            return BT_EStatus.Success;
         }
     }
 }

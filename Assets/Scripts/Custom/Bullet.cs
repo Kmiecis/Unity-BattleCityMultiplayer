@@ -29,6 +29,14 @@ namespace Tanks
         [field: DI_Inject]
         public SoundsController SoundsController { get; private set; }
 
+        private bool _isPlayer;
+
+        public bool IsPlayer
+        {
+            get => _isPlayer;
+            set => _isPlayer = value;
+        }
+
         public bool IsExploded
         {
             get => !ModelObject.activeSelf;
@@ -65,7 +73,7 @@ namespace Tanks
             {
                 tank.Hit();
 
-                if (!tank.IsVisible)
+                if (!tank.IsVisible && IsPlayer)
                 {
                     photonView.Owner.IncrKills();
                 }

@@ -21,6 +21,9 @@ namespace Tanks
         [field: DI_Inject]
         public SoundsController SoundsController { get; private set; }
 
+        public override bool IsPlayer
+            => true;
+
         public override bool IsEnabled
         {
             set => base.IsEnabled = (
