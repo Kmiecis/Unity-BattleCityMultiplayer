@@ -4,6 +4,7 @@ using Common.Pooling;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Tanks
 {
@@ -37,7 +38,8 @@ namespace Tanks
             var source = _sources.Borrow();
             
             source.clip = data.clip;
-            source.volume = data.volume * _volume;
+            source.volume = (data.volume + Random.Range(-data.volumeOffset, +data.volumeOffset)) * _volume;
+            source.pitch = (data.pitch + Random.Range(-data.pitchOffset, +data.pitchOffset));
             source.loop = data.loop;
             source.mute = _muted;
             source.Play();
