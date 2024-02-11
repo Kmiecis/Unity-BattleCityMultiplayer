@@ -28,13 +28,6 @@
       "dependencies": {},
       "hash": "565b9a5c7f756fb5d76b4da55282e69060700aef"
     },
-    "com.common.materials": {
-      "version": "https://github.com/kmiecis/unity-package-materializer.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "3f0393e62a76566900749f6fab906046fded3270"
-    },
     "com.common.model.view.viewmodel": {
       "version": "https://github.com/kmiecis/unity-package-mvvm.git",
       "depth": 0,
@@ -48,6 +41,13 @@
       "source": "git",
       "dependencies": {},
       "hash": "65a1fa9a2cd49228f323d413eb0aa0fb9f51aa58"
+    },
+    "com.kmiecis.material.instancer": {
+      "version": "https://github.com/Kmiecis/Unity-Package-MaterialInstancer.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1fc64a6263b62c366326f7102b60beb956e779ae"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

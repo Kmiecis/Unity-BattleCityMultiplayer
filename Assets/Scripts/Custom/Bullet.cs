@@ -24,6 +24,7 @@ namespace Tanks
         public Collision2DController CollisionController { get; private set; }
         [field: SerializeField]
         public SoundData ShootSound { get; private set; }
+
         [field: DI_Inject]
         public EffectsController EffectsController { get; private set; }
         [field: DI_Inject]

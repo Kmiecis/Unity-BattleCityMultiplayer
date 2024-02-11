@@ -92,7 +92,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 63c1c84bb55793e418673233e370a2f9, type: 3}
   - {fileID: 2800000, guid: 68450d5177117c7488c011a2d1e3a260, type: 3}
   - {fileID: 2800000, guid: 7eb35a806ee35624783a555000202023, type: 3}
-  <MaterialTexture>k__BackingField: {fileID: 3793204802446025250}
+  <MaterialTexture>k__BackingField: {fileID: 9080999928669179301}
 --- !u!114 &4016856198441350134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,8 +141,8 @@ GameObject:
   - component: {fileID: 6874932288661132875}
   - component: {fileID: 6874932288661132874}
   - component: {fileID: 4070975492463185102}
-  - component: {fileID: 4958170558014435888}
-  - component: {fileID: 3793204802446025250}
+  - component: {fileID: 8281952024484661497}
+  - component: {fileID: 9080999928669179301}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -185,7 +185,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2335f481e5c4c994680e850c0660e3ce, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -243,7 +243,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
---- !u!114 &4958170558014435888
+--- !u!114 &8281952024484661497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,12 +252,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6874932288661132873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9814db80a633dd140a84e8c69e52d742, type: 3}
+  m_Script: {fileID: 11500000, guid: 703083ebd36f0014a99823c2d8f477ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _original: {fileID: 2100000, guid: 2335f481e5c4c994680e850c0660e3ce, type: 2}
   _depth: 0
---- !u!114 &3793204802446025250
+  _index: 0
+--- !u!114 &9080999928669179301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b753c385f453a4d478c11124357c9ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instance: {fileID: 4958170558014435888}
-  _propertyName: _SubTex
-  _propertyValue: {fileID: 2800000, guid: f19176381d4c714468e60e23e9a3512a, type: 3}
+  _instance: {fileID: 8281952024484661497}
+  _active: 1
+  _name: _SubTex
+  _value: {fileID: 2800000, guid: f19176381d4c714468e60e23e9a3512a, type: 3}
