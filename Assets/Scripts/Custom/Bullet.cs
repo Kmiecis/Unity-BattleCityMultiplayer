@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.Coroutines;
 using Common.Extensions;
 using Common.Injection;
 using Photon.Pun;
@@ -11,8 +10,6 @@ namespace Tanks
     [RequireComponent(typeof(PhotonView))]
     public class Bullet : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
-        private const float kLivetime = 5.0f;
-
         public ETeam team;
         public LayerMask hitMask;
 
@@ -168,13 +165,6 @@ namespace Tanks
         private void Awake()
         {
             DI_Binder.Bind(this);
-        }
-
-        private void Start()
-        {
-            UCoroutine.YieldTime(kLivetime)
-                .Then(Explode)
-                .Start(this);
         }
         #endregion
     }

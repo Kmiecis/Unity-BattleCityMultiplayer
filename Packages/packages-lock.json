@@ -14,13 +14,6 @@
       "dependencies": {},
       "hash": "509654c4d1ac90e9330ef846a7f38294f6d9b335"
     },
-    "com.common.coroutines": {
-      "version": "https://github.com/kmiecis/unity-package-coroutines.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "821618c5fd1dc86e081e73f2a018c9f13349f3b1"
-    },
     "com.common.dynamic.injection": {
       "version": "https://github.com/Kmiecis/unity-package-dynamicinjection.git",
       "depth": 0,
@@ -41,6 +34,15 @@
       "source": "git",
       "dependencies": {},
       "hash": "65a1fa9a2cd49228f323d413eb0aa0fb9f51aa58"
+    },
+    "com.kmiecis.cosequencer": {
+      "version": "https://github.com/kmiecis/unity-package-cosequencer.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      },
+      "hash": "042e0b062c6bc6bfa641db6ef3e7b7a3564fb7df"
     },
     "com.kmiecis.material.instancer": {
       "version": "https://github.com/Kmiecis/Unity-Package-MaterialInstancer.git",

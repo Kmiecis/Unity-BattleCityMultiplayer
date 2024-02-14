@@ -2,10 +2,10 @@
   "dependencies": {
     "com.common.assemblies": "https://github.com/Kmiecis/unity-package-common.git",
     "com.common.behaviour.trees": "https://github.com/kmiecis/unity-package-behaviourtrees.git",
-    "com.common.coroutines": "https://github.com/kmiecis/unity-package-coroutines.git",
     "com.common.dynamic.injection": "https://github.com/Kmiecis/unity-package-dynamicinjection.git",
     "com.common.model.view.viewmodel": "https://github.com/kmiecis/unity-package-mvvm.git",
     "com.common.object.pooling": "https://github.com/kmiecis/unity-package-objectpooling.git",
+    "com.kmiecis.cosequencer": "https://github.com/kmiecis/unity-package-cosequencer.git",
     "com.kmiecis.material.instancer": "https://github.com/Kmiecis/Unity-Package-MaterialInstancer.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ide.visualstudio": "2.0.17",

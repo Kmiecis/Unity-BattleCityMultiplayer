@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2490198431843233260}
   - component: {fileID: 1922317431202854769}
   - component: {fileID: 279434673411106946}
+  - component: {fileID: 4255913045325307454}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -113,6 +114,49 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &4255913045325307454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5060501466293695029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3e21d5193528c42a949c409d4a0864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 1
+  _segments:
+  - rid: 7683727302565036032
+  - rid: 7683727302565036033
+  references:
+    version: 2
+    RefIds:
+    - rid: 7683727302565036032
+      type: {class: WaitTimeSegment, ns: Common.Coroutines.Segments, asm: Common.Coroutines}
+      data:
+        _name: Wait - Time
+        duration: 5
+    - rid: 7683727302565036033
+      type: {class: EventSegment, ns: Common.Coroutines.Segments, asm: Common.Coroutines}
+      data:
+        _name: Utility - Event
+        action:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 2490198431843233260}
+              m_TargetAssemblyTypeName: Tanks.Bullet, Assembly-CSharp
+              m_MethodName: Explode
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!1 &6608108848033877547
 GameObject:
   m_ObjectHideFlags: 0
