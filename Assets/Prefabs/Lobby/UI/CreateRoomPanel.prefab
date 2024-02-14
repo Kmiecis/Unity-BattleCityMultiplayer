@@ -1201,7 +1201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   min: 2
-  max: 14
+  max: 10
   <InputField>k__BackingField: {fileID: 1677358224066902136}
 --- !u!114 &1677358224066902086
 MonoBehaviour:
