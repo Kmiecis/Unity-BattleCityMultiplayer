@@ -46,6 +46,19 @@ namespace Tanks
             _currentPanel.SetActive(true);
         }
 
+        private IEnumerable<GameObject> GetPanels()
+        {
+            yield return LoginPanel;
+            yield return MenuPanel;
+            yield return CreateRoomPanel;
+            yield return RoomListPanel;
+            yield return SettingsPanel;
+            yield return RoomPreparationPanel;
+            yield return LoginAttemptPanel;
+            yield return JoinRandomRoomAttemptPanel;
+            yield return LeaveRoomAttemptPanel;
+        }
+
         #region External methods
         public void _OnLoginClicked()
         {
@@ -150,6 +163,11 @@ namespace Tanks
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
+
+            foreach (var panel in GetPanels())
+            {
+                panel.SetActive(false);
+            }
         }
 
         private void Start()
