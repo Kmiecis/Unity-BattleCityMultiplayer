@@ -248,7 +248,7 @@ MonoBehaviour:
                 m_BoolArgument: 0
               m_CallState: 2
     - rid: 7683727325477470209
-      type: {class: TextProTextSegment, ns: Tanks.Animation, asm: Assembly-CSharp}
+      type: {class: TextMeshProSegment, ns: Tanks.Animation, asm: Assembly-CSharp}
       data:
         _name: Custom - TextPro
         easer:

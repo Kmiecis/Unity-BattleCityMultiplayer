@@ -75,7 +75,7 @@ namespace Tanks.UI
 
         private void Start()
         {
-            _defaultName = PhotonNetwork.LocalPlayer.NickName + " ROOM";
+            _defaultName = PhotonNetwork.LocalPlayer.NickName + "'S ROOM";
             _defaultSize = GameProperties.minPlayers;
 
             NameInput.GetPlaceholderText().text = _defaultName;

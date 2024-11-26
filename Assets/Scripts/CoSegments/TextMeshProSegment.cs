@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace Tanks.Animation
 {
-    [SegmentMenu("TextPro")]
-    public class TextProTextSegment : TimedSegment
+    [SegmentMenu("TextMeshPro")]
+    public class TextMeshProSegment : TimedSegment
     {
         public TextMeshProUGUI text;
         public string target;
@@ -15,7 +15,7 @@ namespace Tanks.Animation
         public string Substring(string value, float t)
             => value.Substring(0, Mathf.CeilToInt(value.Length * t));
 
-        public override IEnumerator GetSequence()
-            => UCoroutine.YieldValue(t => text.text = Substring(target, t), UCoroutine.YieldTime(duration, easer.Evaluate));
+        public override IEnumerator Build()
+            => Yield.Value(t => text.text = Substring(target, t), Yield.Time(duration, easer.Evaluate));
     }
 }

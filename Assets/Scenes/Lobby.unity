@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c116c5d1552845b41ac79fc4c65e58e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ServerAppId>k__BackingField: {fileID: 11400000, guid: 4349581465f066b40aedbea30cccd7fd, type: 2}
+  <ServerAppId>k__BackingField: {fileID: 11400000, guid: a98c479c9d9846f46a58dd17ae6f5a4d, type: 2}
   <GameProperties>k__BackingField: {fileID: 11400000, guid: 7c5e782fdbb189941a713572433c845f, type: 2}
   <GameScenes>k__BackingField: {fileID: 11400000, guid: 52557736ba2509a478b68a3198576cde, type: 2}
   <LoginPanel>k__BackingField: {fileID: 416481553}
@@ -301,13 +301,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 503285339}
     m_Modifications:
+    - target: {fileID: 5277926681196804831, guid: afe0df30ebbcb19448bc2642fdd753bf, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277926681196804831, guid: afe0df30ebbcb19448bc2642fdd753bf, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 7281926732632095989, guid: afe0df30ebbcb19448bc2642fdd753bf, type: 3}
       propertyPath: OnSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 150423663}
     - target: {fileID: 7281926732632095993, guid: afe0df30ebbcb19448bc2642fdd753bf, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 159.96
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7281926733199749357, guid: afe0df30ebbcb19448bc2642fdd753bf, type: 3}
       propertyPath: m_Name
@@ -315,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7281926733199749357, guid: afe0df30ebbcb19448bc2642fdd753bf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7281926733199749358, guid: afe0df30ebbcb19448bc2642fdd753bf, type: 3}
       propertyPath: m_Pivot.x
@@ -622,6 +630,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: OnlinePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 7382267635558432288, guid: 4d4ea29dd2d4cb8498ea0a84e8f12818, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382267635829487605, guid: 4d4ea29dd2d4cb8498ea0a84e8f12818, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d4ea29dd2d4cb8498ea0a84e8f12818, type: 3}
 --- !u!224 &560504083 stripped
@@ -922,6 +938,14 @@ PrefabInstance:
     - target: {fileID: 7382267635519259422, guid: cabec6d49976ae74f8c8bb983623bdfd, type: 3}
       propertyPath: m_Name
       value: StatusPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382267635558432288, guid: cabec6d49976ae74f8c8bb983623bdfd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382267635829487605, guid: cabec6d49976ae74f8c8bb983623bdfd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cabec6d49976ae74f8c8bb983623bdfd, type: 3}

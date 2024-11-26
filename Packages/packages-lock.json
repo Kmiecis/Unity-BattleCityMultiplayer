@@ -42,7 +42,7 @@
       "dependencies": {
         "com.unity.ugui": "1.0.0"
       },
-      "hash": "042e0b062c6bc6bfa641db6ef3e7b7a3564fb7df"
+      "hash": "6db2b6a94347a78b5db4233d28f45dc99ccc04a3"
     },
     "com.kmiecis.material.instancer": {
       "version": "https://github.com/Kmiecis/Unity-Package-MaterialInstancer.git",
