@@ -8,7 +8,7 @@ I tried my best to recreate the spirit of the original title, which can be seen 
 
 ## Link  
 The game can be played by using the link below:  
-[https://kmiecis.itch.io/battlecity-multiplayer](https://kmiecis.itch.io/battlecity-multiplayer)  
+[Battlecity - Multiplayer](https://kmiecis.itch.io/battlecity-multiplayer)  
 
 ## Features  
 - Everything the base game had to offer has been implemented here
